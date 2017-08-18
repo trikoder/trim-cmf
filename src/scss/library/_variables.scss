@@ -1,0 +1,81 @@
+//--------------------------------------------------------------
+// Colors
+//--------------------------------------------------------------
+$colorMain1: #e03431;
+$colorGrayDark1: #303030;
+$colorGrayDark2: #666666;
+$colorGrayDark3: #A09E9E;
+
+$colorGrayLight1: #E5E5E5;
+$colorGrayLight2: #dddddd;
+
+$colorError: #ba0a0a;
+$colorPageBackground1: #eeeeee;
+
+//--------------------------------------------------------------
+// Icons
+//--------------------------------------------------------------
+$icons: (
+
+	menu: '\e900',
+    plus: '\e906',
+    checkmark: '\e915',
+    home: '\e902',
+    stack: '\e905',
+    copy: '\e903',
+    image: '\e908',
+    film: '\e907',
+    adverts: '\e909',
+    comments: '\e90a',
+    shuffle: '\e910',
+    polls: '\e90b',
+    bars: '\e90e',
+    user: '\e90f',
+    user2: '\e904',
+    close: '\e901',
+    dots: '\e91a',
+    threeDots: '\e919',
+    cloudUpload: '\e917',
+    floppy: '\e916',
+    expand: '\e91c',
+    sort: '\e918',
+    quote: '\e925',
+    fire: '\e91b',
+    play: '\e91d',
+    file: '\e91f',
+    sound: '\e91e',
+    calendar: '\e926',
+    pencil: '\e924',
+    search: '\e927',
+    trash: '\e928',
+    filters: '\e92b',
+
+    arrowUp: '\e922',
+    arrowDown: '\e923',
+    arrowLeft: '\e920',
+    arrowRight: '\e921',
+
+    arrowLeft2: '\e929',
+    arrowRight2: '\e92a'
+
+);
+
+//--------------------------------------------------------------
+// Breakpoints
+//--------------------------------------------------------------
+$breakpointSmall: 600;
+$breakpointMedium: 980;
+$breakpointLarge: 1100;
+
+//--------------------------------------------------------------
+// Miscellaneous
+//--------------------------------------------------------------
+$assetsPathPrefix: '../';
+$zIndexHeader: 200;
+
+//--------------------------------------------------------------
+// Icon font
+//--------------------------------------------------------------
+$iconFontName: 'cmsIconFont';
+$iconFontPath: '../font/icons/fonts/CMS';
+$iconFontVersion: 'v1.0';

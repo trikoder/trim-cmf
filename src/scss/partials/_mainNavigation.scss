@@ -1,0 +1,253 @@
+.mainNavigation {
+
+    position: absolute; left: 0; top: 0; bottom: 0; z-index: $zIndexHeader + 10;
+
+    > .toggleBtn {
+
+        width: 5em; height: 5em; position: absolute; left: 0; top: 0;
+        background-color: $colorMain1;
+
+        &:before {
+
+            font-size: 2.5em; color: #fff;
+
+        }
+
+    }
+
+    > .inner {
+
+        @include transition(transform 0.3s);
+        @include transform(translate3d(0, 0, 0));
+
+        position: absolute; top: 0; bottom: 0; left: -22em; width: 22em;
+        background-color: #333333;
+
+    }
+
+    &.active > .inner {
+
+        @include transform(translate3d(22em, 0, 0));
+
+    }
+
+    > .inner > .toggleBtn {
+
+        @include fontSansCondensedBold;
+
+        font-size: 2em; height: em(50,20); display: none; width: 100%;
+        padding: 0 em(15,20); box-sizing: border-box;
+        color: #fff; background-color: $colorMain1; text-align: left;
+
+        > span {
+
+            @include fontSansCondensed;
+
+        }
+
+        &:before {
+
+            font-size: em(25,20); width: em(58,30); left: auto; right: 0;
+
+        }
+
+    }
+
+    .scrollWrapper {
+
+        position: absolute; top: 0; left: 0; right: 0; bottom: 5.1em;
+        overflow: auto;
+
+    }
+
+    .menu {
+
+        .initials {
+
+            @include fontSansCondensedBold;
+            font-size: em(16,14); width: em(50,16); line-height: em(48,16); position: absolute; right: 0; top: 0;
+            text-align: center; letter-spacing: 0.07em;
+
+        }
+
+        .item,
+        .itemToggle {
+
+            @include fontSansCondensed;
+            @include transition(color 0.25s);
+            @include transition(background 0.35s);
+
+            font-size: em(14,10); line-height: (20/14); display: block; width: 100%; box-sizing: border-box;
+            position: relative; padding: em(15,14) em(50,14) em(15,14) em(15,14);
+            color: #aaa; text-transform: uppercase; text-align: left;
+
+            &:before {
+
+                font-size: em(23,14);
+                left: auto; right: 0; width: em(50,23);
+
+            }
+
+            &:hover {
+
+                color: #fff; background: $colorMain1;
+
+            }
+
+            &.selected {
+
+                color: #fff; background: #212121;
+
+                &:after {
+
+                    content: ""; position: absolute; top: 0; bottom: 0; right: 0;
+                    width: 3px; background: $colorMain1;
+
+                }
+
+            }
+
+        }
+
+        .subMenu {
+
+            display: none; background: #212121; padding-bottom: 1em;
+
+            .item { padding: em(10,14) em(50,14) em(10,14) em(15,14) }
+
+            .item.selected:after {
+
+                display: none;
+
+            }
+
+        }
+
+        .opened {
+
+            .itemToggle {
+
+                color: #fff; background: #212121;
+
+            }
+
+            .item {
+
+                text-transform: none;
+
+            }
+
+        }
+
+    }
+
+    &.active .menu .opened .subMenu {
+
+        display: block;
+
+    }
+
+    .userPanel {
+
+        position: absolute; bottom: 0; left: 0; right: 0;
+        background: #262626;
+
+        > .toggleBtn {
+
+            @include ellipsis;
+            @include fontSansCondensedBold;
+
+            font-size: em(12,10); display: block; width: 100%; line-height: (50/12); padding: 0 em(55,12) 0 em(15,12);
+            position: relative; z-index: 10; text-align: left;
+            color: rgba(#fff, 0.8); text-transform: uppercase; border-top: 1px solid rgba(#fff, 0.2);
+
+             &:before {
+
+                font-size: em(22,12);
+                left: auto; right: 0; width: em(50,22);
+
+            }
+
+        }
+
+        > ul {
+
+            position: absolute; bottom: 100%; left: 0; right: 0; padding: 0.5em 0;
+            background: #262626; border-top: 1px solid rgba(#fff, 0.2);
+            display: none;
+
+        }
+
+        .item {
+
+            @include fontSansCondensedBold;
+
+            font-size: em(12,10); display: block; padding: em(10,12) em(50,12) em(10,12) em(15,12);
+            width: 100%; box-sizing: border-box;
+            color: rgba(#fff, 0.8); text-transform: uppercase; text-align: left;
+
+            &:hover { color: #fff; }
+
+        }
+
+    }
+
+    &.active .userPanel.active {
+
+        > .toggleBtn { color: #fff; }
+
+        > ul {
+
+            @include animation(slideUpFadeIn 0.3s);
+            display: block;
+
+        }
+
+    }
+
+    .nano-pane > .nano-slider {
+
+        background: rgba(#828282, 0.6);
+
+    }
+
+    @include mediaMinWidth($breakpointMedium) {
+
+        > .inner { left: -17em; }
+
+        &.active > .inner {
+
+            @include transform(translate3d(17em, 0, 0));
+
+        }
+
+        > .toggleBtn { display: none; }
+        > .inner > .toggleBtn { display: block; }
+
+        position: fixed;
+
+        .scrollWrapper { top: 5em; }
+
+    }
+
+}
+
+.mainNavigationOverlay {
+
+    position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: $zIndexHeader + 5;
+    background-color: rgba(#000, 0.5);
+
+    display: none;
+
+    @include mediaMaxWidth($breakpointMedium) {
+
+        &.active {
+
+            @include animation(fadeIn 0.5s);
+            display: block;
+
+        }
+
+    }
+
+}

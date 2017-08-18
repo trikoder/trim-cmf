@@ -1,0 +1,41 @@
+{
+  "name": "trim-cmf-demo",
+  "version": "0.0.0",
+  "description": "trim-cmf-demo",
+  "private": true,
+  "scripts": {
+    "watch:development": "npm run build:development && webpack --watch --progress --colors --env.mode=development",
+    "build:development": "webpack --env.mode=development --progress --colors",
+    "build:production": "webpack --env.mode=production --progress --colors"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-polyfill": "^6.20.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-3": "^6.17.0",
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.4.1",
+    "bourbon": "~4",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.28.2",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-import": "^2.6.0",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.11.2",
+    "node-sass": "^4.5.0",
+    "nunjucks": "^3.0.0",
+    "nunjucks-loader": "^2.4.5",
+    "pretender": "~1.4.2",
+    "sass-loader": "^6.0.2",
+    "style-loader": "^0.17.0",
+    "type-factory": "^1.0.5",
+    "webpack": "^2.2.1"
+  },
+  "dependencies": {
+    "fake-json-api-server": "^1.0.2",
+    "trikoder-cms-ui": "file:../"
+  }
+}

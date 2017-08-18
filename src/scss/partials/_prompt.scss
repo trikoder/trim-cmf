@@ -1,0 +1,28 @@
+.prompt_overlay {
+    z-index: 9999;
+}
+
+.prompt_box {
+
+    @include animation(slideDownFadeIn 0.5s);
+
+    &, & > input {
+        @include fontSansCondensed;
+    }
+
+    > .controls > a { outline:0; }
+
+    &.withAcceptOnly > .controls {
+
+        > a { display: none; }
+
+        > .accept {
+
+            display: block; float: none; width: 100%;
+            border: 0;
+
+        }
+
+    }
+
+}

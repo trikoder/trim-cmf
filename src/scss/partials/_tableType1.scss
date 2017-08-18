@@ -1,0 +1,153 @@
+.tableType1 {
+
+    @include animation(slideDownFadeIn 0.2s);
+
+    width: 100%;
+
+    th {
+
+        @include fontSansCondensedBold;
+
+        font-size: em(12,10); text-align: left; text-transform: uppercase;
+        letter-spacing: 0.03em;
+        color: $colorGrayDark3; border-bottom: 1px solid darken($colorGrayLight2,3%); padding: em(10,12) em(10,12);
+
+        &.contextMenuCellHeading {
+
+            text-align: right;
+
+        }
+
+        .checkboxType1 + label {
+
+            font-size: em(10,12);
+            margin: -0.6em -0.7em -0.7em;
+
+        }
+
+    }
+
+    td {
+
+        border-bottom: 1px solid darken($colorGrayLight2,3%); padding: em(10,10) em(10,10);
+
+        .contextMenuType1 {
+
+            float: right;
+
+        }
+
+        &.massActionCheckboxCell {
+
+            width: 1em;
+
+        }
+
+        .checkboxType1 + label {
+
+            margin: -0.6em -0.7em -0.7em;
+
+        }
+
+    }
+
+    tr:hover td {
+
+        background-color: rgba(#fff, 0.4);
+
+    }
+
+    .buttonCell {
+
+        width: 4%;
+
+        > .listElementButton {
+
+            margin: -3px 0;
+
+        }
+
+    }
+
+    .contextMenuCellHeading { width: 2%; }
+    .externalAdminPicker { margin: -0.4em -0.2em; }
+
+    .cellCaption { display: none; }
+
+    .treeBtn {
+
+        font-size: 1.2em; width: em(15,12); height: em(15,12); position: relative;
+        opacity: 0.3; margin-right: em(5,12); top: 2px;
+
+    }
+
+    .treeSpacer {
+        width: em(20,10); display: inline-block;
+    }
+
+    .nestControls {
+
+        float: right;
+
+        > .addChildEntity {
+
+            font-size: 1em;
+            width: em(10,10); height: em(10,10);
+            color: $colorGrayDark2; border: 2px solid $colorGrayDark2;
+            border-radius: 50%;
+
+        }
+
+    }
+
+    @include mediaMaxWidth($breakpointMedium) {
+
+        display: block;
+
+        thead { display: none; }
+        tbody { display: block; }
+
+        tr {
+
+            display: block; position: relative; padding: 1.5em 5em 1em 1.5em;
+            border-bottom: 1px solid #ccc;
+
+        }
+
+        td {
+
+            display: inline-block; border: 0; padding: 0; margin: 0 1em 0.5em 0;
+
+        }
+
+        tr:hover td {
+
+            background-color: transparent;
+
+        }
+
+        .massActionCheckboxCell {
+
+            position: absolute; left: 1.4em; top: 1.5em;
+
+        }
+
+        .contextMenuCell {
+
+            position: absolute; right: 0em; top: 1.8em; margin: 0;
+
+        }
+
+        .linkCell { display: block; }
+
+        .externalAdminPicker { margin: 0; }
+
+        .withMassActions & tr {
+
+            padding-left: 3.8em;
+
+        }
+
+    }
+
+}

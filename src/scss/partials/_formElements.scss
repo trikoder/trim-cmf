@@ -1,0 +1,1280 @@
+//--------------------------------------------------------------
+// Inputs
+//--------------------------------------------------------------
+
+.inputType1 {
+
+    @include appearance(none);
+    font-size: 1.4em; padding: em(8,14);
+    background-color: #fff; border: 1px solid $colorGrayLight2; border-radius: em(4,14);
+
+    &.fullWidth {
+        width: 100%;
+    }
+
+    &.fontBold {
+        @include fontSansCondensedBold;
+    }
+
+}
+
+.inputType2 {
+
+    @include appearance(none);
+    @include transition(border-color 0.2s);
+    @include fontSans;
+
+    font-size: 1.6em; padding: em(10,16) 0; line-height: 1.4;
+    background-color: transparent; border: 0; border-bottom: 1px solid $colorGrayLight2;
+
+    &.withError {
+        border-bottom-color: $colorError;
+    }
+
+    &.size1 {
+        font-size: 2.4em;
+    }
+
+    &.size2 {
+        font-size: 3em; padding: em(10,30) 0;
+    }
+
+    &:focus {
+        border-bottom-color: $colorMain1;
+    }
+
+    &.fontBold {
+        letter-spacing: -0.01em;
+        @include fontSansBold;
+    }
+
+}
+
+.checkboxType1 {
+
+    position: absolute; left: -999em;
+
+    + label {
+
+        position: relative; width: 3em; height: 3em; display: inline-block;
+
+        &:after {
+
+            content: "";
+            position: absolute; left: 50%; top: 50%; box-sizing: border-box;
+            width: 1.5em; height: 1.5em; margin: -0.75em 0 0 -0.75em;
+            background-color: #fff; border: 1px solid rgba(#000, 0.2); border-radius: 0.2em;
+
+        }
+
+        &:before {
+
+            display: none; z-index: 10; color: $colorMain1; font-size: 1em;
+
+        }
+
+    }
+
+    &:checked {
+
+        + label:before {
+
+            @include animation(slideDownFadeIn 0.2s);
+            display: block;
+
+        }
+
+    }
+
+}
+
+.selectType1 {
+
+    display: inline-block; position: relative;
+    background-color: #fff; border: 1px solid $colorGrayLight2; border-radius: em(4,14);
+
+    &:before {
+        
+        @include iconFont($iconFontName);
+        @include iconElementGraphic(30, 30);
+
+        content: map-get($icons, 'arrowDown'); left: auto; right: 0; font-size: 1.5em;
+        color: $colorMain1;
+
+    }
+
+    > button {
+        
+        @include normalizeButton;
+
+        font-size: 1.4em; padding: em(8,14) em(30,14) em(8,14) em(10,14);
+        color: $colorGrayDark1;
+
+    }
+
+    > select {
+
+        position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+        cursor: pointer; opacity: 0; font-size: 1.5em;
+
+    }
+
+    &.fullWidth {
+        
+        display: block;
+
+    }
+
+    &.disabled {
+
+        opacity: 0.5;
+
+    }
+
+}
+
+.textareaAutoHeight {
+
+    position: relative;
+
+    > pre {
+
+        visibility: hidden; margin: 0; white-space: pre-wrap;
+
+        /* fix for textarea height calculation buffer */
+        border: 1px solid #fff !important; border-width: 1px 0 !important;
+
+    }
+
+    > textarea {
+
+        position: absolute; top: 0; right: 0; bottom: 0; left: 0; resize: none; height: 100%; width: 100%;
+
+    }
+
+}
+
+//--------------------------------------------------------------
+// Nested select
+//--------------------------------------------------------------
+.nestedSelectElement {
+
+    display: inline-block; position: relative; box-sizing: border-box;
+
+    > .controls {
+
+        @include transition(opacity 0.2s);
+
+    }
+
+    &.hasOne {
+
+        > .controls {
+
+            > .item {
+
+                font-size: 1.4em; line-height: (16/14); display: inline-block;
+                color: $colorGrayDark1; position: static;
+
+                > .removeBtn {
+
+                    font-size: em(10,14); width: 1.2em; height: 1.2em; position: absolute; right: -0.6em; top: -0.6em;
+                    border: 1px solid $colorGrayLight2; border-radius: 50%; background-color: #fff; cursor: pointer;
+                    color: darken($colorGrayLight2,5%);
+
+                    &:before { font-size: 0.8em; }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    &.hasMany {
+
+        > .controls {
+
+            > .item {
+
+                display: inline-block; font-size: 1.2em; line-height: (15/12); position: relative;
+                padding: em(2,12) em(6,12) em(2,12) em(18,12); margin: em(5,12) em(5,12) 0 0; vertical-align: middle;
+                border-radius: em(3,12); border: 1px solid darken(#9c9c9c, 5%);
+                cursor: auto; color: #fff; letter-spacing: 0.02em;
+                background-color: #9c9c9c;
+
+                > .removeBtn {
+
+                    font-size: em(10,12); position: absolute; left: 0; top: 50%;
+                    width: em(20,10); line-height: em(20,10); height: em(20,10); margin-top: em(-10,10);
+                    text-align: center; color: #fff; cursor: pointer;
+
+                }
+
+            }
+
+        }
+
+    }
+
+    .openBtn {
+
+        font-size: 1.4em; line-height: (32/14); text-align: left;
+        padding: 0 em(30,14) 0 em(10,14); display: block; width: 100%;
+
+        &:before {
+
+            font-size: em(18,14); color: $colorMain1; left: auto; right: 0; width: 30px;
+
+        }
+
+    }
+
+    &.hasItems {
+
+        padding: 0 2.6em 0.6em 0.5em;
+
+        .openBtn {
+
+            position: absolute; top: 0; right: 0; height: 100%; width: 100%;
+
+        }
+
+    }
+
+    > .dropdown {
+
+        display: none; position: absolute; z-index: 20; top: 100%; left: -1px; right: -1px; margin: 0.5em 0 5em;
+        min-width: 20em; background: #fff; border: 1px solid $colorGrayLight2; border-radius: 0.3em;
+
+    }
+
+    .itemList {
+
+        overflow-x: hidden; overflow-y: auto; max-height: 30em; padding: 1em 0;
+
+        ul {
+
+            border-left: 1px solid $colorGrayLight2; display: none;
+
+            &.active { display: block; @include animation(slideDownFadeIn 0.15s); }
+
+        }
+
+        li {
+
+            position: relative; padding: 0 0 0 2.5em;
+
+        }
+
+        .listItem {
+
+            display: block; width: 100%; font-size: 1.4em;
+            padding: em(5,14) em(5,14) em(5,14) em(6,14); margin-left: em(-6,14); line-height: 1.4;
+            cursor: auto; border-radius: em(3,14); text-align: left;
+
+            &.selectableItem {
+
+                &:hover {
+
+                    color: $colorMain1; background-color: #f5f5f5;
+
+                }
+
+                cursor: pointer;
+
+            }
+
+        }
+
+        .treeBtn {
+
+            position: absolute; left: 0; top: 0.2em; width: 2.5em; height: 2.5em;
+            opacity: 0.3;
+
+            &:hover {
+
+                color: $colorMain1; opacity: 1;
+
+            }
+
+
+        }
+
+    }
+
+    .search {
+
+        display: block; padding: 0;
+
+        &:before {
+
+            font-size: 1.4em; width: em(25,14); opacity: 0.3; top: em(-5,14); margin-top: 0;
+
+        }
+
+        > input {
+
+            @include appearance(none);
+            font-size: 1.6em; color: $colorGrayDark2; padding: em(7,16); width: 100%; padding-left: em(25,16);
+            border: 0; border-bottom: 1px solid $colorGrayLight2; background: transparent;
+
+        }
+
+    }
+
+    .fs_results {
+
+        overflow-x: hidden; overflow-y: auto; max-height: 30em; padding: 1em;
+        display: none;
+
+    }
+
+    .fs_result_item, .fs_no_results {
+
+        display: block; width: 100%; font-size: 1.4em; box-sizing: border-box;
+        padding: em(5,14); line-height: 1.4;
+        cursor: pointer; border-radius: em(3,14); text-align: left;
+
+        &.focused, &.active {
+
+            color: $colorMain1; background-color: #f5f5f5;
+
+        }
+
+    }
+
+    .fs_no_results {
+
+        opacity: 0.5; cursor: auto;
+
+    }
+
+    &.loading {
+
+        > .controls { opacity: 0.5; }
+
+        .openBtn:before {
+
+            @include animation(rotate 0.8s infinite);
+
+        }
+
+    }
+
+    &.active > .dropdown {
+
+        display: block; @include animation(slideDownFadeIn 0.15s);
+
+    }
+
+    &.searchActive {
+
+        .itemList {
+
+            display: none;
+
+        }
+
+        .fs_results {
+
+            display: block;
+
+        }
+
+    }
+
+}
+
+//--------------------------------------------------------------
+// Html input / editor
+//--------------------------------------------------------------
+.htmlInputType1 {
+
+    @include fontSans;
+
+    outline: none; margin-bottom: 3em; min-height: 1em; padding: em(10,10) 0;
+    border-bottom: 1px solid $colorGrayLight2;
+
+    > p, > ul, > ol {
+
+        font-size: 1.6em; margin-bottom: em(25,16); line-height: 1.4;
+        color: $colorGrayDark1;
+
+        &:last-child {
+
+            margin-bottom: 0;
+
+        }
+
+    }
+
+    > ul {
+
+        list-style-type: disc; list-style-position: inside;
+
+    }
+
+    > ol {
+
+        list-style-type: decimal; list-style-position: inside;
+
+    }
+
+    > h1, > h2, > h3 {
+
+        @include fontSansCondensedBold;
+        font-size: em(25,10); margin-bottom: em(25,25); line-height: 1.3;
+
+    }
+
+    > h1 { font-size: em(30,10); }
+    > h2 { font-size: em(22,10); }
+    > h3 { font-size: em(18,10); }
+
+    > ul, > ol {
+
+        > li {
+
+            list-style: inherit;
+
+        }
+
+    }
+
+    a {
+        color: $colorMain1;
+    }
+
+    &:empty:before {
+
+        font-size: 1.6em;
+        content: attr(placeholder); display: block; color: #666; pointer-events: none;
+
+    }
+
+}
+
+//--------------------------------------------------------------
+// External admin
+//--------------------------------------------------------------
+.externalAdminElement {
+
+    display: inline-block; position: relative;
+    background-color: #fff; border: 1px solid $colorGrayLight2; border-radius: 0.3em;
+
+    .loadingCaption {
+
+        font-size: 1.3em; padding: em(8,13) em(5,13);
+        color: $colorGrayDark1;
+
+    }
+
+    &.withOne {
+
+        > .item {
+
+            @include normalizeButton;
+
+            font-size: 1.4em; display: inline-block; padding: em(8,14) em(30,14) em(8,14) em(10,14);
+            color: $colorGrayDark1;
+
+            &:before {
+
+                left: auto; right: 0; font-size: 1.3em; width: 1.7em; color: $colorMain1;
+
+            }
+
+        }
+
+        > .removeBtn {
+
+            width: 1.2em; height: 1.2em; position: absolute; right: -0.6em; top: -0.6em;
+            border: 1px solid $colorGrayLight2; border-radius: 50%; background-color: #fff; cursor: pointer;
+            color: darken($colorGrayLight2,5%);
+
+            &:before { font-size: 0.8em; }
+
+        }
+
+        > .editBtn {
+
+            width: 3.1em; height: auto; position: absolute; right: 3.1em; top: 0; bottom: 0;
+            border: 1px solid lighten($colorGrayLight1,3%); border-width: 0 1px;
+            cursor: pointer; color: darken($colorGrayLight2, 40%);
+
+            &:hover { color: darken($colorGrayLight2, 60%); }
+            &:before { font-size: 1.3em; }
+
+        }
+
+    }
+
+    &.withEditBtn > .item {
+        padding-right: em(70,14);
+    }
+
+    &.withMany {
+
+        > .item {
+
+            @include animation(fstAnimationEnter 0.2s);
+
+            display: inline-block; font-size: 1.2em; position: relative;
+            margin: 0 em(3,12); padding: em(3,12) em(6,12) em(3,12) em(18,12); margin: em(5,12) 0 0 em(5,12); vertical-align: top;
+            border-radius: em(3,12); border: 1px solid darken(#9c9c9c, 5%);
+            cursor: auto; color: #fff; letter-spacing: 0.02em;
+            background-color: #9c9c9c;
+
+            > .removeBtn {
+
+                font-size: em(10,12); position: absolute; left: 0; top: 50%;
+                width: em(20,10); line-height: em(20,10); height: em(20,10); margin-top: em(-10,10);
+                text-align: center; color: #fff;
+
+            }
+
+        }
+
+        > .openBtn {
+
+            font-size: 1.4em; display: inline-block; padding: 0 em(30,14) 0 em(10,14);
+            color: $colorGrayDark1;
+
+            &:before {
+
+                left: auto; right: 0; font-size: 1.3em; width: 1.7em; color: $colorMain1;
+
+            }
+
+            &.icr {
+
+                width: em(32,14); line-height: em(32,14); height: em(32,14);
+                padding: 0;
+
+            }
+
+        }
+
+    }
+
+}
+
+//--------------------------------------------------------------
+// Map
+//--------------------------------------------------------------
+.mapElementType1 {
+
+    position: relative; padding: 0.5em; padding-bottom: percentage(1/2);
+    background-color: #fff; border: 1px solid $colorGrayLight2; border-radius: 0.3em;
+
+    > .container {
+
+        position: absolute; left: 0.5em; top: 0.5em; right: 0.5em; bottom: 0.5em;
+
+    }
+
+    .mapSearch {
+
+        padding: 1em;
+
+        &:before {
+
+            font-size: 1.4em; opacity: 0.5; left: 0.3em;
+
+        }
+
+        > input {
+
+            @include appearance(none);
+            @include fontSansCondensed;
+            font-size: 1.6em; min-width: em(200,16); padding: em(5,16); padding-left: em(24,16);
+            border: 0; background-color: #fff; box-shadow: 0 0.1em 0.3em rgba(#000, 0.1);
+            border-radius: em(3,16);
+
+        }
+
+    }
+
+    .removeMarker {
+
+        @include fontSansCondensed;
+
+        font-size: em(14,11); color: darken(#e9e8e6, 50%);
+        display: block; margin: em(10,14); padding: em(5,14) em(22,14) em(5,14) em(10,14);
+        background-color: #e9e8e6; border-radius: em(3,14); opacity: 0.9;
+
+        &:hover {
+
+            opacity: 1;
+
+        }
+
+        &:before {
+
+            left: auto; right: 0; font-size: 0.6em; width: 25px;
+
+        }
+
+    }
+
+}
+
+//--------------------------------------------------------------
+// Media input
+//--------------------------------------------------------------
+.mediaInputType1 {
+
+    display: inline-block; position: relative; padding: 0.5em; padding-right: 4em; overflow: hidden;
+    background-color: #fff; border: 1px solid $colorGrayLight2; border-radius: 0.3em;
+
+    > .imageContainer {
+
+        $size: 70;
+        $ratio: 3/4;
+
+        width: em($size, 10); height: em($size * $ratio, 10); line-height: em($size * $ratio, 10);
+        display: inline-block; vertical-align: middle; margin-right: 1.5em; position: relative;
+        background-color: #f5f5f5; border-radius: 0.3em; text-align: center;
+
+        > img {
+
+            max-width: em($size, 10); max-height: em($size * $ratio, 10);
+            display: inline-block; vertical-align: middle;
+            border-radius: 0.3em;
+
+        }
+
+        @include mediaMinWidth($breakpointMedium) {
+
+            $size: 120;
+            $ratio: 3/4;
+
+            width: em($size, 10); height: em($size * $ratio, 10); line-height: em($size * $ratio, 10);
+
+            > img {
+                max-width: em($size, 10); max-height: em($size * $ratio, 10);
+            }
+
+        }
+
+    }
+
+    .zoomInBtn {
+
+        @include transition(opacity 0.3s);
+
+        position: absolute; left: 50%; top: 50%; margin: -2em 0 0 -2em; width: 4em; height: 4em;
+        background-color: rgba(#000, 0.8); border-radius: 50%; opacity: 0; color: #fff;
+
+        &:before { font-size: 1.3em; }
+
+    }
+
+    > .imageContainer:hover > .zoomInBtn {
+
+        opacity: 1;
+
+    }
+
+    .placeholderImage {
+
+        position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+        color: $colorGrayDark2; cursor: pointer;
+
+        &:before {
+
+            font-size: 1.8em;
+
+        }
+
+    }
+
+    > .textControls {
+
+        font-size: 1.7em; display: inline-block; vertical-align: middle;
+        box-sizing: border-box; max-width: 50%;
+        color: $colorGrayDark2; cursor: pointer;
+
+        @include mediaMinWidth($breakpointLarge) {
+
+            max-width: 70%;
+
+        }
+
+    }
+
+    > .dz-preview {
+
+        > div { display: none; }
+
+        > .dz-progress {
+
+            display: block; position: absolute; left: 0; bottom: 0; right: 0; height: 1px;
+            background-color: $colorGrayLight1;
+
+            > .dz-upload {
+
+                display: block; height: 100%; background-color: $colorMain1;
+
+            }
+
+        }
+
+    }
+
+    .openBtn, .fileUploadHandle {
+
+        &:hover { color: $colorGrayDark1; }
+
+    }
+
+    > .removeBtn, > .editBtn {
+
+        position: absolute; right: 0; top: 0; bottom: 50%; width: 3.5em; height: auto;
+        border-left: 1px solid $colorGrayLight1; color: darken($colorGrayLight2, 15%);
+
+        &:hover { color: darken($colorGrayLight2, 30%); }
+
+        &:before { font-size: 1.8em; }
+
+    }
+
+    > .removeBtn {
+
+        top: 50%; bottom: 0;
+
+        &:before { font-size: 1.8em; }
+
+    }
+
+}
+
+//--------------------------------------------------------------
+// Included admin
+//--------------------------------------------------------------
+.includedAdminElement {
+
+    min-height: 2em;
+    border: 1px solid $colorGrayLight1; border-radius: 0.3em; background-color: #fff;
+
+    .includedAdminRow {
+
+        position: relative; padding: 1em 1em 0.1em; box-sizing: border-box;
+        border-bottom: 1px solid $colorGrayLight2;
+
+        > .layoutContainer {
+
+            @include clearfix;
+            min-height: 7em;
+
+        }
+
+        &.withControls {
+
+            padding-right: 6em;
+
+        }
+
+        &.gu-mirror {
+
+            box-shadow: 0 0.1em 0.5em rgba(#000, 0.2); border-radius: 0.3em; background-color: #fff;
+
+        }
+
+        .messageType1 {
+
+            border: 1px solid rgba(#000, 0.1); margin-bottom: em(10,14); border-radius: em(3,14);
+
+        }
+
+        &:last-child { border: 0; }
+
+        @include mediaMinWidth($breakpointMedium) {
+
+            padding: 2em 2em 0.1em;
+
+        }
+
+    }
+
+    .itemControls {
+
+        position: absolute; right: 0; top: 0;
+        border: 1px solid $colorGrayLight1; border-width: 0 0 1px 1px; border-radius: 0 0 0 0.3em;
+
+        > .control {
+
+            font-size: 1.3em; display: block; width: em(40,13); height: em(40,13);
+            color: darken($colorGrayLight2, 15%);
+
+            &:hover { color: darken($colorGrayLight2, 30%); }
+
+            &:before { font-size: 1.3em; }
+
+            &.saveIncludedItemBtn:before { font-size: 1em; }
+
+        }
+
+        > .sortHandle {
+
+            cursor: move;
+
+        }
+
+    }
+
+}
+
+.includedAdminBtn {
+
+    display: block; position: relative; width: 100%; height: 5.5em; z-index: 10; margin-top: -0.3em;
+    border: 1px solid $colorGrayLight1; background-color: #f5f5f5; border-radius: 0 0 0.3em 0.3em;
+    color: $colorGrayDark2;
+
+    &:before { font-size: 2.2em; }
+
+    &:hover:before { color: darken($colorGrayDark2,20%); }
+
+    &.mainBtn {
+
+        width: calc(100% - 55px);
+        border-radius: 0 0 0 0.3em; border-right: 0;
+
+    }
+
+    &.sideBtn {
+
+        width: 5.5em; float: right; border-radius: 0 0 0.3em 0;
+
+    }
+
+    &.mod1 {
+
+        margin: 0 0 -0.3em 0;
+        border-radius: 0.3em 0.3em 0 0; background-color: #fff;
+
+    }
+
+    &.iconCloudUpload:before { font-size: 2.8em; }
+
+}
+
+//--------------------------------------------------------------
+// Media preview
+//--------------------------------------------------------------
+.mediaPreviewType1 {
+
+    position: relative; padding: 0.5em;
+    border: 1px solid $colorGrayLight1; border-radius: 0.3em; background-color: #fff;
+
+    > .imageContainer {
+
+        $size: 110;
+        $ratio: 3/4;
+
+        display: inline-block; vertical-align: middle; width: em($size, 10); height: em($size * $ratio, 10); margin-right: 1.5em; position: relative;
+        background-color: #f5f5f5; border-radius: 0.3em; text-align: center; line-height: em($size * $ratio, 10);
+
+        > img {
+
+            display: inline-block; max-width: em($size, 10); max-height: em($size * $ratio, 10); vertical-align: middle;
+            border-radius: 0.3em;
+
+        }
+
+        > .zoomImage {
+
+            @include transition(opacity 0.3s);
+
+            position: absolute; left: 50%; top: 50%; margin: -2em 0 0 -2em; width: 4em; height: 4em;
+            background-color: rgba(#000, 0.8); border-radius: 50%; opacity: 0; color: #fff;
+
+            &:before { font-size: 1.3em; }
+
+        }
+
+    }
+
+
+    > .imageContainer:hover > .zoomImage {
+
+        opacity: 1;
+
+    }
+
+    .placeholderImage {
+
+        position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+        color: $colorGrayDark2; cursor: pointer;
+
+        &:before {
+
+            font-size: 1.8em;
+
+        }
+
+    }
+
+    > p {
+
+        font-size: 1.7em; display: inline-block; vertical-align: middle;
+        padding: 0 em(15,17); box-sizing: border-box; max-width: 50%;
+        color: $colorGrayDark2; cursor: pointer;
+
+        > span:hover { color: $colorMain1; }
+
+    }
+
+}
+
+//--------------------------------------------------------------
+// State select element
+//--------------------------------------------------------------
+
+.stateSelectElement {
+
+    display: inline-block; position: relative;
+    background-color: #fff; border: 1px solid $colorGrayLight2;
+    border-radius: 0.3em; overflow: hidden;
+
+    &.withNoOptions {
+
+        background-color: #f9f9f9;
+
+        .controls {
+            display: none;
+        }
+
+    }
+
+    &.fullWidth {
+        display: block;
+    }
+
+    .stateCaption {
+
+        font-size: 1.4em; padding: em(8,14) em(10,14);
+
+        > span {
+
+            @include animation(slideDownFadeIn 0.5s);
+            display: block;
+
+        }
+
+    }
+
+    .selectType1 {
+
+        @include animation(slideDownFadeIn 0.5s);
+
+        width: 100%; border: 0; background: transparent;
+
+        > button {
+
+            opacity: 0.7;
+
+        }
+
+    }
+
+    .controls {
+
+        display: table; width: 100%;
+        background-color: #f9f9f9; border-top: 1px solid $colorGrayLight2;
+
+        > .selectContainer, .action {
+
+        }
+
+    }
+
+    .updateBtn {
+
+        display: table-cell; vertical-align: middle;
+        font-size: 1.2em; padding: em(10,12) em(10,12);
+        color: $colorGrayDark2; text-transform: uppercase; letter-spacing: 0.03em;
+        border-left: 1px solid $colorGrayLight2;
+
+        &:hover { color: $colorMain1; }
+
+    }
+
+    .selectContainer {
+
+        width: 100%; display: table-cell; vertical-align: middle;
+
+    }
+
+}
+
+//--------------------------------------------------------------
+// Labels
+//--------------------------------------------------------------
+
+.labelType1 {
+
+    font-size: 1.3em; display: inline-block; padding: 0 em(5,13);
+    color: $colorGrayDark2; letter-spacing: 0.03em;
+
+}
+
+.labelType2 {
+
+    font-size: 1.2em; padding: em(5,12) 0;
+    text-transform: uppercase; color: $colorGrayDark2; letter-spacing: 0.08em;
+
+}
+
+.checkboxLabelType1 {
+
+    font-size: 1.5em; display: inline-block; padding: em(6,15) 0 em(6,15) em(25,15);
+    color: $colorGrayDark1; letter-spacing: 0.03em;
+
+}
+
+//--------------------------------------------------------------
+// Error messages
+//--------------------------------------------------------------
+.errorMessageType1 {
+
+    display: inline-block; font-size: 1.3em; color: $colorError;
+
+}
+
+//--------------------------------------------------------------
+// Input blocks
+//--------------------------------------------------------------
+.inputBlockType1 {
+
+    position: relative;
+
+    .labelType2 {
+
+        display: block; margin-bottom: 0.5em;
+
+    }
+
+    .inputType2 {
+
+        display: block; width: 100%;
+
+    }
+
+    .checkboxType1 + label {
+
+        position: absolute; left: em(-7,10); top: 0;
+
+    }
+
+    .fstElement {
+
+        display: block;
+
+        > .fstControls {
+
+            display: block;
+
+        }
+
+        .fstQueryInput {
+
+            padding-left: 0;
+
+        }
+
+        .fstChoiceItem {
+
+            margin: 0 em(5,12) em(5,12) 0;
+
+        }
+
+        &.multipleSelectType1 {
+
+            border: 0; border-bottom: 1px solid $colorGrayLight2; background: transparent;
+
+            > .loadingCaption {
+
+                font-size: 1.3em; padding: em(10,13) 0;
+                color: $colorGrayLight1;
+
+            }
+
+        }
+
+        &.multipleSelectType2 {
+
+            padding: 0 0.5em;
+            background-color: #fff; border: 1px solid $colorGrayLight2; border-radius: 0.4em;
+
+            > .fstControls {
+
+                padding: 0.5em 0 0; min-height: 3.4em;
+
+            }
+
+            > .loadingCaption {
+
+                font-size: 1.3em; padding: em(8,13) em(5,13);
+                color: $colorGrayDark1;
+
+            }
+
+        }
+
+    }
+
+    .multipleSelectLoader {
+
+        display: inline-block;
+
+    }
+
+    .errorMessageType1 {
+
+        @include animation(slideDownFadeIn 0.2s);
+        display: block; margin: 0.5em 0;
+
+    }
+
+    .externalAdminElement,
+    .externalAdminElement.withOne > .openBtn,
+    .mediaInputType1 {
+
+        display: block;
+
+    }
+
+    .externalAdminElement.withMany {
+
+        position: relative; padding: 0 3.2em 0.7em 0; min-height: 2.5em;
+
+        > .item {
+
+            margin: em(7,12) 0 0 em(7,12);
+
+        }
+
+        > .openBtn {
+
+            position: absolute; top: 0; right: 0; bottom: 0; height: 100%; border-left: 1px solid $colorGrayLight2;
+
+        }
+
+    }
+
+    .nestedSelectElement {
+
+        display: block; border: 1px solid $colorGrayLight2; background: #fff; border-radius: 0.3em;
+
+        &.hasOne .item {
+
+            padding: em(7,14) em(5,14) em(3,14);
+
+        }
+
+    }
+
+}
+
+.inlineInputBlockType1 {
+
+    display: inline-block; position: relative;
+    background-color: #fff; border: 1px solid $colorGrayLight2; border-radius: 0.4em;
+
+    > div,
+    > div > input,
+    > label,
+    .fstElement,
+    .externalAdminElement {
+
+        display: inline-block; background-color: transparent; border: 0; vertical-align: middle;
+
+    }
+
+	.fstElement {
+
+        &.fstMultipleMode { margin-left: 0.2em; }
+
+        .fstChoiceItem { margin: 0 em(5,12) 0 0; }
+
+        > .loadingCaption {
+
+            display: inline-block; font-size: 1.2em; margin: 0 1em 0 0.3em; vertical-align: middle;
+            color: $colorGrayDark1;
+
+        }
+
+    }
+
+
+    &.withError {
+
+        border-color: $colorError;
+
+        .errorMessageType1 {
+            position: absolute; left: 0; top: 100%; margin-top: 0.3em; display: none; z-index: 10;
+            background-color: #fff; padding: 0.5em; border: 1px solid $colorError; border-radius: em(4,13);
+        }
+
+        &:hover .errorMessageType1 {
+            display: block;
+        }
+
+    }
+
+    .externalAdminElement > .media {
+
+        font-size: 0.8em;
+
+    }
+
+    .nestedSelectElement {
+
+        &.hasOne .item {
+
+            padding: em(6,14) em(5,14) 0;
+
+        }
+
+    }
+
+    > label {
+
+        padding-left: 1em; padding-right: 1em; margin-right:  0.25em;
+        border-right: 1px solid $colorGrayLight2; line-height: 35px;
+
+    }
+
+    .checkboxType1 + label {
+
+        vertical-align: middle; margin-right: 0.3em;
+
+    }
+
+}
+
+.inlineInputBlockType2 {
+
+    display: inline-block;
+    background-color: #fff; border: 1px solid $colorGrayLight2; border-radius: 0.4em;
+
+}
+
+.inputBlockHidden {
+
+    display: none;
+
+}
+
+.includedAdminBlockType1 {
+
+    > .labelType2 {
+
+        display: block; margin-bottom: 0.5em;
+
+    }
+
+}

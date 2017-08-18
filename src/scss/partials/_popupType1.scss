@@ -1,0 +1,103 @@
+.popupType1 {
+
+    position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 9998;
+
+    > .overlay {
+
+        @include animation(fadeIn 0.3s);
+
+        position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+        background-color: rgba(#000, 0.5);
+
+    }
+
+    > .content {
+
+        @include animation(slideUpFadeIn 0.5s);
+
+        position: absolute; top: 0.5em; right: 0.5em; bottom: 0; left: 0.5em; overflow-x: hidden; overflow-y: auto;
+        background-color: $colorPageBackground1; box-shadow: 0 0.4em 1em rgba(#000, 0.5);
+
+    }
+
+    > .popupCloseBtn {
+
+        @include animation(slideUpFadeIn 0.5s);
+
+        position: absolute; left: 0.5em; top: 0.5em; width: 5em; height: 5em; z-index: 300;
+        color: #fff;
+
+        &:before { font-size: 2.5em; }
+
+    }
+
+    @include mediaMinWidth($breakpointMedium) {
+
+        > .content {
+
+            top: 1.5em; right: 1.5em; bottom: 0; left: 1.5em;
+
+            &:before {
+
+                position: absolute; content: ""; left: 0; top: 0; right: 0; height: 5em;
+                background-color: #fff; border-bottom: 1px solid rgba(#000,0.12);
+
+            }
+
+        }
+
+        > .popupCloseBtn {
+
+            left: 1.5em; top: 1.5em;
+            color: #666; border-right: 1px solid $colorGrayLight2;
+
+            &:before { font-size: 1.8em; }
+
+            &:hover { color: darken(#666,25%); }
+
+        }
+
+        &.level2 {
+
+            > .content {
+                left: 3em; top: 3em; right: 3em;
+            }
+
+            > .popupCloseBtn {
+
+                left: 3em; top: 3em;
+
+            }
+
+        }
+
+        &.modDark {
+
+            > .content {
+
+                background-color: #333333;
+
+                &:before { display: none; }
+
+            }
+
+            > .popupCloseBtn {
+
+                left: auto; right: 2.5em; top: 2.5em;
+                border: 0; color: #fff;
+
+                &:before { font-size: 2.2em; }
+
+            }
+
+            &.level2 > .popupCloseBtn {
+
+                top: 4.3em; right: 4.3em;
+
+            }
+
+        }
+
+    }
+
+}

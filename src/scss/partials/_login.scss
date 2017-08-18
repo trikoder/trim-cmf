@@ -1,0 +1,205 @@
+//--------------------------------------------------------------
+// Includes
+//--------------------------------------------------------------
+
+@include normalizePlusReset();
+@include pageEmEquivalent(10);
+
+//--------------------------------------------------------------
+// Main layout
+//--------------------------------------------------------------
+
+html,
+body {
+
+    min-height: 100%;
+
+}
+
+a {
+
+    color: $colorMain1;
+
+}
+
+html {
+
+    background: $colorPageBackground1 url(asset('images/login.jpg')) no-repeat center center;
+    background-size: cover;
+
+}
+
+body {
+
+    @include fontSansCondensed;
+    min-width: 32em; position: relative;
+    color: $colorGrayDark1; padding: 1em; box-sizing: border-box;
+
+    min-height: calc(100vh);
+    @include display(flex);
+    @include align-items(center);
+    @include justify-content(center);
+
+}
+
+//--------------------------------------------------------------
+// Login
+//--------------------------------------------------------------
+
+.login {
+
+    background: #fff; min-width: 30em;
+
+    > .title {
+
+        @include fontSansCondensed;
+
+        font-size: 1.5em; padding: em(20,15) em(20,15); letter-spacing: 0.05em;
+        text-transform: uppercase; color: lighten($colorGrayDark2, 20%); text-align: center;
+        border-bottom: 1px solid $colorGrayLight1;
+
+    }
+
+    .messageType1 {
+
+        margin-bottom: 2.5em;
+
+    }
+
+    > .form {
+
+        padding: 2em;
+
+        > .cta {
+
+            @include normalizeButton;
+            @include fontSansCondensedBold;
+
+            font-size: 1.4em; color: $colorGrayDark2; text-transform: uppercase; letter-spacing: 0.03em;
+            display: block; width: 100%; padding:em(15,14); margin-top: em(35,14);
+            border: 1px solid $colorGrayLight2; box-shadow: 0 0.1em 0.3em rgba(#000, 0.08);
+
+            &:hover {
+
+                box-shadow: 0 0.1em 0.8em rgba(#000, 0.1);
+
+            }
+
+        }
+
+    }
+
+    .formItem {
+
+        margin-bottom: 4em;
+
+        &:nth-child(4) {
+
+            margin-top: -2em; margin-bottom: 2em;
+
+        }
+
+        > label {
+
+            font-size: 1.2em; padding: em(5,12) 0; display: block;
+            text-transform: uppercase; color: $colorGrayDark2; letter-spacing: 0.08em;
+
+        }
+
+        > .textInput {
+
+            @include appearance(none);
+            @include transition(border-color 0.2s);
+
+            font-size: 1.7em; padding: em(10,17) 0; display: block; width: 100%;
+            background-color: transparent; border: 0; border-bottom: 1px solid $colorGrayLight2;
+
+            &:-webkit-autofill {
+                -webkit-box-shadow: 0 0 0px 1000px white inset;
+                background-color: transparent;
+            }
+
+            &.withError {
+                border-bottom-color: $colorError;
+            }
+
+            &:focus {
+                border-bottom-color: $colorMain1;
+            }
+
+        }
+
+        > .checkboxInput {
+
+            position: absolute; left: -999em;
+
+            + label {
+
+                position: relative; display: inline-block; padding-left: 2.5em;
+
+                &:after {
+
+                    content: "";
+                    position: absolute; left: 0; top: 50%; box-sizing: border-box;
+                    width: 1.5em; height: 1.5em; margin-top: -0.75em;
+                    background-color: #fff; border: 1px solid rgba(#000, 0.2); border-radius: 0.2em;
+
+                }
+
+                &:before {
+
+                    display: none; z-index: 10; color: $colorMain1; font-size: 1em; width: 1.7em;
+
+                }
+
+            }
+
+            &:checked {
+
+                + label:before {
+
+                    @include animation(slideDownFadeIn 0.2s);
+                    display: block;
+
+                }
+
+            }
+
+        }
+
+        &.link {
+
+            font-size: em(14,10);
+            margin-bottom: 0; margin-top: 2em; text-align: center;
+
+            > a {
+
+                color: $colorGrayLight2; display: block;
+
+            }
+
+            > .withLeftIcon {
+
+                padding-left: 25px;
+
+                &:before { width: 10px; }
+
+            }
+
+        }
+
+    }
+
+    @include mediaMinWidth($breakpointMedium) {
+
+        width: 45em; margin: 7em auto 7em;
+
+        > .form {
+
+            padding: 4.5em 5em;
+
+        }
+
+    }
+
+}

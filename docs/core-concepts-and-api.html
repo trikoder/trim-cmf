@@ -1,0 +1,219 @@
+<!DOCTYPE html><html><head lang="en"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width,initial-scale=1,minimal-ui"><meta name="theme-color" content="#ffffff"><title>Core concepts and api - Trim UI CMF</title><link rel="stylesheet" href="https://gitcdn.xyz/repo/dbrekalo/attire/master/dist/css/docsBuild.min.css"></head><body><header class="attireHeader"><h1 class="title">Trim UI CMF</h1><div class="attireSearch iconSearch"><input placeholder="Search documentation" type="text"></div></header><nav class="attireNav navType1"><button type="button" class="toggleBtn nBtn iconMenu">Toggle navigation</button><div class="panel"><div class="content"><a class="docLink" data-pointer="about#about" href="about#about">About</a><ul><li><a class="docLink" data-pointer="about#motivation" href="about#motivation">Motivation</a></li><li><a class="docLink" data-pointer="about#technology-and-tooling" href="about#technology-and-tooling">Technology and tooling</a></li><li><a class="docLink" data-pointer="about#code-sneek-peek" href="about#code-sneek-peek">Code sneek peek</a></li><li><a class="docLink" data-pointer="about#demo-application" href="about#demo-application">Demo application</a></li></ul><a class="docLink" data-pointer="getting-started#getting-started" href="getting-started#getting-started">Getting started</a><ul><li><a class="docLink" data-pointer="getting-started#technology" href="getting-started#technology">Technology</a></li><li><a class="docLink" data-pointer="getting-started#file-and-folder-structure" href="getting-started#file-and-folder-structure">File and folder structure</a></li><li><a class="docLink" data-pointer="getting-started#package-json" href="getting-started#package-json">Package.json</a></li><li><a class="docLink" data-pointer="getting-started#webpack-grunt-eslint" href="getting-started#webpack-grunt-eslint">Webpack, Grunt, Eslint</a></li><li><a class="docLink" data-pointer="getting-started#html-entry-point" href="getting-started#html-entry-point">HTML entry point</a></li><li><a class="docLink" data-pointer="getting-started#scss-setup" href="getting-started#scss-setup">SCSS setup</a></li><li><a class="docLink" data-pointer="getting-started#javascript-setup" href="getting-started#javascript-setup">Javascript setup</a></li><li><a class="docLink" data-pointer="getting-started#build-scripts" href="getting-started#build-scripts">Build scripts</a></li></ul><a class="docLink" data-pointer="core-concepts-and-api#core-concepts-and-api" href="core-concepts-and-api#core-concepts-and-api">Core concepts and api</a><ul><li><a class="docLink" data-pointer="core-concepts-and-api#resource-controller" href="core-concepts-and-api#resource-controller">Resource controller</a></li><li><a class="docLink" data-pointer="core-concepts-and-api#resource-list" href="core-concepts-and-api#resource-list">Resource list</a></li><li><a class="docLink" data-pointer="core-concepts-and-api#resource-edit" href="core-concepts-and-api#resource-edit">Resource edit</a></li><li><a class="docLink" data-pointer="core-concepts-and-api#services" href="core-concepts-and-api#services">Services</a></li><li><a class="docLink" data-pointer="core-concepts-and-api#router" href="core-concepts-and-api#router">Router</a></li><li><a class="docLink" data-pointer="core-concepts-and-api#navigation" href="core-concepts-and-api#navigation">Navigation</a></li><li><a class="docLink" data-pointer="core-concepts-and-api#application" href="core-concepts-and-api#application">Application</a></li></ul><a class="docLink" data-pointer="adding-resource#adding-resource" href="adding-resource#adding-resource">Adding resource</a><ul><li><a class="docLink" data-pointer="adding-resource#examine-resource-api" href="adding-resource#examine-resource-api">Examine resource api</a></li><li><a class="docLink" data-pointer="adding-resource#create-resource-controller" href="adding-resource#create-resource-controller">Create resource controller</a></li><li><a class="docLink" data-pointer="adding-resource#add-resource-route" href="adding-resource#add-resource-route">Add resource route</a></li><li><a class="docLink" data-pointer="adding-resource#add-navigation-item" href="adding-resource#add-navigation-item">Add navigation item</a></li><li><a class="docLink" data-pointer="adding-resource#register-controller-as-service" href="adding-resource#register-controller-as-service">Register controller as service</a></li></ul><a class="docLink" data-pointer="list-elements#list-elements" href="list-elements#list-elements">List elements</a><ul><li><a class="docLink" data-pointer="list-elements#shared-options" href="list-elements#shared-options">Shared options</a></li><li><a class="docLink" data-pointer="list-elements#text" href="list-elements#text">Text</a></li><li><a class="docLink" data-pointer="list-elements#link" href="list-elements#link">Link</a></li><li><a class="docLink" data-pointer="list-elements#date-time" href="list-elements#date-time">Date time</a></li><li><a class="docLink" data-pointer="list-elements#date" href="list-elements#date">Date</a></li><li><a class="docLink" data-pointer="list-elements#blip" href="list-elements#blip">Blip</a></li><li><a class="docLink" data-pointer="list-elements#button" href="list-elements#button">Button</a></li><li><a class="docLink" data-pointer="list-elements#context-menu" href="list-elements#context-menu">Context menu</a></li><li><a class="docLink" data-pointer="list-elements#media" href="list-elements#media">Media</a></li></ul><a class="docLink" data-pointer="form-elements#form-elements" href="form-elements#form-elements">Form elements</a><ul><li><a class="docLink" data-pointer="form-elements#shared-options" href="form-elements#shared-options">Shared options</a></li><li><a class="docLink" data-pointer="form-elements#common-methods" href="form-elements#common-methods">Common methods</a></li><li><a class="docLink" data-pointer="form-elements#text-input" href="form-elements#text-input">Text input</a></li><li><a class="docLink" data-pointer="form-elements#hidden-input" href="form-elements#hidden-input">Hidden input</a></li><li><a class="docLink" data-pointer="form-elements#textarea-input" href="form-elements#textarea-input">Textarea input</a></li><li><a class="docLink" data-pointer="form-elements#checkbox-input" href="form-elements#checkbox-input">Checkbox input</a></li><li><a class="docLink" data-pointer="form-elements#date-input" href="form-elements#date-input">Date input</a></li><li><a class="docLink" data-pointer="form-elements#date-time-input" href="form-elements#date-time-input">Date time input</a></li><li><a class="docLink" data-pointer="form-elements#html" href="form-elements#html">Html</a></li><li><a class="docLink" data-pointer="form-elements#map" href="form-elements#map">Map</a></li><li><a class="docLink" data-pointer="form-elements#select" href="form-elements#select">Select</a></li><li><a class="docLink" data-pointer="form-elements#multiple-select" href="form-elements#multiple-select">Multiple select</a></li><li><a class="docLink" data-pointer="form-elements#nested-select" href="form-elements#nested-select">Nested select</a></li><li><a class="docLink" data-pointer="form-elements#state-select" href="form-elements#state-select">State select</a></li><li><a class="docLink" data-pointer="form-elements#external-admin" href="form-elements#external-admin">External admin</a></li><li><a class="docLink" data-pointer="form-elements#included-admin" href="form-elements#included-admin">Included admin</a></li><li><a class="docLink" data-pointer="form-elements#media-preview" href="form-elements#media-preview">Media preview</a></li><li><a class="docLink" data-pointer="form-elements#media" href="form-elements#media">Media</a></li></ul><a class="docLink" data-pointer="base-controllers#base-controllers" href="base-controllers#base-controllers">Base controllers</a><ul><li><a class="docLink" data-pointer="base-controllers#resource-controller" href="base-controllers#resource-controller">Resource controller</a></li><li><a class="docLink" data-pointer="base-controllers#resource-edit-controller" href="base-controllers#resource-edit-controller">Resource edit controller</a></li><li><a class="docLink" data-pointer="base-controllers#nested-resource-controller" href="base-controllers#nested-resource-controller">Nested resource controller</a></li><li><a class="docLink" data-pointer="base-controllers#media-resource-controller" href="base-controllers#media-resource-controller">Media resource controller</a></li></ul></div></div></nav><article data-slug="core-concepts-and-api" class="attireArticle"><section id="section-core-concepts-and-api" class="attireBlock"><div class="inner"><h1 id="core-concepts-and-api" class="attireTitleType1">Core concepts and api</h1><p class="attireTextType2">Understanding of how core components work is essential for building applications with Trim UI CMF. This chapter provides insight into resource controller, resource list, resource edit, router, navigation, service container and application object.</p></div></section><section id="section-resource-controller" class="attireBlock"><div class="inner"><h2 id="resource-controller" class="attireTitleType2">Resource controller</h2><p class="attireTextType2">Resource controller component is a central place to define user interface for given resource. Here we define how resource is browsed, filtered and sorted in list, what form fields are rendered when resource is created or updated.</p><p class="attireTextType2">In most use cases controller looks like a simple configuration file. This configuration based architecture delegates most of the work to components that are composed out of our sight. Resource controller is a container component which calls service components for listing and editing resources who build their own component subtrees - all that is abstracted from user via simple and easy to use api.</p><p class="attireTextType2">All resource controllers share same basic skeleton. We define what resource type controller is handling (resourceName) and implement methods for resource listing (setupList) and resource editing (setupEdit):</p><pre class="attireCodeHighlight"><code class="lang-js">var BaseResource = require('js/controllers/baseResource')
+
+module.exports = BaseResource.extend({
+
+    resourceName: 'tag',
+
+    setupList: function(listHandler) {
+        // how is resource listed?
+    },
+
+    setupEdit: function(editHandler, method, id) {
+        // how is resource edited?
+    }
+
+});
+</code></pre><p class="attireTextType2">A list of controller properties and methods is examined bellow:</p><hr class="attireSeparator mod1"><h3 id="resourcename" class="attireTitleType3">resourceName</h3><p class="attireTextType2">Controller property where we name the resource handled (tag, article, page...)</p><pre class="attireCodeHighlight"><code class="lang-js">resourceName: 'tag',
+</code></pre><hr class="attireSeparator mod1"><h3 id="resourcecaption" class="attireTitleType3">resourceCaption</h3><p class="attireTextType2">Controller property where we define resource caption mapping, default value is null. It is currently used only in mass actions component as a value for 'mapSelectedCaptionsTo' (if it is null, then it fallbacks to 'ID') so it's recommended to always set resource caption value.</p><pre class="attireCodeHighlight"><code class="lang-js">resourceCaption: 'title',
+</code></pre><hr class="attireSeparator mod1"><h3 id="createrequiresdraft" class="attireTitleType3">createRequiresDraft</h3><p class="attireTextType2">Property where we define if draft resource is needed when resource is created. When createRequiresDraft is set to true controller will save empty resource object before creating interface is displayed. Saved draft resource will recieve id and be able to support related objects. False is default value.</p><pre class="attireCodeHighlight"><code class="lang-js">createRequiresDraft: false,
+</code></pre><hr class="attireSeparator mod1"><h3 id="setuplist" class="attireTitleType3">setupList</h3><p class="attireTextType2">Controller method where we define how resource is browsed, filtered and sorted in list view. Controller injects current <a href="#resource-list">listHandler</a> instance when method is called.</p><pre class="attireCodeHighlight"><code class="lang-js">setupList: function(listHandler) {
+
+    this.addCreateControl('Create new tag');
+
+    listHandler.addFilter(TextInput, {
+        name: 'title',
+        label: 'Title'
+    });
+
+    listHandler.addItem(TextListItem, {
+        caption: 'ID',
+        mapTo: 'id'
+    });
+
+    listHandler.addItem(LinkListItem, {
+        caption: 'Title',
+        mapTo: 'title',
+        action: 'editItem'
+    });
+},
+</code></pre><hr class="attireSeparator mod1"><h3 id="setupedit" class="attireTitleType3">setupEdit</h3><p class="attireTextType2">Controller method where we define form fields rendered when resource is created or updated. Controller injects current <a href="#resource-edit">editHandler</a> instance when method is called, method (edit or create) and resource id when called in editing context.</p><pre class="attireCodeHighlight"><code class="lang-js">setupEdit: function(editHandler, method, id) {
+
+    this.addToIndexControl().addSaveControl();
+
+    editHandler.addField(TextInput, {
+        label: 'Title',
+        name: 'title'
+    });
+
+}
+</code></pre><hr class="attireSeparator mod1"><h3 id="openindex" class="attireTitleType3">openIndex</h3><p class="attireTextType2">Controller instance method which opens resource index or listing.</p><pre class="attireCodeHighlight"><code class="lang-js">controller.openIndex(params);
+</code></pre><hr class="attireSeparator mod1"><h3 id="openedit" class="attireTitleType3">openEdit</h3><p class="attireTextType2">Controller instance method which opens resource editing.</p><pre class="attireCodeHighlight"><code class="lang-js">controller.openEdit(id);
+</code></pre><hr class="attireSeparator mod1"><h3 id="opencreate" class="attireTitleType3">openCreate</h3><p class="attireTextType2">Controller instance method which opens resource create.</p><pre class="attireCodeHighlight"><code class="lang-js">controller.openCreate();
+</code></pre><hr class="attireSeparator mod1"><h3 id="addcreatecontrol" class="attireTitleType3">addCreateControl</h3><p class="attireTextType2">Controller instance method which adds resource create control.</p><pre class="attireCodeHighlight"><code class="lang-js">controller.addCreateControl(caption);
+</code></pre><hr class="attireSeparator mod1"><h3 id="addsavecontrol" class="attireTitleType3">addSaveControl</h3><p class="attireTextType2">Controller instance method which adds resource save control.</p><pre class="attireCodeHighlight"><code class="lang-js">controller.addSaveControl(caption);
+</code></pre><hr class="attireSeparator mod1"><h3 id="addtoindexcontrol" class="attireTitleType3">addToIndexControl</h3><p class="attireTextType2">Controller instance method which adds resource list control.</p><pre class="attireCodeHighlight"><code class="lang-js">controller.addToIndexControl();
+</code></pre><hr class="attireSeparator mod1"><h3 id="addcontrol" class="attireTitleType3">addControl</h3><p class="attireTextType2">Controller instance method which adds generic resource control.</p><pre class="attireCodeHighlight"><code class="lang-js">controller.addControl({
+    caption: 'myControl',
+    url: this.getCreateUrl(),
+    className: 'accented iconPlus',
+    action: this.openCreate
+});
+</code></pre><hr class="attireSeparator mod1"><h3 id="adddropdowncontrol" class="attireTitleType3">addDropdownControl</h3><p class="attireTextType2">Controller instance method which adds generic dropdown resource control.</p><pre class="attireCodeHighlight"><code class="lang-js">controller.addDropdownControl(params);
+</code></pre></div></section><section id="section-resource-list" class="attireBlock"><div class="inner"><h2 id="resource-list" class="attireTitleType2">Resource list</h2><p class="attireTextType2">Resource list is component responsible for handling resource browsing, filtering and sorting. Examine <a href="list-elements">list elements</a> chapter to find out how each list element is configured.</p><hr class="attireSeparator mod1"><h3 id="additem" class="attireTitleType3">addItem</h3><p class="attireTextType2">Method for defining what elements are displayed when resource is listed:</p><pre class="attireCodeHighlight"><code class="lang-js">listHandler.addItem(TextListItem, {
+    caption: 'title',
+    mapTo: 'title'
+});
+</code></pre><hr class="attireSeparator mod1"><h3 id="addfilter" class="attireTitleType3">addFilter</h3><p class="attireTextType2">Method for adding filter form elements when resource is listed:</p><pre class="attireCodeHighlight"><code class="lang-js">listHandler.addFilter(TextInput, {
+    name: 'title',
+    label: 'Title'
+});
+</code></pre><hr class="attireSeparator mod1"><h3 id="addsort" class="attireTitleType3">addSort</h3><p class="attireTextType2">Method for adding sort options on resource list:</p><pre class="attireCodeHighlight"><code class="lang-js">listHandler.addSort([
+    {label: 'By title', field: 'title'},
+    {label: 'By date', field: '-date'}
+]);
+</code></pre><hr class="attireSeparator mod1"><h3 id="settemplate" class="attireTitleType3">setTemplate</h3><p class="attireTextType2">Method for choosing which template is used for resource listing ('table' and 'cards' are currently supported).</p><pre class="attireCodeHighlight"><code class="lang-js">listHandler.setTemplate('cards');
+</code></pre><hr class="attireSeparator mod1"><h3 id="addmassaction" class="attireTitleType3">addMassAction</h3><p class="attireTextType2">Method for adding mass actions to resource list.</p><pre class="attireCodeHighlight"><code class="lang-js">listHandler.addMassAction({
+    caption: 'Publish',
+    updateAttributes: {published: true}
+});
+</code></pre></div></section><section id="section-resource-edit" class="attireBlock"><div class="inner"><h2 id="resource-edit" class="attireTitleType2">Resource edit</h2><p class="attireTextType2">Resource edit is component responsible for handling how resource is created or updated.</p><hr class="attireSeparator mod1"><h3 id="addfield" class="attireTitleType3">addField</h3><p class="attireTextType2">Method for defining what form elements are mapped to resource attributes and relations when resource is edited or created. Examine <a href="form-elements">form elements</a> chapter to find out how each form element is configured.</p><pre class="attireCodeHighlight"><code class="lang-js">editHandler.addField(TextInput, {
+    label: 'Title',
+    name: 'title'
+});
+</code></pre><hr class="attireSeparator mod1"><h3 id="setlayout" class="attireTitleType3">setLayout</h3><p class="attireTextType2">Method for defining editing and creating layout. Supports tabs, regions and groups.</p><pre class="attireCodeHighlight"><code class="lang-js">//define layout with main and side region
+editHandler.setLayout({regions: ['main', 'side']});
+
+// assign form element to layout position with layoutReference
+editHandler.addField(TextInput, {
+    label: 'Title',
+    name: 'title',
+    layoutReference: 'mainRegion'
+});
+</code></pre><p class="attireTextType2">Complex layout with tabs, regions and groups is defined like so:</p><pre class="attireCodeHighlight"><code class="lang-js">editHandler.setLayout({
+    tabs: [{
+        name: 'mainContent',
+        caption: 'Content and settings',
+        regions: {
+            main: {
+                groups: [{className: 'basicData'}]
+            },
+            side: {
+                groups: [
+                    {className: 'layoutGroupType2'},
+                    {className: 'layoutGroupType2'},
+                    {className: 'layoutGroupType2'},
+                    {className: 'layoutGroupType2'}
+                ]
+            }
+        }
+    }, {
+        name: 'seo',
+        caption: 'SEO &amp; meta data'
+    }]
+});
+
+// assign form element to layout position with layoutReference
+editHandler.addField(TextInput, {
+    label: 'Title',
+    name: 'title',
+    layoutReference: 'mainContent.sideRegion.group4'
+});
+</code></pre></div></section><section id="section-services" class="attireBlock"><div class="inner"><h2 id="services" class="attireTitleType2">Services</h2><p class="attireTextType2">Application utilizes simple service container to register and locate components and services. Router, application container, main navigation, application search and error controller are components registered and retrieved from service container by default.</p><p class="attireTextType2">All of your resource controllers should also be registered as services. We encourage you to do so with require.ensure to utilize webpack code splitting and load controller code only when it is requested.</p><p class="attireTextType2">A typical service container with navigation and few registered controllers looks something like this:</p><pre class="attireCodeHighlight"><code class="lang-js">module.exports = {
+    MainNavigation: function(callback) {
+        callback(require('js/mainNavigation'));
+    },
+    TagController: function(callback) {
+        require.ensure([], function() {
+            callback(require('js/controllers/tag'));
+        });
+    },
+    PageController: function(callback) {
+        require.ensure([], function() {
+            callback(require('js/controllers/page'));
+        });
+    }
+};
+</code></pre><p class="attireTextType2">If you need to access service container manually somewhere in your code:</p><pre class="attireCodeHighlight"><code class="lang-js">var serviceContaner = require('js/library/serviceContainer');
+
+serviceContainer.register('myService', function() {
+    return {foo: 'bar'};
+});
+
+serviceContainer.get('myService', function(myService) {
+    console.log(myService.foo); // outputs bar
+});
+</code></pre></div></section><section id="section-router" class="attireBlock"><div class="inner"><h2 id="router" class="attireTitleType2">Router</h2><p class="attireTextType2">Application utilizes extended <a href="https://github.com/dbrekalo/backbone-named-routes">Backbone named router</a> for linking and routing needs. Your application routes typically look something like this:</p><pre class="attireCodeHighlight"><code class="lang-js">module.exports = function(router) {
+
+    router.resource('article');
+    router.resource('tag');
+
+    router.route('', 'dashboard', {uses: 'Article@index'});
+    router.route('my-settings', 'mySettings', {uses: 'MySettings'});
+
+};
+</code></pre><hr class="attireSeparator mod1"><h3 id="router-resource" class="attireTitleType3">Router.resource</h3><p class="attireTextType2">Router resource method is a shortcut for defining 3 most used routes for resource:</p><pre class="attireCodeHighlight"><code class="lang-js">router.resource('tag');
+// ... is equivalent to...
+router.route('tag/create', 'resource.tag.create', {uses: 'Tag@create'});
+router.route('tag/:id', 'resource.tag.edit', {uses: 'Tag@edit'});
+router.route('tag', 'resource.tag.index', {uses:'Tag@index'});
+</code></pre><p class="attireTextType2">For each url pattern (tag/:id) we define route name (resource.tag.edit) and pointer to controller method (Tag@edit) invoked when route is matched.</p><hr class="attireSeparator mod1"><h3 id="getting-router-instance" class="attireTitleType3">Getting router instance</h3><p class="attireTextType2">If you need access to router instance somewhere in your application code:</p><pre class="attireCodeHighlight"><code class="lang-js">var router = require('js/app').get('router');
+</code></pre><hr class="attireSeparator mod1"><h3 id="generating-links" class="attireTitleType3">Generating links</h3><p class="attireTextType2">Generate links with router via route names and params:</p><pre class="attireCodeHighlight"><code class="lang-js">router.url('resource.tag.index') // /tag;
+router.url('resource.tag.edit', {id: 2}) // /tag/2;
+</code></pre><hr class="attireSeparator mod1"><h3 id="resource-api-url" class="attireTitleType3">Resource api url</h3><p class="attireTextType2">Get resource api url from router:</p><pre class="attireCodeHighlight"><code class="lang-js">var collectionUrl =  router.apiUrl('tag'); // /api/tag
+var itemUrl =  router.apiUrl('tag', 1); // /api/tag/1
+</code></pre></div></section><section id="section-navigation" class="attireBlock"><div class="inner"><h2 id="navigation" class="attireTitleType2">Navigation</h2><p class="attireTextType2">Navigation component is used to define main user navigation UI element. Navigation links, user panel links, application name and current username are all defined in navigation component.</p><hr class="attireSeparator mod1"><h3 id="code-example" class="attireTitleType3">Code example</h3><pre class="attireCodeHighlight"><code class="lang-js">var BaseMainNavigation = require('js/components/baseMainNavigation');
+
+module.exports = BaseMainNavigation.extend({
+
+    getNavigationItems: function(router) {
+        return [
+            {name: 'Pages', alias: 'page', url: router.url('resource.page.index'), iconClass: 'Home'},
+            {name: 'Misc', iconClass: 'ThreeDots', subItems: [
+                {name: 'Categories', alias: 'category', url: router.url('resource.category.index')},
+                {name: 'Tags', alias: 'tag', url: router.url('resource.tag.index')}
+            ]}
+        ];
+    },
+
+    getUserNavigationItems: function(router) {
+        return [
+            { name: 'Settings', alias: 'settings', url: router.url('mySettings'), appLink: true },
+            { name: 'Public pages', alias: 'publicPages', url: 'http://mySite.com', newTab: true },
+            { name: 'Logout', alias: 'logout', url: '/logout' }
+        ];
+    },
+
+    getProjectCaption: function() {
+        return 'my cms';
+    },
+
+    getUserCaption: function() {
+        return 'my username';
+    }
+
+});
+</code></pre><hr class="attireSeparator mod1"><h3 id="getnavigationitems" class="attireTitleType3">getNavigationItems</h3><p class="attireTextType2">Method "getNavigationItems" takes array of objects with following keys:</p><ul class="attireListType1"><li>name: for item caption</li><li>alias: prefix for "Link" class name</li><li>url: url to point to</li><li>iconClass: adds sufix to element icon classname (all current icon suffixes can be found in "/src/scss/library/_variables.scss" file, under $icons variable)</li></ul><hr class="attireSeparator mod1"><h3 id="getusernavigationitems" class="attireTitleType3">getUserNavigationItems</h3><p class="attireTextType2">Method "getUserNavigationItems" takes array of objects with following keys:</p><ul class="attireListType1"><li>name: for item caption</li><li>url : url to point to</li><li>action: if url is ommited, application calls this function</li><li>appLink: Boolean value, true is in app link</li><li>newTab: adds target="_blank" attribute to link</li><li>iconClass: adds sufix to element icon classname (all current icon suffixes can be found in "/src/scss/library/_variables.scss" file, under $icons variable)</li></ul><hr class="attireSeparator mod1"><h3 id="getprojectcaption" class="attireTitleType3">getProjectCaption</h3><p class="attireTextType2">Use method "getProjectCaption" to set CMS project name.</p><hr class="attireSeparator mod1"><h3 id="getusercaption" class="attireTitleType3">getUserCaption</h3><p class="attireTextType2">Use method "getUserCaption" to set current user caption.</p></div></section><section id="section-application" class="attireBlock"><div class="inner"><h2 id="application" class="attireTitleType2">Application</h2><p class="attireTextType2">Application object is glue that ties all CMS components and services together. It is used to connect services and routes, load translations, inject boot (config) data and start application.</p><hr class="attireSeparator mod1"><h3 id="code-example" class="attireTitleType3">Code example</h3><pre class="attireCodeHighlight"><code class="lang-js">var app = require('js/app');
+var services = require('js/services');
+var routes = require('js/routes');
+var translations = require('js/lang/english');
+
+app
+    .setBootData({
+        baseUrl: '/cms-app/',
+        assetsBuildPath: '/cms-app/dist/',
+        usesPushState: true
+    })
+    .registerServices(services)
+    .registerRoutes(routes)
+    .loadTranslations(translations, 'en')
+    .start();
+</code></pre><hr class="attireSeparator mod1"><h3 id="setbootdata" class="attireTitleType3">setBootData</h3><p class="attireTextType2">Used to inject boot or config data. Mandatory keys are "baseUrl" and "assetsBuildPath".</p><pre class="attireCodeHighlight"><code class="lang-js">// sometimes your data will be generated from backend to global window variable
+app.setBootData(window.bootData)
+</code></pre><p class="attireTextType2">Boot data can later be retrieved like so:</p><pre class="attireCodeHighlight"><code class="lang-js">var bootData = require('js/library/bootData');
+bootData('baseUrl'); // outputs '/cms-app/'
+</code></pre><hr class="attireSeparator mod1"><h3 id="registerservices" class="attireTitleType3">registerServices</h3><p class="attireTextType2">Used to register user defined services to service container.</p><hr class="attireSeparator mod1"><h3 id="registerroutes" class="attireTitleType3">registerRoutes</h3><p class="attireTextType2">Used to register user defined routes to route registry.</p><hr class="attireSeparator mod1"><h3 id="loadtranslations" class="attireTitleType3">loadTranslations</h3><p class="attireTextType2">Used to import translation data for specific locale.</p><hr class="attireSeparator mod1"><h3 id="setlocale" class="attireTitleType3">setLocale</h3><p class="attireTextType2">Used to set application locale.</p><pre class="attireCodeHighlight"><code class="lang-js">app.setLocale('hr'); // en by default
+</code></pre><hr class="attireSeparator mod1"><h3 id="getlocale" class="attireTitleType3">getLocale</h3><p class="attireTextType2">Used to get application locale.</p><pre class="attireCodeHighlight"><code class="lang-js">app.getLocale() // en by default;
+</code></pre><hr class="attireSeparator mod1"><h3 id="setinstance" class="attireTitleType3">setInstance</h3><p class="attireTextType2">Used to define shared application objects.</p><pre class="attireCodeHighlight"><code class="lang-js">app.setInstance('foo', {foo:bar});
+</code></pre><hr class="attireSeparator mod1"><h3 id="get" class="attireTitleType3">get</h3><p class="attireTextType2">Used to retrieve shared application objects.</p><pre class="attireCodeHighlight"><code class="lang-js">app.get('foo') // {foo:bar};
+app.get('router') // router instance
+</code></pre><hr class="attireSeparator mod1"><h3 id="start" class="attireTitleType3">start</h3><p class="attireTextType2">Once called application will setup router, services and main view components.</p></div></section></article><footer class="attireFooter"><p>This page is built with <a href="http://dbrekalo.github.io/attire/">Attire</a>.</p></footer><a class="githubRibbon" href="https://github.com/trikoder/trim"><img src="https://gitcdn.xyz/repo/dbrekalo/attire/master/dist/images/githubRibbon.png" alt="Fork me on GitHub"></a><script src="https://gitcdn.xyz/repo/dbrekalo/attire/master/dist/js/docsBuild.min.js"></script></body></html>

@@ -1,0 +1,71 @@
+{% if totalPages > 1 %}
+    <ul class="pages">
+
+        <li class="prev">
+            {% if currentPage != 1 %}
+                {% if(useLinks) %}
+                <a class="iconArrowLeft icon page icr" href="{{ url(currentPage - 1) }}">{{ currentPage - 1 }}</a>
+                {% else %}
+                <button class="iconArrowLeft icon page icr">{{ currentPage - 1 }}</button>
+                {% endif %}
+            {% else %}
+                <button class="iconArrowLeft disabled icon icr"></button>
+            {% endif %}
+        </li>
+
+        {% if currentPage - 2 > 1 %}
+            <li>
+                {% if(useLinks) %}
+                <a class="page" href="{{ url(1) }}">1</a>
+                {% else %}
+                <button class="page">1</button>
+                {% endif %}
+            </li>
+            {% if currentPage > middlePages|length - 1 %}
+            <li>
+                <span class="separator">...</span>
+            </li>
+            {% endif %}
+        {% endif %}
+
+        {% for page in middlePages %}
+            <li>
+                {% if(useLinks) %}
+                <a class="page {% if page == currentPage %} selected {% endif %}" href="{{ url(page) }}">{{ page }}</a>
+                {% else %}
+                <button class="page {% if page == currentPage %} selected {% endif %}">{{ page }}</button>
+                {% endif %}
+            </li>
+        {% endfor %}
+
+        {% if endPage + 1 <= totalPages %}
+            {% if currentPage < totalPages - middlePages|length + 2 %}
+            <li>
+                <span class="separator">...</span>
+            </li>
+            {% endif %}
+            <li>
+                {% if(useLinks) %}
+                <a class="page {% if totalPages == currentPage %} selected {% endif %}" href="{{ url(totalPages) }}">{{ totalPages }}</a>
+                {% else %}
+                <button class="page {% if totalPages == currentPage %} selected {% endif %}">{{ totalPages }}</button>
+                {% endif %}
+            </li>
+        {% endif %}
+
+
+        <li class="next">
+            {% if currentPage < totalPages %}
+                {% if(useLinks) %}
+                <a class="iconArrowRight page icon icr" href="{{ url(currentPage + 1) }}">{{ currentPage + 1 }}</a>
+                {% else %}
+                <button class="iconArrowRight page icon icr">{{ currentPage + 1 }}</button>
+                {% endif %}
+            {% else %}
+                <button class="iconArrowRight disabled icon icr"></button>
+            {% endif %}
+        </li>
+
+
+    </ul>
+{% endif %}

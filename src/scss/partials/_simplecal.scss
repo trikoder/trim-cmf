@@ -1,0 +1,78 @@
+.simplecal                          { font-size: 0.9em; position: absolute; left: -9999px; top: 0; width: 30em; background-color: #fff;  z-index: 999999; overflow: hidden; box-shadow: 0 2px 5px rgba(#000,0.05); @include animation(simplecal_enter 0.15s ease-in); margin-top: -1px; @include backface-visibility(visible); border: 1px solid $colorGrayLight2; border-radius: 0.4em; }
+.simplecal_mobile                   { left: 0; right: 0; width: auto; box-shadow: 0 4px 10px rgba(#000,0.07); border: 0; }
+.simplecal_mobile .lead             { border: 0; }
+.simplecal .meta                    { position: relative; padding: 0.6em 1.2em 0 1.2em; text-align: center; background-color: #fafaf8; border-radius: 0.7em 0.7em 0 0; }
+.simplecal .meta_title              { @include fontSansCondensedBold; font-size: 1.7em; color: $colorGrayDark1; @include animation(simplecal_enter 0.3s ease-in); }
+.simplecal .month_control           { position: absolute; top: 1em; bottom:0; width: 6em; }
+.simplecal .month_control:active    { opacity: 0.5; }
+.simplecal .month_control.next      { right: 0; }
+.simplecal .month_control.prev      { left: 0; }
+.simplecal .month_control span      { position: absolute; left: 50%; top: 50%; margin-top: -0.7em; width: 0; height: 0; border: 0.7em solid transparent; border-right: 0.7em solid $colorMain1; text-indent: -9999px; }
+.simplecal .month_control.next span { border-left: 0.7em solid $colorMain1; border-right: 0; }
+.simplecal .month_control.prev span { margin-left: -1.3em; }
+.simplecal table                    { width: 100%; table-layout:fixed; }
+.simplecal tbody                    { @include animation(simplecal_fade_in 0.3s ease-in); padding: 1em;}
+.simplecal thead                    { background-color: #fafaf8; border-bottom: 1px solid $colorGrayLight2; }
+.simplecal td, .simplecal th        { text-align: center;  border-collapse:collapse; }
+.simplecal th                       { @include fontSansCondensed; padding: 1em 0; color: #999; text-transform: uppercase; font-size: em(13,9); }
+
+.simplecal_cell,
+.simplecal_disabled                 { @include fontSansCondensed; display: block; font-size: 1.5em; padding: 0.7em 0; text-align: center; color: $colorGrayDark1; }
+.simplecal_disabled                 { color: #dcdcdc; }
+.simplecal_cell.today,
+.simplecal_cell:hover               { color: $colorMain1; }
+.simplecal_cell.selected,
+.simplecal_cell.today               { @include fontSansCondensedBold; }
+.simplecal.attached                 { position: relative; left:auto; top: auto; width: auto; @include animation(none); }
+.simplecal_cell.selected            { color: #fff; background-color: $colorMain1; cursor: pointer; border-radius: 0.2em; }
+.simplecal select                   { @include appearance(none); background: transparent; border: 0; padding: 0.2em 0.3em; margin: 0; cursor: pointer; }
+
+.simplecal_time {
+
+    font-size: 1.5em; padding: em(15,15); border-top: 1px solid $colorGrayLight2;
+    color: $colorGrayDark1; text-align: center; background-color: #fafaf8; border-radius: 0 0 0.4em 0.4em;
+
+    > input {
+
+        @include appearance(none);
+        font-size: em(25,15); width: em(30,25); margin: 0 em(3,25);
+        background: transparent; border: 0; text-align: center;
+
+        // &:first-child { text-align: right; }
+
+    }
+
+}
+
+.simplecal .todayBtn {
+
+    @include fontSansCondensed;
+
+    color: $colorMain1; font-size: 1.5em; text-align: center; text-transform: uppercase;
+    display: block; width: 100%; padding: 0.7em 0;
+    border: 0; border-top: 1px solid $colorMain1;
+    background-color: #fafaf8;
+    border-radius: 0 0 em(7,14) em(7,14);
+
+    &:hover { color: darken($colorMain1,10%); }
+
+}
+
+.simplecal_mobile { border-top: 1px solid #DDDDD5; margin-top: 1.2em; border-radius: 0; }
+
+@media all and (min-width: 400px) {
+    .simplecal_mobile .simplecal_cell,
+    .simplecal_mobile .simplecal_disabled   { padding: 1.5em 0; }
+}
+
+@include keyframes(simplecal_enter) {
+    from { opacity: 0; @include transform(translateY(-10px) perspective(600px) rotateX(30deg)); }
+    to { opacity: 1; @include transform(translateY(0px) perspective(600px) rotateX(0deg)); }
+}
+
+@include keyframes(simplecal_title_anim) {
+    0%      { top: 0; }
+    50%     { top: -100%; }
+    100%    { top: 0; }
+}
+@include keyframes(simplecal_fade_in){ from { opacity: 0;} to { opacity: 1; } }

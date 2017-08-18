@@ -1,0 +1,218 @@
+//--------------------------------------------------------------
+// Text list item
+//--------------------------------------------------------------
+.textListItemType1 {
+
+    @include fontSans;
+
+    font-size: 1.3em; line-height: 1.4;
+    color: $colorGrayDark1;
+
+    &.mod1 {
+
+        font-size: 1.2em;
+        letter-spacing: 0.02em; line-height: 1.4; color: $colorGrayDark2;
+        text-transform: uppercase;
+
+    }
+
+}
+
+//--------------------------------------------------------------
+// Link list item
+//--------------------------------------------------------------
+.linkListItemType1 {
+
+    @include fontSansBold;
+    font-size: 1.3em; line-height: 1.4;
+    color: $colorGrayDark1;
+
+    @include hover {
+
+        color: lighten($colorGrayDark1,15%);
+
+    }
+
+}
+
+//--------------------------------------------------------------
+// Date time list item
+//--------------------------------------------------------------
+.dateTimeListItemType1, .dateListItemType1 {
+
+    @include fontSans;
+
+    font-size: 1.3em; white-space: nowrap;
+    color: $colorGrayDark1;
+
+}
+
+//--------------------------------------------------------------
+// List element button
+//--------------------------------------------------------------
+.listElementButton {
+
+    font-size: 1.2em; display: inline-block; white-space: nowrap;
+    padding: 0.4em 0.8em;
+    background-color: #fff; border:1px solid rgba(#000, 0.2);
+    border-radius: 0.3em; color: $colorGrayDark2; letter-spacing: 0.02em;
+
+    @include hover { color: $colorMain1; }
+
+}
+
+//--------------------------------------------------------------
+// External admin picker
+//--------------------------------------------------------------
+.externalAdminPicker {
+
+    font-size: 1.4em; background-color: #fff; padding: em(4,14) em(35,14) em(4,14) em(8,14); overflow: hidden;
+    color: $colorGrayDark1; border: 1px solid rgba(#000, 0.2); border-radius: em(3,14);
+
+    &:before {
+
+        font-size: 0.9em; width: 2em; left: auto; right: 0;
+        border-left: 1px solid $colorGrayLight2;
+
+    }
+
+    @include hover {
+
+        color: $colorMain1;
+
+    }
+
+}
+
+//--------------------------------------------------------------
+// Media preview
+//--------------------------------------------------------------
+.mediaListItemType1 {
+
+    display: block; height: 15em; padding: 0.5em; position: relative;
+    text-align: center; background-color: #f5f5f5; background-repeat: no-repeat; background-position: center center;
+
+    > img {
+
+        max-height: 15em; max-width: 100%;
+
+    }
+
+    > .placeholder {
+
+        position: absolute; left: 50%; top: 50%; margin: -2em 0 0 -2em;
+
+        &:before {
+
+            font-size: 2.5em; color: $colorGrayLight2;
+
+        }
+
+    }
+
+    > .previewBtn {
+
+        @include transition(opacity 0.3s);
+
+        position: absolute; left: 50%; top: 50%; margin: -2em 0 0 -2em; width: 4em; height: 4em;
+        background-color: rgba(#000, 0.8); border-radius: 50%; opacity: 0; color: #fff;
+
+        &:before { font-size: 2em; }
+
+        &.iconPlay:before { font-size: 2.2em; left: 2px; }
+        &.openFile:before { font-size: 2.2em; left: 2px; }
+
+    }
+
+    &:hover > .previewBtn {
+
+        opacity: 1;
+
+    }
+
+}
+
+//--------------------------------------------------------------
+// Blip
+//--------------------------------------------------------------
+.blip {
+
+    width: 0.8em; height: 0.8em; text-indent: -9999em; background: #ccc;
+    display: block; border-radius: 50%;
+
+    &.active {
+
+        background: #65ac68;
+
+    }
+
+    &.inactive {
+
+        background: #da5050;
+
+    }
+
+}
+
+//--------------------------------------------------------------
+// Blip
+//--------------------------------------------------------------
+.contextMenuType1 {
+
+    position: relative; width: 4em;
+
+    > .toggleContextMenu {
+
+        width: 4em; height: 4em; margin: -1.5em 0;
+
+        color: $colorMain1;
+
+        &:before {
+
+            color: $colorGrayDark1; font-size: 1.6em;
+
+        }
+
+    }
+
+    .contextItem {
+
+        @include normalizeButton;
+        @include fontSansCondensed;
+        font-size: 1.4em; display: block; width: 100%; padding: em(8,14) em(15,14); box-sizing: border-box;
+        text-align: left; color: $colorGrayDark1;
+
+        &:hover {
+
+            color: $colorMain1;
+
+        }
+
+    }
+
+    > ul {
+
+        display: none; position: absolute; right: 0.5em; top: 100%; margin-top: 0.5em;
+        z-index: 10; padding: 0.5em 0; min-width: 15em;
+        background: #fff; border: 1px solid $colorGrayLight2; box-shadow: 0 0.1em 0.3em rgba(#000, 0.05);
+
+    }
+
+    &.active {
+
+        > ul {
+
+            @include animation(slideDownFadeIn 0.2s);
+            display: block;
+
+        }
+
+        > .toggleContextMenu:before {
+
+            color: $colorMain1;
+
+        }
+
+    }
+
+}

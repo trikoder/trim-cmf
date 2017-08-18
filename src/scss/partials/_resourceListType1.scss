@@ -1,0 +1,139 @@
+.resourceListType1 {
+
+    > .itemListCont {
+
+        padding: 0 0 1em;
+
+    }
+
+    &.withNoItems {
+
+        .massActionsType1,
+        .pagination { display: none; }
+
+    }
+
+    &.nested {
+
+        .bottomListControls,
+        .topListControls > .sort,
+        .topListControls > .pagination {
+
+            display: none;
+
+        }
+
+    }
+
+    .noResults {
+
+        font-size: 2.5em; padding: em(60,25) em(10,25);
+        text-align: center; color: $colorGrayDark2;
+
+    }
+
+    .messageType1 {
+
+        @include animation(fadeIn 0.6s);
+
+        border-bottom: 1px solid $colorGrayLight1;
+
+    }
+
+    .popupType1 & {
+
+        position: absolute; left: 0; right: 0; bottom: 0; top: 8.75em;
+        overflow-y: scroll; -webkit-overflow-scrolling: touch;
+
+    }
+
+    @include mediaMaxWidth($breakpointMedium) {
+
+        > .topListControls {
+
+            padding: 0 1.5em 0;
+
+            > .massActionsType1 { padding-top: 1.5em; }
+
+            > .pagination { display: none; }
+
+            > .sort { display: none; }
+
+        }
+
+        > .bottomListControls {
+
+            > .sort {
+
+                display: block; text-align: center; padding: 1em 0;
+                border-top: 1px solid #ccc; opacity: 1;
+
+            }
+
+        }
+
+        .hiddenOnMobile {
+            display: none;
+        }
+
+    }
+
+    @include mediaMinWidth($breakpointMedium) {
+
+        .popupType1 & {
+
+            top: 5em; overflow: auto;
+
+        }
+
+        > .itemListCont {
+
+            padding: 1em 2em 2em;
+
+        }
+
+        > .topListControls {
+
+            padding: 0.5em 2em 0;
+
+            > .massActionsType1 {
+
+                float: left; padding-top: 1.5em;
+
+            }
+
+            > .sort {
+
+                float: right; margin-top: 1.3em;
+
+            }
+
+            > .pagination {
+
+                float: right; margin-top: 1.3em; margin-right: -1.2em; margin-left: 1.2em;
+
+            }
+
+        }
+
+        > .bottomListControls {
+
+            padding: 0 2em 2.5em;
+
+            > .sort {
+
+                display: none;
+
+            }
+
+            > .pagination {
+
+                margin-top: 0.5em; margin-right: -1.2em;
+
+            }
+
+        }
+
+    }
+
+}

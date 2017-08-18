@@ -1,0 +1,66 @@
+.appSearchType1 {
+
+    width: 30em; margin: -14em 0 0 -15em; position: fixed; left: 50%; top: 50%;
+    z-index: 20000; padding: 0 6em 0 0; box-sizing: border-box;
+    background-color: #FFF; border-radius: 0.4em;
+    box-shadow: 0 0.5em 2em rgba(#000, 0.2), 0 1em 6em rgba(#000, 0.1);
+
+    @include animation(slideDownFadeIn 0.2s);
+
+    &:before {
+
+        font-size: 2em; width: em(60,20); left: auto; right: 0; top: 0.7em; margin-top: 0;
+        color: $colorGrayLight2;
+
+    }
+
+    > input {
+
+        @include appearance(none);
+        font-size: 2em; display: block; width: 100%;
+        border: 0; padding: em(20,20); background-color: transparent;
+
+    }
+
+    .fs_results {
+
+        display: none; padding: 1em 0; margin-right: -6em;
+        max-height: 30em; overflow-y: auto;
+        border-top: 1px solid $colorGrayLight1;
+
+    }
+
+    &.fsr_opened > .fs_results {
+
+        @include animation(slideDownFadeIn 0.2s);
+        display: block;
+
+    }
+
+    .fs_result_item {
+
+        font-size: 1.7em; display: block; padding: em(10,17) em(20,17);
+        color: $colorGrayDark2;
+
+        &.focused {
+
+            background-color: #f9f9f9; color: $colorGrayDark1;
+
+        }
+
+    }
+
+    .fs_no_results {
+
+        font-size: 1.7em; display: block; padding: em(10,17) em(20,17);
+        color: darken($colorGrayLight2, 10%);
+
+    }
+
+    @include mediaMinWidth($breakpointMedium) {
+
+        width: 50em; margin: -18em 0 0 -25em;
+
+    }
+
+}

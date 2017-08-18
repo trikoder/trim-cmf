@@ -1,0 +1,143 @@
+.pagination {
+
+    .pages {
+
+        display: block; position: relative; padding: 0 3.6em; overflow: hidden;
+
+        > li {
+            display: inline-block;
+        }
+
+    }
+
+    .limitOptions {
+
+        > p, > .limitOption {
+
+            font-size: em(13,10); display: inline-block; line-height: (30/13); vertical-align: middle;
+            color: $colorGrayDark2; letter-spacing: 0.03em;
+
+        }
+
+        > p {
+
+            margin-right: em(3,13);
+
+        }
+
+        > .limitOption {
+
+            padding: 0 em(10,13);
+
+            &.selected {
+
+                @include fontSansCondensedBold;
+                background: rgba(#000, 0.05); border-radius: em(4,13);
+
+            }
+
+        }
+
+    }
+
+    .next, .prev {
+
+        position: absolute; top: 50%; margin-top: -2em;
+
+    }
+
+    .next {
+
+        right: 0;
+
+    }
+
+    .prev {
+
+        left: 0;
+
+    }
+
+    .page {
+
+        @include normalizeButton;
+
+        font-size: 1.4em; display:inline-block; padding: em(8,14) em(10,14); margin: 0 -1px;
+        color: $colorGrayDark2;
+
+        @include hover {
+
+            color: $colorMain1;
+
+        }
+
+        &.selected {
+
+            color: $colorMain1;
+
+        }
+
+    }
+
+    .icon {
+
+        @include normalizeButton;
+
+        font-size: 1.4em; width: em(40,14); height: em(40,14); padding: 0;
+
+        &:before { font-size: 1.2em; }
+
+        &.disabled {
+
+            cursor: default; opacity: 0.2;
+
+        }
+
+    }
+
+    .separator {
+
+        font-size: 1.3em;
+
+    }
+
+    @include mediaMaxWidth($breakpointMedium) {
+
+        .limitOptions {
+
+            padding: 0 1.5em 1em; box-sizing: border-box;
+            border-bottom: 1px solid #ccc;
+
+        }
+
+        .pages {
+
+            display: block; padding: 1em 0.3em; text-align: center;
+
+        }
+
+    }
+
+    @include mediaMinWidth($breakpointMedium) {
+
+        &.withLimitOptions {
+
+            @include clearfix;
+
+            > .pages {
+
+                float: right;
+
+            }
+
+            > .limitOptions {
+
+                float: left;
+
+            }
+
+        }
+
+    }
+
+}

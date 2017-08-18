@@ -1,0 +1,52 @@
+//--------------------------------------------------------------
+// Vendor css
+//--------------------------------------------------------------
+@import 'normalize.css/normalize';
+@import 'simple-lightbox/dist/simpleLightbox';
+@import 'dragula/dist/dragula';
+@import 'nanoscroller/bin/css/nanoscroller';
+@import 'simpleprompt/dist/prompt';
+
+//--------------------------------------------------------------
+// Main partials and components
+//--------------------------------------------------------------
+@import '../partials/icons';
+@import '../partials/webfonts';
+@import '../partials/core';
+@import '../partials/animations';
+@import '../partials/loadingSpinner';
+@import '../partials/formElements';
+@import '../partials/messageType1';
+@import '../partials/scroller';
+@import '../partials/popupType1';
+@import '../partials/mainNavigation';
+@import '../partials/headerType1';
+@import '../partials/fileUpload';
+@import '../partials/eventNotifications';
+@import '../partials/prompt';
+@import '../partials/errorPages';
+@import '../partials/appSearch';
+
+//--------------------------------------------------------------
+// Plugins
+//--------------------------------------------------------------
+@import '../partials/simplecal';
+
+//--------------------------------------------------------------
+// Resource list
+//--------------------------------------------------------------
+@import '../partials/resourceListType1';
+@import '../partials/filtersType1';
+@import '../partials/sortType1';
+@import '../partials/massActionsType1';
+@import '../partials/tableType1';
+@import '../partials/cardListType1';
+@import '../partials/pagination';
+@import '../partials/listElements';
+
+//--------------------------------------------------------------
+// Resource edit
+//--------------------------------------------------------------
+@import '../partials/tabs';
+@import '../partials/resourceEditType1';
+@import '../partials/fastSelect';

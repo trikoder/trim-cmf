@@ -1,0 +1,23 @@
+.nano {
+
+    > .nano-pane {
+
+        background: transparent; bottom: 2px;
+
+        > .nano-slider {
+
+            @include transition(background-color 0.2s);
+
+            margin: 1px; background-color: rgba(#000, 0.2);
+
+            &:hover {
+
+                background-color: rgba(#000, 0.5);
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,0 +1,121 @@
+.filtersType1 {
+
+    position: relative;
+
+    > .inner {
+
+        @include animation(fadeIn 0.3s);
+        padding: 1.5em; position: relative; box-sizing: border-box;
+        background-color: #f5f5f5; border-bottom: 1px solid $colorGrayLight1;
+
+    }
+
+    > .inner > .submitBtn {
+
+        @include normalizeButton;
+        @include fontSansCondensed;
+        font-size: 2.5em; padding: em(15,25) em(15,25); position: absolute; left: 0; right: 0; top: 0; width: inherit;
+        color: #a1a1a1; letter-spacing: 0.03em;
+
+        @include hover {
+            color: $colorGrayDark1;
+        }
+
+    }
+
+    .inlineInputBlockType1 {
+
+        margin: 0 1.5em 1em 0;
+
+    }
+
+    > .toggleBtn {
+
+        position: absolute; right: 0; bottom: 100%;
+        color: #a1a1a1;
+
+        &:before { font-size: 1.6em; }
+
+    }
+
+    > .toggleSizeBtn {
+
+        position: absolute; left: 50%; top: 100%; margin-top: -1em; margin: -1em 0 0 -2.5em;
+        width: 5em; height: 2em;
+        border: 1px solid $colorGrayLight2; border-radius: 0.3em; background-color: #f5f5f5;
+
+        &:before { font-size: 1.4em; color: darken($colorGrayLight2, 20%); }
+        &:hover { background-color: #fff; }
+
+        display: none;
+
+    }
+
+    @include mediaMaxWidth($breakpointMedium) {
+
+        > .inner {
+
+            display: none;
+
+        }
+
+        &.active > .inner {
+
+            @include animation(fadeIn 0.3s);
+            display: block;
+
+        }
+
+        &.active > .toggleBtn { color: $colorMain1; }
+
+    }
+
+    @include mediaMinWidth($breakpointMedium) {
+
+        > .inner {
+
+            display: block; padding: 2em 11em 1em 2em; min-height: 7.8em;
+
+        }
+
+        > .toggleBtn {
+
+            display: none;
+
+        }
+
+        > .inner > .submitBtn {
+
+            left: auto; right: 0; top: em(5,25); padding: em(18,25) em(20,25);
+
+        }
+
+        &.canContract {
+
+            > .inner {
+
+                height: 7.8em; overflow: hidden; border-color: $colorGrayLight2;
+
+            }
+
+            > .toggleSizeBtn { display: block; }
+
+            .inlineInputBlockType1 { margin: 0 1.5em 5em 0; }
+
+        }
+
+        &.sizeExpanded {
+
+            > .inner {
+
+                height: auto; overflow: visible;
+
+            }
+
+            .inlineInputBlockType1 { margin: 0 1.5em 1em 0; }
+
+        }
+
+    }
+
+}

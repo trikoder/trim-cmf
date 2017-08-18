@@ -1,0 +1,57 @@
+@include normalizePlusReset();
+@include pageEmEquivalent(10);
+
+//--------------------------------------------------------------
+// Main layout
+//--------------------------------------------------------------
+html,
+body {
+    min-height: 100%; background-color: $colorPageBackground1;
+}
+
+a {
+    color: $colorMain1;
+}
+
+body {
+
+    @include fontSansCondensed;
+    min-width: 32em; position: relative;
+    color: $colorGrayDark1;
+
+}
+
+.appContainer {
+
+    position: relative;
+
+    &:before {
+
+        position: absolute; content: ""; left: 0; top: 0; right: 0; height: 5em;
+        background-color: $colorMain1; border-bottom: 1px solid rgba(#000,0.12);
+
+    }
+
+    @include mediaMinWidth($breakpointMedium) {
+
+        padding: 5em 0 0 5em;
+
+        &:before { background-color: #fff; }
+
+    }
+
+}
+
+//--------------------------------------------------------------
+// Helper classes
+//--------------------------------------------------------------
+.cf { @include clearfix; }
+.nBtn { @include normalizeButton; }
+.icr { @include iconReplacement; }
+.hidden { display: none !important; }
+
+//--------------------------------------------------------------
+// Overrides
+//--------------------------------------------------------------
+.slbOverlay { z-index: 10010; }
+.slbWrapOuter { z-index: 10020; }

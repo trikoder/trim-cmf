@@ -1,0 +1,16 @@
+<header class="headerType1">
+    <h1 class="projectCaption">{{ projectCaption|safe }}</h1>
+    <h2 class="title">
+
+        {% for breadCrumb in breadCrumbs %}
+            {% if breadCrumb.url %}
+            <a class="iconArrowRight" href="{{ breadCrumb.url }}">{{ breadCrumb.name }}</a>
+            {% else %}
+            <span class="iconArrowRight">{{ breadCrumb.name }}</span>
+            {% endif %}
+        {% endfor %}
+
+        <span>{{ pageTitle }}</span>
+
+    </h2>
+</header>

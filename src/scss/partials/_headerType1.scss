@@ -1,0 +1,206 @@
+.headerType1 {
+
+    z-index: $zIndexHeader;
+    background-color: #fff; border-bottom: 1px solid rgba(#000, 0.15);
+
+    > .projectCaption {
+
+        @include fontSansCondensedBold;
+        font-size: 1.9em; line-height: em(50,19); position: relative; text-indent: em(50,19);
+        background-color: $colorMain1; color: #fff;
+
+        > span { @include fontSansCondensed; }
+
+    }
+
+    > .title {
+
+        @include fontSansCondensedBold;
+        @include animation(slideDownFadeIn 0.2s);
+        @include ellipsis;
+        font-size: 1.2em; padding: em(15,12) em(40,12) em(10,12) em(15,12); box-sizing: border-box; display: block;
+        color: $colorGrayDark2; text-transform: uppercase; letter-spacing: 0.04em;
+
+        > a, > span {
+
+            color: $colorGrayDark2; padding: 0; padding-right: em(15,12); position: relative; display: inline-block;
+
+            &:before {
+
+                left: auto; right: 0; text-align: right; font-size: 0.9em;
+                color: $colorGrayDark2;
+
+            }
+
+            &:last-child { padding-right: 0; }
+
+        }
+
+        > a:hover {
+
+            color: $colorMain1;
+
+        }
+
+    }
+
+    .dropdownControls {
+
+        float: left; position: relative;
+
+        > .dropdown {
+
+            position: absolute; top: 100%; right: 0; margin-top: -0.5em; display: none;
+            padding: 0.5em 0; box-sizing: border-box; min-width: 100%;
+            border: 1px solid rgba(#000, 0.1); background-color: #fff;
+            box-shadow: 0 0.5em 1em rgba(#000, 0.08);
+
+            > button, > a {
+
+                font-size: 1.6em; display: block; width: 100%; padding: em(9,16) em(20,16);
+                text-align: left; white-space: nowrap;
+
+                @include hover { color: $colorMain1; }
+
+            }
+
+        }
+
+        &.active > .dropdown {
+
+            @include animation(slideDownFadeIn 0.3s);
+            display: block;
+
+        }
+
+    }
+
+    .popupType1 & {
+
+        position: absolute; left: 0; right: 0;
+
+    }
+
+    @include mediaMaxWidth($breakpointMedium) {
+
+        .popupType1 & .projectCaption {
+
+            text-indent: -999em;
+
+        }
+
+        > .resourceControls {
+
+            @include animation(slideFromRight 0.2s);
+
+            position: absolute; right: 0; top: 0; height: 5em; z-index: $zIndexHeader;
+
+            > button, > a, .dropdownControls >.toggleBtn {
+
+                @include iconReplacement;
+                width: 4em; height: 5em; float: left; margin-left: 0.5em;
+                color: #fff;
+
+                &:before { font-size: 1.6em; }
+
+                &.hiddenOnMobile { display: none; }
+
+            }
+
+            > .dropdownControls {
+
+                float: left;
+
+                >.toggleBtn:before { font-size: 2.2em; }
+
+            }
+
+        }
+
+    }
+
+    @include mediaMinWidth($breakpointMedium) {
+
+        position: fixed; left: 5em; top: 0; right: 0; height: 5em;
+        border-bottom: 1px solid rgba(#000, 0.12);
+
+        > .projectCaption { display: none; }
+
+        > .title {
+
+            font-size: 1.4em; line-height: em(50,14); padding: 0 em(20,14); display: inline-block;
+
+        }
+
+        .popupType1 & > .title {
+
+            margin-left: em(50,14);
+
+        }
+
+        > .resourceControls {
+
+            @include animation(slideFromRight 0.2s);
+
+            position: absolute; right: 0; top: 0; height: 5em; z-index: $zIndexHeader + 10;
+
+            > button, > a, .dropdownControls >.toggleBtn {
+
+                @include fontSansCondensedBold;
+                font-size: 1.2em; padding: 0 em(20,12) 0 em(20,12); line-height: em(50,12);
+                float: left; position: relative;
+                text-transform: uppercase; letter-spacing: 0.05em; background-color: #fff;
+                color: $colorGrayDark2;
+
+                &:hover { color: $colorMain1; }
+
+                &:after {
+                    content: ""; position: absolute; left: 0; top: 1em; bottom: 1em; border-left: 1px solid $colorGrayLight1;
+                }
+
+                &.accented {
+
+                    padding: 0 em(40,12) 0 em(20,12);
+                    background-color: $colorMain1; color: #fff;
+
+                    &:hover { background-color: lighten($colorMain1,2%); color: #fff; }
+                    &:before { left: auto; right: 0; font-size: 1.2em; }
+                    &:after { top: 0; bottom: 0; border-color: darken($colorMain1, 5%); }
+
+                    &.icr {
+
+                        background-color: darken($colorMain1,3%);
+                        border: 1px solid darken($colorMain1, 8%); border-width: 0 1px;
+
+                    }
+
+                }
+
+                &.icr {
+
+                    padding: 0; width: em(35,12); height: em(50,12);
+
+                    &:before { left: 0; }
+
+                }
+
+                &.withLeftIcon {
+
+                    padding-left: em(37,12);
+
+                    &:before { font-size: 1.2em; }
+
+                }
+
+                &:first-child:after { display: none; }
+
+            }
+
+            .dropdown > button.hiddenOnDesktop,
+            .dropdown > a.hiddenOnDesktop { display: none; }
+
+        }
+
+    }
+
+}

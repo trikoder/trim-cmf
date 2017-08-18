@@ -1,0 +1,7 @@
+$output-bourbon-deprecation-warnings: false;
+
+@import 'bourbon/app/assets/stylesheets/bourbon';
+@import 'pelinkovac/scss/all';
+@import "variables";
+@import "projectMixins";
+@import "projectFunctions";

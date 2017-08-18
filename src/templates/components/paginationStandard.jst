@@ -1,0 +1,8 @@
+<div class="limitOptions">
+	<p>{{ resultsCaption }}:</p>
+	{% for limit in limitOptions %}
+    <button class="nBtn limitOption {{ 'selected' if limit.selected }}" type="button">{{ limit.value }}</button>
+	{% endfor %}
+</div>
+
+{% include 'templates/components/paginationSimple.jst' %}

@@ -1,0 +1,211 @@
+.resourceEditType1 {
+
+    @include animation(slideDownFadeIn 0.2s);
+
+    min-height: calc(100vh - 5em);
+    position: relative; box-sizing: border-box;
+    background-color: #fff;
+
+    > .layoutContainer {
+
+        padding: 3em 4em; max-width: 80em; margin: 0 auto;
+
+       &.withTabs {
+
+            padding: 0; max-width: none;
+
+            .tabPanelType1 {
+
+                padding: 4em; max-width: 80em; margin: 0 auto;
+
+                &.editLayoutRegions {
+
+                    padding: 0; max-width: none;
+
+                }
+
+            }
+
+       }
+
+       &.withRegions {
+
+            padding: 0; max-width: none;
+
+       }
+
+    }
+
+    .editLayoutRegions {
+
+        min-height: calc(100vh - 5em); overflow: hidden; position: relative;
+        background-color: #fff;
+
+        @include mediaMaxWidth($breakpointMedium) {
+
+            > .mainRegion {
+
+                padding: 1.5em;
+
+            }
+
+            > .sideRegion {
+
+                padding: 1.5em;
+                background-color: #f9f9f9; border: 1px solid $colorGrayLight1; border-width: 1px 0;
+
+            }
+
+        }
+
+        @include mediaMinWidth($breakpointMedium) {
+
+            &:before {
+
+                content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 32em;
+                background-color: #f9f9f9; border-left: 1px solid $colorGrayLight1;
+
+            }
+
+            > .mainRegion {
+
+                float: left; margin-left: -32em; width: 100%; padding: 3em 4em 3em 36em; position: relative; box-sizing: border-box;
+
+                > .regionInner {
+
+                    max-width: 80em; margin: 0 auto;
+
+                }
+
+            }
+
+            > .sideRegion {
+
+                float: right; width: 32em; padding: 3em 2em 3em; box-sizing: border-box; position: relative;
+
+            }
+
+        }
+
+    }
+
+    .inputBlockType1, .includedAdminBlockType1 {
+
+        @include animation(slideDownFadeIn 0.2s);
+        margin-bottom: 3em;
+
+    }
+
+    .includedAdminBlockType1 .inputBlockType1 {
+
+        @include animation(none);
+
+    }
+
+    .messageType1 {
+
+        @include animation(fadeIn 0.6s);
+
+        border-bottom: 1px solid $colorGrayLight1;
+
+    }
+
+    .popupType1 & {
+
+        position: absolute; left: 0; right: 0; bottom: 0; top: 5em; overflow-y: auto; min-height: 0;
+
+    }
+
+    .fieldRegionWrap {
+
+        margin: -2em -3em; position: relative;
+
+        .fieldRegion {
+
+            &.main {
+
+                padding: 2em 33em 2em 3em; box-sizing: border-box;
+
+            }
+
+            &.fieldRegion.secondary {
+
+                position: absolute; top: 0; right: 0; bottom: 0; overflow: auto;
+                width: 30em; padding: 2em 3em; box-sizing: border-box; background: #ededed;
+
+            }
+
+        }
+
+    }
+
+    .layoutGroupType1 {
+
+        padding: 1.5em 0 0 1.5em; margin-bottom: 3em;
+        background-color: #f5f5f5; border: 1px solid $colorGrayLight1; border-radius: 0.3em;
+
+        > .inlineInputBlockType1 {
+
+            margin: 0 1.5em 1.5em 0;
+
+        }
+
+    }
+
+    .layoutGroupType2 {
+
+        border-bottom: 1px solid $colorGrayLight1; padding: 2em 2em 0; margin: 0 -2em;
+
+        &:first-child {
+            padding-top: 0;
+        }
+
+        &:last-child {
+            border-bottom: 0;
+        }
+
+    }
+
+    .layoutGroupType3 {
+
+        padding: 1.5em 0;
+
+        > .inlineInputBlockType1 {
+
+            margin: 0 1.5em 1.5em 0;
+
+        }
+
+    }
+
+    &.mediaUploadType1 > .layoutContainer {
+
+        padding-top: 7em;
+
+        .fileUploadType1 { margin-bottom: 3em; }
+
+    }
+
+    @include mediaMaxWidth($breakpointMedium) {
+
+        > .layoutContainer {
+
+            padding: 1.5em;
+
+            &.withTabs .tabPanelType1 {
+
+                padding: 1.5em; max-width: 80em; margin: 0 auto;
+
+            }
+
+        }
+
+        .layoutGroupType1 {
+
+            margin: 0 -1.5em 3em; border-width: 1px 0; border-radius: 0;
+
+        }
+
+    }
+
+}

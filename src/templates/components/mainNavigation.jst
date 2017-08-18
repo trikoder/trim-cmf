@@ -1,0 +1,48 @@
+<button class="nBtn toggleBtn iconMenu icr">{{ projectCaption|safe }}</button>
+<div class="inner">
+    <button class="nBtn toggleBtn iconMenu">{{ projectCaption|safe }}</button>
+    <div class="scrollWrapper">
+        <div class="nano">
+            <ul class="menu nano-content">
+                {% for item in navigationItems %}
+                <li>
+                    {% if item.url %}
+                        <a href="{{ item.url }}" class="item {{ item.alias }}Link {{ 'icon' ~ item.iconClass if item.iconClass }}" title="{{ item.name }}">
+                            {{ item.name }}
+                            {% if not item.iconClass %}
+                            <span class="initials">{{ item.name|truncate(2, true, '') }}</span>
+                            {% endif %}
+                        </a>
+                    {% else %}
+                    <button type="button" class="nBtn itemToggle {{ 'icon' ~ item.iconClass if item.iconClass }}" title="{{ item.name }}">
+                        {{ item.name }}
+                        {% if not item.iconClass %}
+                        <span class="initials">{{ item.name|truncate(2, true, '') }}</span>
+                        {% endif %}
+                    </button>
+                    <ul class="subMenu">
+                        {% for subItem in item.subItems %}
+                        <li><a href="{{ subItem.url }}" class="item {{ subItem.alias }}Link" title="{{ subItem.name }}">{{ subItem.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="userPanel">
+        <button type="button" class="nBtn toggleBtn iconUser">{{ userCaption }}</button>
+        <ul>
+            {% for item in userNavigationItems %}
+            <li>
+                {% if item.url %}
+                <a href="{{ item.url }}" {{ 'target="_blank"' if item.newTab }} class="item {{ 'appLink' if item.appLink }}">{{ item.name|safe }}</a>
+                {% else %}
+                <button type="button" class="nBtn item">{{ item.name|safe }}</button>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
