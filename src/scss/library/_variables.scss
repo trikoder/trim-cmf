@@ -49,6 +49,10 @@ $icons: (
     search: '\e927',
     trash: '\e928',
     filters: '\e92b',
+    download: '\e92c',
+    link: '\e92d',
+    rotate: '\e92e',
+    upload: '\e92f',
 
     arrowUp: '\e922',
     arrowDown: '\e923',
@@ -70,12 +74,11 @@ $breakpointLarge: 1100;
 //--------------------------------------------------------------
 // Miscellaneous
 //--------------------------------------------------------------
-$assetsPathPrefix: '../';
+$assetBasePath: '../';
 $zIndexHeader: 200;
 
 //--------------------------------------------------------------
 // Icon font
 //--------------------------------------------------------------
 $iconFontName: 'cmsIconFont';
-$iconFontPath: '../font/icons/fonts/CMS';
 $iconFontVersion: 'v1.0';

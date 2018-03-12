@@ -51,7 +51,8 @@ module.exports = {
     },
     validation: {
         serverError: 'Server side error encountered',
-        globalErrorsMessage: 'Please check entries with errors'
+        globalErrorsMessage: 'Please check entries with errors',
+        mainEntitySavedWithRelatedErrors: 'Main entity is saved but there are related entries with errors'
     },
     formElements: {
         externalAdmin: {
@@ -70,6 +71,10 @@ module.exports = {
         },
         mediaPreview: {
             zoomImage: 'Zoom image'
+        },
+        fileAttachment: {
+            addFileCaption: 'Upload file attachment',
+            changeFileCaption: 'Change file attachment'
         },
         select: {
             loadingCaption: 'Loading...'
@@ -140,6 +145,7 @@ module.exports = {
         }
     },
     pagination: {
-        resultsCaption: 'Results per page'
+        resultsCaption: 'Results per page',
+        totalItemsCaption: 'Total'
     }
 };

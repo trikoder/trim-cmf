@@ -1,40 +1,40 @@
-module.exports = {
+export default {
     MainNavigation: function(callback) {
         callback(require('js/mainNavigation').default);
     },
     PageController: function(callback) {
-        require.ensure([], function() {
-            callback(require('js/controllers/page').default);
+        import('js/controllers/page').then(controller => {
+            callback(controller.default);
         });
     },
     ArticleController: function(callback) {
-        require.ensure([], function() {
-            callback(require('js/controllers/article').default);
+        import('js/controllers/article').then(controller => {
+            callback(controller.default);
         });
     },
     MediaController: function(callback) {
-        require.ensure([], function() {
-            callback(require('js/controllers/media').default);
+        import('js/controllers/media').then(controller => {
+            callback(controller.default);
         });
     },
     UserController: function(callback) {
-        require.ensure([], function() {
-            callback(require('js/controllers/user').default);
+        import('js/controllers/user').then(controller => {
+            callback(controller.default);
         });
     },
     TagController: function(callback) {
-        require.ensure([], function() {
-            callback(require('js/controllers/tag').default);
+        import('js/controllers/tag').then(controller => {
+            callback(controller.default);
         });
     },
     CategoryController: function(callback) {
-        require.ensure([], function() {
-            callback(require('js/controllers/category').default);
+        import('js/controllers/category').then(controller => {
+            callback(controller.default);
         });
     },
     MySettingsController: function(callback) {
-        require.ensure([], function() {
-            callback(require('js/controllers/mySettings').default);
+        import('js/controllers/mySettings').then(controller => {
+            callback(controller.default);
         });
     }
 };

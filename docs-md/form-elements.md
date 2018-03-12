@@ -52,7 +52,7 @@ All form element instance have access to following common methods:
 Text input element is used for handling textual data presented as HTML form input element.
 
 ```js
-var TextInput = require('js/formElements/text');
+import TextInput from 'js/formElements/text';
 ...
 editHandler.addField(TextInput, {
     label: 'Article title',
@@ -65,7 +65,7 @@ editHandler.addField(TextInput, {
 Hidden input element is used for handling textual data presented as HTML hidden input element.
 
 ```js
-var HiddenInput = require('js/formElements/hidden');
+import HiddenInput from 'js/formElements/hidden';
 ...
 editHandler.addField(HiddenInput, {
     name: 'title'
@@ -77,7 +77,7 @@ editHandler.addField(HiddenInput, {
 Textarea input element is used for handling textual data presented as HTML textarea element.
 
 ```js
-var TextareaInput = require('js/formElements/textarea');
+import TextareaInput from 'js/formElements/textarea';
 ...
 editHandler.addField(TextareaInput, {
     name: 'title',
@@ -96,7 +96,7 @@ editHandler.addField(TextareaInput, {
 Checkbox input element is used for handling data presented as HTML checkbox element.
 
 ```js
-var CheckboxInput = require('js/formElements/checkbox');
+import CheckboxInput from 'js/formElements/checkbox';
 ...
 editHandler.addField(CheckboxInput, {
     label: 'Article is published',
@@ -115,7 +115,7 @@ valueMap object
 Date input element is used for handling date data presented as HTML input element with attached datepicker.
 
 ```js
-var DateInput = require('js/formElements/date');
+import DateInput from 'js/formElements/date';
 ...
 editHandler.addField(DateInput, {
     label: 'Date',
@@ -128,7 +128,7 @@ editHandler.addField(DateInput, {
 Date input element is used for handling date data presented as HTML input element with attached date and time picker.
 
 ```js
-var DateTimeInput = require('js/formElements/dateTime');
+import DateTimeInput from 'js/formElements/dateTime';
 ...
 editHandler.addField(DateTimeInput, {
     label: 'Date',
@@ -146,7 +146,7 @@ editHandler.addField(DateTimeInput, {
 Html input element is used for handling HTML data presented as textarea with rich text editor.
 
 ```js
-var HtmlInput = require('js/formElements/html');
+import HtmlInput from 'js/formElements/html';
 ...
 editHandler.addField(HtmlInput, {
     label: 'Content',
@@ -160,7 +160,7 @@ editHandler.addField(HtmlInput, {
 Map element is used for handling geolocation data presented as google map.
 
 ```js
-var MapInput = require('js/formElements/map');
+import MapInput from 'js/formElements/map';
 ...
 editHandler.addField(MapInput, {
     label: 'Location on map',
@@ -184,7 +184,7 @@ editHandler.addField(MapInput, {
 Select element is used for handling option data presented as HTML select element.
 
 ```js
-var SelectInput = require('js/formElements/select');
+import SelectInput from 'js/formElements/select';
 
 editHandler.addField(SelectInput, {
     label: 'Status',
@@ -217,8 +217,8 @@ Object under selectOptions key:
 Multiple select element is used for handling option data capable of selecting multiple items.
 
 ```js
-var app = require('js/app');
-var MultipleSelectInput = require('js/formElements/multipleSelect');
+import app from 'js/app';
+import MultipleSelectInput from 'js/formElements/multipleSelect';
 ...
 editHandler.addField(MultipleSelectInput, {
     label: 'Tags',
@@ -251,8 +251,8 @@ Object under selectOptions key:
 Nested select element is used for handling hierarchy admin widget.
 
 ```js
-var app = require('js/app');
-var NestedSelectInput = require('js/formElements/nestedSelect');
+import app from 'js/app';
+import NestedSelectInput from 'js/formElements/nestedSelect';
 ...
 listHandler.addFilter(NestedSelectInput, {
     name: 'parentCategory',
@@ -287,7 +287,7 @@ Object under relation key defines relationship resource (must be defined in this
 State select element is used for handling state machine data types.
 
 ```js
-var StateSelect = require('js/formElements/stateSelect');
+import StateSelect from 'js/formElements/stateSelect';
 ...
 editHandler.addField(StateSelect, {
     label: 'Proof read',
@@ -331,7 +331,7 @@ Array of objects with all possible states:
 External admin element is used for handling related data through modal interface for resource controller.
 
 ```js
-var ExternalAdmin = require('js/formElements/externalAdmin');
+import ExternalAdmin from 'js/formElements/externalAdmin';
 ...
 listHandler.addFilter(ExternalAdmin, {
     name: 'tags',
@@ -379,9 +379,9 @@ Object under relation key defines relationship resource:
 Included admin element is used for handling related data through embeded admin interface inside current resource create/edit.
 
 ```js
-var ExternalAdmin = require('js/formElements/externalAdmin');
-var TextInput = require('js/formElements/text');
-var IncludedAdmin = require('js/formElements/includedAdmin');
+import ExternalAdmin from 'js/formElements/externalAdmin';
+import TextInput from 'js/formElements/text';
+import IncludedAdmin from 'js/formElements/includedAdmin';
 ...
 editHandler.addField(IncludedAdmin, {
     label: 'Povezani članci',
@@ -425,7 +425,7 @@ Object under relation key defines relationship resource:
 Media preview element is used for presenting media image entity in resource edit/crate view with attached lightbox functionality. Possible media types are "image", "audio", "file" and "animatedGif".
 
 ```js
-var MediaPreview = require('js/formElements/mediaPreview');
+import MediaPreview from 'js/formElements/mediaPreview';
 ...
 editHandler.addField(MediaPreview, {
     label: 'Photography',
@@ -442,7 +442,7 @@ editHandler.addField(MediaPreview, {
 Media element is used for handling media data presented as HTML widget with preview, attach and upload media entity.
 
 ```js
-var MediaInput = require('js/formElements/baseMedia');
+import MediaInput from 'js/formElements/baseMedia';
 ...
 editHandler.addField(MediaInput, {
     label: 'Main media',

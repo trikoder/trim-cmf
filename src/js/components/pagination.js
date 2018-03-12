@@ -1,16 +1,18 @@
-var router = require('js/app').get('router');
-var userPreferences = require('js/library/userPreferences');
-var translate = require('js/library/translate');
+var router = require('../app').get('router');
+var userPreferences = require('../library/userPreferences');
+var translate = require('../library/translate');
 var _ = require('underscore');
 var $ = require('jquery');
 
-var Pagination = require('js/library/view').extend({
+var Pagination = require('../library/view').extend({
 
     tagName: 'nav',
     className: 'pagination',
 
+    assignOptions: true,
+
     defaults: {
-        baseUrl: null,
+        baseUrl: String,
         useLinks: true,
         limit: undefined,
         limitOptions: [10, 15, 30, 60],
@@ -23,7 +25,6 @@ var Pagination = require('js/library/view').extend({
 
     initialize: function(options) {
 
-        this.options = _.extend({}, this.defaults, options);
         this.options.limit = this.options.limit || userPreferences.get(this.options.preferenceKey, 15);
 
         this.templates = {
@@ -170,6 +171,8 @@ var Pagination = require('js/library/view').extend({
 
         return {
             resultsCaption: translate('pagination.resultsCaption'),
+            totalItemsCaption: translate('pagination.totalItemsCaption'),
+            totalItems: options.totalItems,
             totalPages: totalPages,
             currentPage: currentPage,
             middlePages: _.range(startPage, endPage + 1),

@@ -1,9 +1,9 @@
 var $ = require('jquery');
-var BaseElement = require('js/formElements/baseElement');
+var BaseElement = require('../formElements/baseElement');
 var GoogleMapsLoader = require('google-maps');
-var bootData = require('js/library/bootData');
-var app = require('js/app');
-var translate = require('js/library/translate');
+var bootData = require('../library/bootData');
+var app = require('../app');
+var translate = require('../library/translate');
 var google;
 
 var loadGoogleMaps = function() {

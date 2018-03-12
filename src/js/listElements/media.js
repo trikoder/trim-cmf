@@ -1,6 +1,6 @@
 var $ = require('jquery');
-var BaseListElement = require('js/listElements/baseElement');
-var bootData = require('js/library/bootData');
+var BaseListElement = require('../listElements/baseElement');
+var bootData = require('../library/bootData');
 
 require('simple-lightbox');
 
@@ -85,10 +85,12 @@ module.exports = BaseListElement.extend({
 
     renderImage: function() {
 
-        this.$el.html(
+        var imageUrl = this.mediaModel.get(this.options.mapImageTo);
+
+        imageUrl ? this.$el.html(
             '<img src="' + this.mediaModel.get(this.options.mapImageTo) + '"/>\
             <button type="button" class="zoomImage previewBtn nBtn icr iconExpand">'
-        );
+        ) : this.renderPlaceholder();
 
     },
 

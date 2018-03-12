@@ -1,1 +1,1 @@
-@include defineIconFont($iconFontName, $iconFontPath, $iconFontVersion, $icons);
+@include defineIconFont($iconFontName, asset('font/icons/fonts/CMS'), $iconFontVersion, $icons);

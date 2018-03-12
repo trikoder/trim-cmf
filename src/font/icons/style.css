@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'CMS';
-  src:  url('fonts/CMS.eot?s0s7zf');
-  src:  url('fonts/CMS.eot?s0s7zf#iefix') format('embedded-opentype'),
-    url('fonts/CMS.ttf?s0s7zf') format('truetype'),
-    url('fonts/CMS.woff?s0s7zf') format('woff'),
-    url('fonts/CMS.svg?s0s7zf#CMS') format('svg');
+  src:  url('fonts/CMS.eot?o80y8h');
+  src:  url('fonts/CMS.eot?o80y8h#iefix') format('embedded-opentype'),
+    url('fonts/CMS.ttf?o80y8h') format('truetype'),
+    url('fonts/CMS.woff?o80y8h') format('woff'),
+    url('fonts/CMS.svg?o80y8h#CMS') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-download:before {
+  content: "\e92c";
+}
+.icon-external-link:before {
+  content: "\e92d";
+}
+.icon-rotate-ccw:before {
+  content: "\e92e";
+}
+.icon-upload:before {
+  content: "\e92f";
+}
 .icon-CMS_icon_fonts-01:before {
   content: "\e900";
 }
@@ -156,4 +168,3 @@
 .icon-CMS_icon_fonts-44:before {
   content: "\e92b";
 }
-

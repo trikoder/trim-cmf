@@ -1,6 +1,6 @@
 var backboneJsonApi = require('backbone-json-api');
 var _ = require('underscore');
-var app = require('js/app');
+var app = require('../app');
 
 // Model prototype methods
 _.extend(backboneJsonApi.Model.prototype, {

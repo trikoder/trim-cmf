@@ -1,5 +1,5 @@
-var bootData = require('js/library/bootData');
-var locale = require('js/app').getLocale();
+var bootData = require('../library/bootData');
+var locale = require('../app').getLocale();
 
 window.CKEDITOR_BASEPATH = bootData('assetsBuildPath') + 'ckeditor/';
 

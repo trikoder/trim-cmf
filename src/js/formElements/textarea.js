@@ -1,6 +1,6 @@
 var $ = require('jquery');
 var _ = require('underscore');
-var BaseElement = require('js/formElements/baseElement');
+var BaseElement = require('../formElements/baseElement');
 
 module.exports = BaseElement.extend({
 

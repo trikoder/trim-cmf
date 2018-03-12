@@ -1,9 +1,9 @@
 var $ = require('jquery');
 var _ = require('underscore');
-var router = require('js/app').get('router');
-var translate = require('js/library/translate');
+var router = require('../app').get('router');
+var translate = require('../library/translate');
 
-module.exports = require('js/library/view').extend({
+module.exports = require('../library/view').extend({
 
     tagName: 'form',
 
@@ -21,6 +21,11 @@ module.exports = require('js/library/view').extend({
             date: {
                 label: {className: 'labelType1'},
                 input: {className: 'inputType1', size: 10},
+                wrapper: {className: 'inlineInputBlockType1'}
+            },
+            dateTime: {
+                label: {className: 'labelType1'},
+                input: {className: 'inputType1', size: 17},
                 wrapper: {className: 'inlineInputBlockType1'}
             },
             checkbox: {

@@ -1,9 +1,9 @@
 var _ = require('underscore');
-var router = require('js/app').get('router');
-var SelectInput = require('js/formElements/select');
-var translate = require('js/library/translate');
+var router = require('../app').get('router');
+var SelectInput = require('../formElements/select');
+var translate = require('../library/translate');
 
-var Sort = require('js/library/view').extend({
+var Sort = require('../library/view').extend({
 
     tagName: 'nav',
     className: 'sort sortType1',
@@ -89,7 +89,13 @@ var Sort = require('js/library/view').extend({
 
     getUrlSort: function() {
 
-        return router.getQueryParam('sort') || this.getDefaultSort();
+        var querySort = router.getQueryParam('sort');
+
+        if (querySort && _.isArray(querySort) && querySort.length > 0) {
+            querySort = querySort[0];
+        }
+
+        return querySort || this.getDefaultSort();
 
     },
 

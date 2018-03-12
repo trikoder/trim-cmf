@@ -1,6 +1,6 @@
 var _ = require('underscore');
 var $ = require('jquery');
-var View = require('js/library/view');
+var View = require('../library/view');
 
 var prepareControl = function(config) {
 

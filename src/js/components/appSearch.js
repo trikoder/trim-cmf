@@ -1,13 +1,19 @@
 var $ = require('jquery');
-var router = require('js/app').get('router');
+var router = require('../app').get('router');
 var Fuse = require('fuse.js');
 var Fastsearch = require('fastsearch').fastsearch;
-var translate = require('js/library/translate');
+var translate = require('../library/translate');
 
-module.exports = require('js/library/view').extend({
+module.exports = require('../library/view').extend({
 
     tagName: 'form',
     className: 'appSearchType1 iconSearch',
+
+    assignOptions: true,
+
+    optionRules: {
+        items: Array
+    },
 
     initialize: function(options) {
 

@@ -1,12 +1,12 @@
 var $ = require('jquery');
 var _ = require('underscore');
-var BaseElement = require('js/formElements/baseElement');
-var ButtonListElement = require('js/listElements/button');
-var serviceContainer = require('js/library/serviceContainer');
-var EntityModel = require('js/library/entity').Model;
-var Popup = require('js/components/popup');
+var BaseElement = require('../formElements/baseElement');
+var ButtonListElement = require('../listElements/button');
+var serviceContainer = require('../library/serviceContainer');
+var EntityModel = require('../library/entity').Model;
+var Popup = require('../components/popup');
 var pascalcase = require('to-case').pascal;
-var translate = require('js/library/translate');
+var translate = require('../library/translate');
 
 var ExternalAmin = BaseElement.extend({
 
@@ -17,6 +17,9 @@ var ExternalAmin = BaseElement.extend({
         relation: {type: 'hasOne'},
         placeholderText: translate('formElements.externalAdmin.placeholderText'),
         showEditControl: false,
+        controller: undefined,
+        controllerMethod: 'index',
+        controllerMethodParams: [],
         onSelect: function(model) {
 
             if (_.isArray(model)) {
@@ -52,8 +55,8 @@ var ExternalAmin = BaseElement.extend({
 
         params = _.extend({
             controllerName: this.options.controller || this.options.relation.resourceName || this.options.name,
-            controllerMethod: 'index',
-            controllerMethodParams: []
+            controllerMethod: this.options.controllerMethod,
+            controllerMethodParams: this.options.controllerMethodParams
         }, params);
 
         serviceContainer.get(pascalcase(params.controllerName + 'Controller'), function(Controller) {
@@ -111,7 +114,8 @@ var ExternalAmin = BaseElement.extend({
                 attributes: {
                     className: 'nBtn externalAdminPicker iconArrowRight2'
                 },
-                action: options.onSelect.bind(externalAdmin)
+                action: options.onSelect.bind(externalAdmin),
+                isForeign: true
             });
 
         };
@@ -123,7 +127,7 @@ var ExternalAmin = BaseElement.extend({
                 massAction: options.onSelect.bind(externalAdmin)
             });
 
-            externalAdmin.listenTo(listHandler, 'beforeRenderItems', function() {
+            externalAdmin.listenToOnce(listHandler, 'beforeRenderItems', function() {
                 listHandler.massActions.resetSelectedModels(this.selectedModels);
             });
 
@@ -172,7 +176,7 @@ var ExternalAmin = BaseElement.extend({
             var itemCaption;
 
             if (model && this.options.mapCaptionTo) {
-                itemCaption = typeof this.options.mapCaptionTo === 'function' ? this.options.mapCaptionTo.call(this, model, this) : model.get(this.options.mapCaptionTo);
+                itemCaption = this.extractModelCaption(model);
             } else {
                 itemCaption = this.options.placeholderText;
             }
@@ -190,6 +194,14 @@ var ExternalAmin = BaseElement.extend({
             }
 
         });
+
+    },
+
+    extractModelCaption: function(model) {
+
+        var mapCaptionTo = this.options.mapCaptionTo;
+
+        return typeof mapCaptionTo === 'function' ? mapCaptionTo.call(this, model, this) : model.get(this.options.mapCaptionTo);
 
     },
 
@@ -233,7 +245,7 @@ var ExternalAmin = BaseElement.extend({
             this.selectedModels = models;
 
             _.each(models, function(model) {
-                var $item = $('<div>').addClass('item').text(model.get(this.options.mapCaptionTo)).appendTo(this.$inputWrapper);
+                var $item = $('<div>').addClass('item').text(this.extractModelCaption(model)).appendTo(this.$inputWrapper);
                 $('<button>').addClass('removeBtn iconClose icr nBtn').attr('data-id', model.get('id')).appendTo($item);
             }, this);
 
@@ -245,40 +257,52 @@ var ExternalAmin = BaseElement.extend({
 
     bootstrapHasManyModels: function(callback) {
 
-        if (this.selectedModels) {
+        var references = this.getValue();
 
-            callback.call(this, this.selectedModels);
+        if (!references) {
+            references = [];
+        } else {
+            references = _.isArray(references) ? references : references.split(',');
+        }
 
-        } else if (this.getValue()) {
+        if (references.length) {
 
-            if (this.entityModel && typeof this.entityModel.get(this.getName()) !== 'undefined') {
+            if (this.selectedModels && this.selectedModels.length) {
 
-                callback.call(this, this.entityModel.get(this.getName()).slice());
+                callback.call(this, this.selectedModels);
 
             } else {
 
-                var models = [];
-                var deferreds;
+                var relatedModels = this.entityModel && this.entityModel.get(this.getName());
 
-                this.setLoadingCaption();
+                if (relatedModels && relatedModels.length) {
 
-                deferreds = _.map(this.getValue().split(','), function(id) {
-                    return this.fetchEntityModel(id, function(model) {
-                        models.push(model);
-                    });
-                }, this);
+                    callback.call(this, relatedModels.slice());
 
-                $.when.apply($, deferreds).then(function() {
-                    this.removeLoadingCaption();
-                    callback.call(this, models);
-                }.bind(this));
+                } else {
+
+                    var models = [];
+                    var deferreds;
+
+                    this.setLoadingCaption();
+
+                    deferreds = _.map(references, function(id) {
+                        return this.fetchEntityModel(id, function(model) {
+                            models.push(model);
+                        });
+                    }, this);
+
+                    $.when.apply($, deferreds).then(function() {
+                        this.removeLoadingCaption();
+                        callback.call(this, models);
+                    }.bind(this));
+
+                }
 
             }
 
         } else {
-
             callback.call(this, []);
-
         }
 
     },

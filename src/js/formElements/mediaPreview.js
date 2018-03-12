@@ -1,6 +1,6 @@
 var $ = require('jquery');
-var BaseElement = require('js/formElements/baseElement');
-var translate = require('js/library/translate');
+var BaseElement = require('../formElements/baseElement');
+var translate = require('../library/translate');
 require('simple-lightbox');
 
 module.exports = BaseElement.extend({

@@ -1,21 +1,20 @@
-import FakeServer from 'fake-json-api-server';
-import fakeServerConfig from '../../../fakeServerConfig';
 import app from 'js/app';
 import services from 'js/services';
 import routes from 'js/routes';
 import translations from 'js/lang/english';
 import 'scss/main.scss';
-
-new FakeServer(fakeServerConfig).pretender.post('/api/media/upload', () => {
-    return [200, {'content-type': 'application/javascript', Location: '/api/media/1'}, ''];
-});
+import 'api-server';
 
 app
     .setBootData({
-        baseUrl: '/demo-app/',
-        assetsBuildPath: '/demo-app/dist/',
+        baseUrl: process.env.BASE_URL,
+        baseApiUrl: process.env.BASE_API_URL,
+        assetsBuildPath: process.env.ASSET_PATH,
         googleMapsApiKey: 'AIzaSyBVqg9EqOqARXVIaKRSC7pJpVeHKDRoU2I',
-        usesPushState: false
+        usesPushState: false,
+        resourceToApiMap: {
+            userContactEntry: 'userContactEntry'
+        }
     })
     .registerServices(services)
     .registerRoutes(routes)

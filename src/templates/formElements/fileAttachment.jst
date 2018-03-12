@@ -1,0 +1,27 @@
+<div class="mediaContainer">
+    {% if thumbnailUrl %}
+    <img src="{{ thumbnailUrl }}"/>
+        {% if currentFileUrl and currentFileIsImage and not isFileSelected %}
+        <a href="{{ currentFileUrl }}" class="zoomInBtn nBtn icr iconExpand"></a>
+        {% endif %}
+        {% if isFileSelected and thumbnailUrl %}
+        <a href="{{ thumbnailUrl }}" class="zoomInBtn nBtn icr iconExpand"></a>
+        {% endif %}
+    {% else %}
+    <button type="button" class="nBtn fileUploadClickable placeholderImage icr {{ 'iconFile large' if isFileSelected or currentFileUrl else 'iconPlus'}}">
+    {% endif %}
+</div>
+<div class="textControls">
+    <span class="fileUploadHandle fileUploadClickable">
+        {{ textControlCaption }}
+        {% if selectedFileName %}
+        <span class="fileName">{{ selectedFileName }}</span>
+        {% endif %}
+    </span>
+</div>
+{% if currentFileUrl and not currentFileIsImage %}
+<a href="{{ currentFileUrl }}" target="_blank" class="downloadBtn nBtn icr iconLink {{ 'fullSize' if not isFileSelected }}"></a>
+{% endif %}
+{% if isFileSelected %}
+<button type="button" class="removeBtn nBtn icr iconRotate"></button>
+{% endif %}

@@ -4,7 +4,7 @@ var selectorFromClass = function(classes) {
     return '.' + classes.replace(/\s/g, '.');
 };
 
-module.exports = require('js/library/view').extend({
+module.exports = require('../library/view').extend({
 
     parseEventVariables: true,
 

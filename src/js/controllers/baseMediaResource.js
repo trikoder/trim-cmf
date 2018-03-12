@@ -2,14 +2,14 @@ var $ = require('jquery');
 var _ = require('underscore');
 var pascalcase = require('to-case').pascal;
 var camelcase = require('to-case').camel;
-var FileUpload = require('js/components/fileUpload');
-var IncludedAdmin = require('js/formElements/includedAdmin');
-var Message = require('js/components/message');
-var ResourceControls = require('js/components/resourceControls');
-var router = require('js/app').get('router');
-var translate = require('js/library/translate');
-var EntityModel = require('js/library/entity').Model;
-var BaseResource = require('js/controllers/baseResource');
+var FileUpload = require('../components/fileUpload');
+var IncludedAdmin = require('../formElements/includedAdmin');
+var Message = require('../components/message');
+var ResourceControls = require('../components/resourceControls');
+var router = require('../app').get('router');
+var translate = require('../library/translate');
+var EntityModel = require('../library/entity').Model;
+var BaseResource = require('../controllers/baseResource');
 
 module.exports = BaseResource.extend({
 

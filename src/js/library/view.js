@@ -77,7 +77,7 @@ _.extend(BaseView.prototype, {
     followLink: function(e) {
 
         e.preventDefault();
-        require('js/app').get('router').navigateToUrl($(e.currentTarget), true);
+        require('../app').get('router').navigateToUrl($(e.currentTarget), true);
 
         return this;
 
@@ -136,6 +136,15 @@ _.extend(BaseView.prototype, {
         });
 
         return this;
+
+    },
+
+    handleValidateOptionsErrors: function(errorMessages) {
+
+        if (errorMessages.length) {
+            // eslint-disable-next-line
+            console.warn(errorMessages.join(' '));
+        }
 
     }
 

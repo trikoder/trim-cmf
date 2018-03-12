@@ -1,98 +1,155 @@
-const webpack = require('webpack');
-const { resolve } = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+var webpack = require('webpack');
+var path = require('path');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+require('dotenv').config();
 
 module.exports = function(env) {
 
-    const path = {
-
+    var paths = {
+        baseUrl: process.env.BASE_URL || '/demo-app/',
+        baseApiUrl: process.env.BASE_API_URL || '/demo-app/api',
         src: './src/',
-        dist: resolve(__dirname, 'dist') + '/',
-        public: '/demo-app/dist/',
-        packageNodeModules: resolve(__dirname, '../node_modules/')
-
+        dist: path.resolve(__dirname, 'dist') + '/',
+        public: process.env.PUBLIC_URL || '/demo-app/dist/',
+        nodeModules: 'node_modules',
+        cmfSrc: '../src/',
+        cmfNodeModules: '../node_modules'
     };
 
-    const webpackConfig = {
+    var webpackConfig = {
 
         entry: {
-
-            main: path.src + 'js/main.js'
-
+            main: paths.src + 'js/main.js',
+            login: paths.src + 'js/login.js'
         },
 
         output: {
-
-            path: path.dist,
+            path: paths.dist,
             filename: 'js/[name].js',
-            publicPath: path.public
+            publicPath: paths.public
+        },
 
+        devServer: {
+            contentBase: './dist'
         },
 
         module: {
-
             rules: [
 
                 {
                     test: /\.js$/,
                     use: [
-                        'babel-loader',
-                        'eslint-loader'
+                        {loader: 'babel-loader'},
+                        {loader: 'eslint-loader'}
                     ],
                     exclude: /node_modules/
                 },
 
                 {
-                    test: /\.(jst|nunj|nunjucks)$/,
+                    test: /\.(jst)$/,
                     use: [
                         {loader: 'nunjucks-loader'}
                     ]
                 },
 
                 {
-                    test: /\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-                    loader: 'file-loader?name=fonts/[name].[ext]'
+                    test: /\.scss$/,
+                    exclude: /login\.scss/,
+                    use: [
+                        {loader: 'style-loader'},
+                        {loader: 'css-loader'},
+                        {loader: 'sass-loader', options: {
+                            includePaths: [paths.nodeModules, paths.cmfNodeModules]
+                        }}
+                    ]
                 },
 
                 {
-                    test: /\.scss$/,
+                    test: /login\.scss/,
                     use: ExtractTextPlugin.extract({
-                        fallback: 'style-loader',
-                        use: [{
-                            loader: "css-loader"
-                        }, {
-                            loader: "sass-loader",
-                            options: {
-                                includePaths: [path.packageNodeModules]
-                            }
-                        }]
+                        use: [
+                            {loader: 'css-loader'},
+                            {loader: 'sass-loader', options: {
+                                includePaths: [paths.nodeModules, paths.cmfNodeModules]
+                            }}
+                        ]
                     })
                 },
 
                 {
+                    test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+                    loader: 'url-loader',
+                    options: {limit: 10000}
+                },
+
+                {
                     test: /\.css$/,
-                    use: [ 'style-loader', 'css-loader', ],
+                    use: [
+                        {loader: 'style-loader'},
+                        {loader: 'css-loader'}
+                    ]
                 }
 
             ],
-
         },
 
         resolve: {
-
             modules: [
-                path.src,
-                path.packageNodeModules,
-            ]
+                paths.src,
+                paths.cmfSrc,
+                paths.nodeModules,
+                paths.cmfNodeModules
+            ],
+            alias: {
+                'api-server': path.resolve(__dirname, 'src/js/server/' + (env.mode === 'production' ? 'client.js' : 'nodePlaceholder.js')),
+            }
+        },
 
+        stats : {
+            assets : true,
+            excludeAssets : [/.*ckeditor\/.*/]
         },
 
         plugins: [
 
-            new ExtractTextPlugin('css/[name].css'),
+            new webpack.DefinePlugin({
+                'process.env': {
+                    'NODE_ENV': JSON.stringify(env.mode),
+                    'BASE_URL': JSON.stringify(paths.baseUrl),
+                    'BASE_API_URL': JSON.stringify(paths.baseApiUrl),
+                    'ASSET_PATH': JSON.stringify(paths.public)
+                }
+            }),
 
-            new CopyWebpackPlugin([{from: path.packageNodeModules + '/ckeditor', to: path.dist + '/ckeditor'}])
+            new HtmlWebpackPlugin({
+                title: 'Trikoder admin',
+                template: 'src/templates/index.ejs',
+                chunks: ['main']
+            }),
+
+            new HtmlWebpackPlugin({
+                title: 'Trikoder admin',
+                template: 'src/templates/index.ejs',
+                filename: '../index.html',
+                chunks: ['main']
+            }),
+
+            new HtmlWebpackPlugin({
+                template: 'src/templates/login.ejs',
+                filename: '../login.html',
+                chunks: ['login']
+            }),
+
+            new CopyWebpackPlugin([{
+                from: require('path').dirname(require.resolve('ckeditor')),
+                to: paths.dist + 'ckeditor',
+                ignore: ['*.php']
+            }]),
+
+            new ExtractTextPlugin('css/[name].css')
 
         ]
 
@@ -105,12 +162,6 @@ module.exports = function(env) {
             debug: false
         }));
 
-        webpackConfig.plugins.push(new webpack.DefinePlugin({
-            'process.env': {
-                'NODE_ENV': JSON.stringify('production')
-            }
-        }));
-
         webpackConfig.plugins.push(new webpack.optimize.UglifyJsPlugin({
             comments: false,
             mangle: {
@@ -121,6 +172,8 @@ module.exports = function(env) {
                 warnings: false
             }
         }));
+
+        webpackConfig.plugins.push(new webpack.optimize.ModuleConcatenationPlugin());
 
     }
 

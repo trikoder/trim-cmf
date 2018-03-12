@@ -6,9 +6,7 @@ export default BaseResourceEdit.extend({
 
     setupModel: function(callback) {
 
-        Entity.Model.getFromApi({type: 'user', id: 1}, function(model) {
-            callback.call(this, model);
-        }, this);
+        Entity.Model.getFromApi({type: 'user', id: 1}, model => { callback(model); });
 
     },
 

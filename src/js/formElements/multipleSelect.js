@@ -1,8 +1,8 @@
 var $ = require('jquery');
 var _ = require('underscore');
-var BaseElement = require('js/formElements/baseElement');
-var EntityCollection = require('js/library/entity').Collection;
-var translate = require('js/library/translate');
+var BaseElement = require('../formElements/baseElement');
+var EntityCollection = require('../library/entity').Collection;
+var translate = require('../library/translate');
 
 require('fastselect');
 

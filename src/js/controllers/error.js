@@ -1,6 +1,6 @@
-var translate = require('js/library/translate');
+var translate = require('../library/translate');
 
-module.exports = require('js/controllers/baseAdmin').extend({
+module.exports = require('../controllers/baseAdmin').extend({
 
     pageNotFound: function() {
 

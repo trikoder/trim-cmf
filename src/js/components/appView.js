@@ -1,13 +1,16 @@
-var serviceContainer = require('js/library/serviceContainer');
+var serviceContainer = require('../library/serviceContainer');
+var BaseMainNavigation = require('./baseMainNavigation');
 var _ = require('underscore');
 
-module.exports = require('js/library/view').extend({
+module.exports = require('../library/view').extend({
 
     className: 'appContainer',
     assignOptions: true,
 
-    defaults: {
-        MainNavigationType: undefined
+    optionRules: {
+        MainNavigationType: {validator: function(Type) {
+            return Type.prototype instanceof BaseMainNavigation;
+        }}
     },
 
     initialize: function() {

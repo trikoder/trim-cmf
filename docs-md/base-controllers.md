@@ -1,5 +1,5 @@
 # Base controllers
-Trim UI CMF includes a number of predefined UI base controllers for common use cases.
+Trikoder UI CMF includes a number of predefined UI base controllers for common use cases.
 Beside resource controller that is most frequently extended base controllers for resource edit, nested resource and media resource are available.
 
 ## Resource controller
@@ -9,9 +9,9 @@ Used when you need to define how resource is browsed, filtered and sorted in lis
 
 Code example:
 ```js
-var BaseResource = require('js/controllers/baseResource')
+import BaseResource from 'js/controllers/baseResource';
 
-module.exports = BaseResource.extend({
+export default BaseResource.extend({
 
     resourceName: 'tag',
 
@@ -26,6 +26,49 @@ module.exports = BaseResource.extend({
 });
 ```
 
+Sometimes empty resource is required for meaningful create admin interface.
+In this case draft resource is created on api (with id but no attributes and relation data) and edited in UI immediately.
+
+```js
+export default BaseResource.extend({
+
+    resourceName: 'tag',
+    createRequiresDraft: true,
+    ...
+
+});
+```
+
+Explicit included relations and data can be specifed on resource controller index and edit actions:
+
+```js
+export default BaseResource.extend({
+
+    resourceName: 'tag',
+
+    includeApiData: {
+        index: ['media', 'author', 'author.media'],
+        edit: ['media', 'author', 'author.media']
+    },
+
+    ...
+
+});
+```
+Default behaviour for resource saving is for related resources to be saved before main resource.
+Alternate save strategy for main and related resources when resource is created is available by
+settting 'createRelatedStrategy' property on controller to 'relatedLast' value.
+
+```js
+export default BaseResource.extend({
+
+    resourceName: 'user',
+    createRelatedStrategy: 'relatedLast',
+    ...
+
+});
+```
+
 ## Resource edit controller
 Used when you want to edit one specific resource and listing is not available.
 Implement "setupModel" method and provide model instance to edit.
@@ -35,16 +78,14 @@ Visit demo application "My settings" interface to see this type of controller in
 Code example:
 
 ```js
-var EntityModel = require('js/library/entity').Model;
-var TextInput = require('js/formElements/text');
+import Entity from 'js/library/entity';
+import TextInput from 'js/formElements/text';
 
 module.exports = require('js/controllers/baseResourceEdit').extend({
 
     setupModel: function(callback) {
 
-        EntityModel.getFromApi({type: 'user', id: 1}, function(model) {
-            callback.call(this, model);
-        }, this);
+        Entity.Model.getFromApi({type: 'user', id: 1}, model => { callback(model); });
 
     },
 
@@ -97,9 +138,9 @@ Resource hierarchy is defined via parentCategory and childCategories relations.
 Our category resource controller should extend base nested resource controller.
 Via resourceConfig property we define parent and children relation mappings.
 ```js
-var BaseNestedResource = require('js/controllers/baseNestedResource');
+import BaseNestedResource from 'js/controllers/baseNestedResource';
 
-module.exports = BaseNestedResource.extend({
+export default BaseNestedResource.extend({
 
     resourceName: 'category',
 
@@ -148,7 +189,9 @@ Via resource config propery we define list of media types (image, file, videoEmb
 For each media type a method for edit handling is defined (setup[MediaType]Edit).
 
 ```js
-module.exports = require('js/controllers/baseMediaResource').extend({
+import BaseMediaResource from 'js/controllers/baseMediaResource';
+
+export default BaseMediaResource.extend({
 
     resourceName: 'media',
 

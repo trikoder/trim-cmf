@@ -1,21 +1,21 @@
-var _ = require('underscore');
-var translate = require('js/library/translate');
+var translate = require('../library/translate');
 
-module.exports = require('js/library/view').extend({
+module.exports = require('../library/view').extend({
 
-    defaults: {
-        content: '',
-        closeAfter: 3000,
-        action: null,
-        actionCaption: 'Ok',
-        closeCaption: translate('message.closeText')
+    assignOptions: true,
+
+    optionRules: {
+        content: {default: ''},
+        closeAfter: {type: [Number, Boolean], default: 3000},
+        action: {type: Function, required: false},
+        actionCaption: {type: String, default: 'Ok'},
+        closeCaption: {type: String, default: translate('message.closeText')}
     },
 
     className: 'messageType1',
 
     initialize: function(options) {
 
-        this.options = _.extend({}, this.defaults, options);
         this.render();
 
         if (this.options.closeAfter) {
@@ -52,7 +52,7 @@ module.exports = require('js/library/view').extend({
 
     executeAction: function() {
 
-        this.options.action();
+        this.options.action && this.options.action();
         this.close();
         return this;
 

@@ -1,5 +1,5 @@
-var BaseListElement = require('js/listElements/baseElement');
-var formatDate = require('js/library/formatDate');
+var BaseListElement = require('../listElements/baseElement');
+var formatDate = require('../library/formatDate');
 
 module.exports = BaseListElement.extend({
 
@@ -14,7 +14,15 @@ module.exports = BaseListElement.extend({
     render: function() {
 
         BaseListElement.prototype.render.call(this);
-        this.$el.html(formatDate(this.entityModel.get(this.options.mapTo), this.options.format));
+
+        var value = typeof this.options.mapTo === 'function' ? this.options.mapTo(this.entityModel, this) : this.entityModel.get(this.options.mapTo);
+
+        if (value === null || value === undefined || value === '') {
+            this.$el.html(this.processValueMapping(this.entityModel, this.options));
+        } else {
+            this.$el.html(formatDate(this.entityModel.get(this.options.mapTo), this.options.format));
+        }
+
         return this;
 
     }

@@ -1,7 +1,7 @@
 var _ = require('underscore');
 
 module.exports = {
-    baseApiUrl: '/demo-app/api',
+    baseApiUrl: process.env.BASE_API_URL,
     storageKey: 'fakeServerDataset',
     resources: {
         article: {
@@ -170,9 +170,54 @@ module.exports = {
                         id: String(index),
                         attributes: {
                             email: 'test.user' + index + '@gmail.com'
+                        },
+                        relationships: {
+                            contactData: {
+                                data: index === 1 ? [
+                                    {id: '1', type: 'userContactEntry'},
+                                    {id: '2', type: 'userContactEntry'}
+                                ] : null
+                            }
                         }
                     };
                 }).value();
+
+            }
+        },
+        userContactEntry: {
+            validationRules: {
+                label: {
+                    rule: function(label) {
+                        return label.length > 0;
+                    },
+                    message: 'Please enter label.'
+                },
+                entry: {
+                    rule: function(entry) {
+                        return entry.length > 0;
+                    },
+                    message: 'Please enter entry.'
+                }
+            },
+            data: function(random) {
+
+                return [{
+                    type: 'userContactEntry',
+                    id: '1',
+                    attributes: {
+                        label: 'Website',
+                        entry: 'www.example.com',
+                        position: 1
+                    }
+                }, {
+                    type: 'userContactEntry',
+                    id: '2',
+                    attributes: {
+                        label: 'Telephone',
+                        entry: '099 1000 000',
+                        position: 2
+                    }
+                }];
 
             }
         },
@@ -222,7 +267,7 @@ module.exports = {
                         attributes: {
                             title: 'Page ' + index,
                             published: random.boolean(),
-                            publishDate: new Date().toISOString()
+                            publishDate: index % 10 === 0 ? null : new Date().toISOString()
                         },
                         relationships: {
                             author: {data: {id: random.id(1, 5), type: 'user'}},
@@ -261,7 +306,9 @@ module.exports = {
                 attributes: {
                     title: 'Category 1',
                     description: 'Aenean gravida, orci in sagittis tincidunt, dolor quam pellentesque dolor, nec viverra neque nunc id mi.',
-                    published: true
+                    published: true,
+                    imageThumbnailUrl: 'http://pipsum.com/400x300.jpg?v=1',
+                    imageOriginalUrl: 'http://pipsum.com/1200x900.jpg?v=1'
                 },
                 relationships: {
                     parentCategory: {data: null},
@@ -273,7 +320,9 @@ module.exports = {
                 attributes: {
                     title: 'Category 2',
                     description: 'Aenean gravida, orci in sagittis tincidunt, dolor quam pellentesque dolor, nec viverra neque nunc id mi.',
-                    published: true
+                    published: true,
+                    imageThumbnailUrl: 'http://pipsum.com/400x300.jpg?v=2',
+                    imageOriginalUrl: 'http://pipsum.com/1200x900.jpg?v=2'
                 },
                 relationships: {
                     parentCategory: {data: null},
@@ -288,7 +337,9 @@ module.exports = {
                 attributes: {
                     title: 'Category 3',
                     description: 'Aenean gravida, orci in sagittis tincidunt, dolor quam pellentesque dolor, nec viverra neque nunc id mi.',
-                    published: true
+                    published: true,
+                    imageThumbnailUrl: 'http://pipsum.com/400x300.jpg?v=3',
+                    imageOriginalUrl: 'http://pipsum.com/1200x900.jpg?v=3'
                 },
                 relationships: {
                     parentCategory: {data: null},
@@ -302,7 +353,9 @@ module.exports = {
                 attributes: {
                     title: 'Category 4',
                     description: 'Aenean gravida, orci in sagittis tincidunt, dolor quam pellentesque dolor, nec viverra neque nunc id mi.',
-                    published: true
+                    published: true,
+                    imageThumbnailUrl: 'http://pipsum.com/400x300.jpg?v=4',
+                    imageOriginalUrl: 'http://pipsum.com/1200x900.jpg?v=4'
                 },
                 relationships: {
                     parentCategory: {data: {id: '2', type: 'category'}},
@@ -314,7 +367,9 @@ module.exports = {
                 attributes: {
                     title: 'Category 5',
                     description: 'Aenean gravida, orci in sagittis tincidunt, dolor quam pellentesque dolor, nec viverra neque nunc id mi.',
-                    published: true
+                    published: true,
+                    imageThumbnailUrl: 'http://pipsum.com/400x300.jpg?v=5',
+                    imageOriginalUrl: 'http://pipsum.com/1200x900.jpg?v=5'
                 },
                 relationships: {
                     parentCategory: {data: {id: '2', type: 'category'}},
@@ -328,7 +383,9 @@ module.exports = {
                 attributes: {
                     title: 'Category 6',
                     description: 'Aenean gravida, orci in sagittis tincidunt, dolor quam pellentesque dolor, nec viverra neque nunc id mi.',
-                    published: true
+                    published: true,
+                    imageThumbnailUrl: 'http://pipsum.com/400x300.jpg?v=6',
+                    imageOriginalUrl: 'http://pipsum.com/1200x900.jpg?v=6'
                 },
                 relationships: {
                     parentCategory: {data: {id: '3', type: 'category'}},
@@ -340,7 +397,9 @@ module.exports = {
                 attributes: {
                     title: 'Category 7',
                     description: 'Aenean gravida, orci in sagittis tincidunt, dolor quam pellentesque dolor, nec viverra neque nunc id mi.',
-                    published: true
+                    published: true,
+                    imageThumbnailUrl: 'http://pipsum.com/400x300.jpg?v=7',
+                    imageOriginalUrl: 'http://pipsum.com/1200x900.jpg?v=7'
                 },
                 relationships: {
                     parentCategory: {data: {id: '5', type: 'category'}},

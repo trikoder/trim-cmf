@@ -1,4 +1,4 @@
-export default (router) => {
+export default router => {
 
     router.route('', 'dashboard', {uses: 'Page@index'});
 

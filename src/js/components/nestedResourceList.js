@@ -1,7 +1,7 @@
 var $ = require('jquery');
 var _ = require('underscore');
-var ResourceList = require('js/components/resourceList');
-var View = require('js/library/view');
+var ResourceList = require('../components/resourceList');
+var View = require('../library/view');
 
 module.exports = ResourceList.extend({
 
@@ -126,6 +126,7 @@ module.exports = ResourceList.extend({
 
         var $row = $('<tr />');
         var rowView = new View({el: $row, model: model});
+        var $controlsCell;
 
         $row.data('viewInstance', rowView);
 
@@ -137,27 +138,29 @@ module.exports = ResourceList.extend({
             }));
         }
 
-        _.each(this.listItemsDefinitions, function(listItemDefinition) {
+        _.each(this.listItemsDefinitions, function(listItemDefinition, index) {
 
             var itemView = this.prepareListItemView(model, listItemDefinition);
             itemView.render();
 
-            $('<td>')
+            var $cell = $('<td>')
                 .addClass(listItemDefinition.Type.prototype.elementType + 'Cell')
                 .toggleClass('hiddenOnMobile', itemView.$el.hasClass('hiddenOnMobile'))
                 .append(itemView.$el)
                 .appendTo($row);
 
+            if (!$controlsCell && !listItemDefinition.options.isForeign) {
+                $controlsCell = $cell;
+            }
+
         }, this);
 
-        var $firstCell = $row.find('td:first-child');
-
-        !isLeaf && $firstCell.prepend(
+        !isLeaf && $controlsCell.prepend(
             '<button type="button" class="treeBtn nBtn icr iconPlus"></button>'
         );
 
         _.each(_.range(options.level + 1 + (isLeaf ? 0 : -1)), function() {
-            $firstCell.prepend('<span class="treeSpacer"></span>');
+            $controlsCell.prepend('<span class="treeSpacer"></span>');
         });
 
         if (this.options.addNestedCreateControl) {
@@ -300,7 +303,15 @@ module.exports = ResourceList.extend({
                 return model.get(this.options.mapIsLeafTo);
             }
         } else {
-            return Boolean(this.getEntityChildren(model)) === false;
+
+            var children = this.getEntityChildren(model);
+
+            if (children && typeof children.length !== 'undefined') {
+                return children.length === 0;
+            } else {
+                return Boolean(children) === false;
+            }
+
         }
 
     }

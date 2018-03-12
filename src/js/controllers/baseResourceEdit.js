@@ -1,10 +1,10 @@
 var _ = require('underscore');
-var BaseAdmin = require('js/controllers/baseAdmin');
-var EditHandler = require('js/components/resourceEdit');
-var ResourceControls = require('js/components/resourceControls');
-var app = require('js/app');
-var translate = require('js/library/translate');
-var EntityModel = require('js/library/entity').Model;
+var BaseAdmin = require('../controllers/baseAdmin');
+var EditHandler = require('../components/resourceEdit');
+var ResourceControls = require('../components/resourceControls');
+var app = require('../app');
+var translate = require('../library/translate');
+var EntityModel = require('../library/entity').Model;
 
 module.exports = BaseAdmin.extend({
 
@@ -25,7 +25,7 @@ module.exports = BaseAdmin.extend({
 
         this.setViewData('projectCaption', app.get('mainNavigation').getProjectCaption());
 
-        this.setupModel(this.edit);
+        this.setupModel(this.edit.bind(this));
 
     },
 
@@ -60,13 +60,15 @@ module.exports = BaseAdmin.extend({
             tagName: 'form',
             className: 'resourceEdit resourceEditType1',
             model: entityModel,
-            afterUpdate: function() {
+            afterSave: function() {
+
                 controller.scrollTo(0, 300, function() {
                     editHandler.renderLayout(function() {
                         editHandler.renderMessage({content: controller.options.entitySavedMessage});
                         controller.trigger('entityUpdated', editHandler.entityModel);
                     });
                 });
+
             }
         }));
 

@@ -1,0 +1,66 @@
+.pagePreviewType1 {
+
+    > .controls {
+
+        padding: 2em;
+
+    }
+
+    .sizeControls {
+
+        display: inline-block; vertical-align: middle;
+        border: 1px solid #777; border-radius: 0.3em;
+
+        > button {
+
+            @include transition(color 0.3s);
+
+            font-size: 1.3em; padding: em(4,13) em(20,13);
+            color: #777;
+
+            &:not(:first-child) {
+
+                border-left: 1px solid #777;
+
+            }
+
+            &.active,
+            &:hover { color: #fff; }
+
+        }
+
+    }
+
+    .previewUrl {
+
+        @include appearance(none);
+        @include ellipsis(45%);
+
+        font-size: 1.4em;  display: inline-block; vertical-align: middle;
+        margin-left: em(20,14); width: 45%;
+        color: #777; border: 0; background: transparent;
+
+    }
+
+    > .pageContainerWrap {
+
+        position: absolute; left: 2em; right: 2em; top: 6.8em; bottom: 0;
+
+    }
+
+    .pageContainer {
+
+        @include transition(width 0.5s);
+
+        position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+        box-shadow: 0 0.2em 0.5em rgba(#000, 0.4);
+
+        > iframe {
+
+            position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+
+        }
+
+    }
+
+}

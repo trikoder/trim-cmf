@@ -1,12 +1,12 @@
 var $ = require('jquery');
 var _ = require('underscore');
-var BaseElement = require('js/formElements/baseElement');
-var EditHandler = require('js/components/resourceEdit');
-var EntityModel = require('js/library/entity').Model;
-var EntityCollection = require('js/library/entity').Collection;
-var HiddenInput = require('js/formElements/hidden');
-var router = require('js/app').get('router');
-var translate = require('js/library/translate');
+var BaseElement = require('../formElements/baseElement');
+var EditHandler = require('../components/resourceEdit');
+var EntityModel = require('../library/entity').Model;
+var EntityCollection = require('../library/entity').Collection;
+var HiddenInput = require('../formElements/hidden');
+var router = require('../app').get('router');
+var translate = require('../library/translate');
 var dragula = require('dragula');
 
 module.exports = BaseElement.extend({
@@ -103,8 +103,12 @@ module.exports = BaseElement.extend({
 
     collectionToValue: function() {
 
-        return this.setValue(this.modelCollection.map(function(model) {
+        var modelIds = this.modelCollection.map(function(model) {
             return model.get('id');
+        });
+
+        return this.setValue(_.filter(modelIds, function(id) {
+            return id !== null && id !== undefined;
         }));
 
     },
@@ -209,6 +213,19 @@ module.exports = BaseElement.extend({
 
     },
 
+    setMainRelationReference: function(id) {
+
+        _.each(this.getGroupViews('rows'), function(rowView) {
+            if (rowView.model.isNew() && this.entityModel) {
+                var mainRelationField = rowView.getFieldInstance(this.entityModel.getType());
+                mainRelationField && mainRelationField.setValue(id);
+            }
+        }, this);
+
+        return this;
+
+    },
+
     addNewIncludedItem: function(model) {
 
         var addModel = function(rowModel) {
@@ -245,9 +262,17 @@ module.exports = BaseElement.extend({
 
         } else {
 
-            return this.when(_.map(this.getGroupViews('rows'), function(rowView) {
+            var deferreds = _.map(this.getGroupViews('rows'), function(rowView) {
                 return rowView.save();
+            });
+
+            this.when(_.map(deferreds, function(deferred) {
+                var fullfilled = $.Deferred();
+                deferred.always(function() { fullfilled.resolve(); });
+                return fullfilled;
             }), this.collectionToValue);
+
+            return this.when(deferreds);
 
         }
 

@@ -24,8 +24,7 @@ a {
 
 html {
 
-    background: $colorPageBackground1 url(asset('images/login.jpg')) no-repeat center center;
-    background-size: cover;
+    background-color: #fbfbfb;
 
 }
 
@@ -48,7 +47,9 @@ body {
 
 .login {
 
-    background: #fff; min-width: 30em;
+    min-width: 30em;
+    background: #fff; border: 1px solid $colorGrayLight1;
+    box-shadow: 0 2px 5px rgba(#000, 0.05);
 
     > .title {
 
@@ -62,7 +63,7 @@ body {
 
     .messageType1 {
 
-        margin-bottom: 2.5em;
+        margin: em(-20,14) em(-20,14) em(25,14) em(-20,14);
 
     }
 
@@ -74,15 +75,16 @@ body {
 
             @include normalizeButton;
             @include fontSansCondensedBold;
+            @include transition(box-shadow 0.2s, color 0.2s);
 
             font-size: 1.4em; color: $colorGrayDark2; text-transform: uppercase; letter-spacing: 0.03em;
-            display: block; width: 100%; padding:em(15,14); margin-top: em(35,14);
-            border: 1px solid $colorGrayLight2; box-shadow: 0 0.1em 0.3em rgba(#000, 0.08);
+            display: block; width: 100%; padding: em(17,14) em(15,14); margin-top: em(35,14);
+            border: 1px solid $colorGrayLight2;
+            box-shadow: 0 1px 3px rgba(#000, 0.05);
 
-            &:hover {
-
-                box-shadow: 0 0.1em 0.8em rgba(#000, 0.1);
-
+            @include hover {
+                color: $colorMain1;
+                box-shadow: 0 2px 6px rgba(#000, 0.05);
             }
 
         }
@@ -194,9 +196,15 @@ body {
 
         width: 45em; margin: 7em auto 7em;
 
+        .messageType1 {
+
+            margin: em(-40,14) em(-40,14) em(30,14) em(-40,14);
+
+        }
+
         > .form {
 
-            padding: 4.5em 5em;
+            padding: 4em;
 
         }
 

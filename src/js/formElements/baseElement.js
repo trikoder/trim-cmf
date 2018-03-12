@@ -1,10 +1,10 @@
-var attributeMixin = require('js/library/attributeMixin');
+var attributeMixin = require('../library/attributeMixin');
 var $ = require('jquery');
 var _ = require('underscore');
 
 var instanceCounter = 0;
 
-var BaseElement = require('js/library/view').extend({
+var BaseElement = require('../library/view').extend({
 
     initialize: function(params) {
 

@@ -1,4 +1,4 @@
-var BaseListElement = require('js/listElements/baseElement');
+var BaseListElement = require('../listElements/baseElement');
 
 module.exports = BaseListElement.extend({
 

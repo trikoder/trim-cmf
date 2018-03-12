@@ -1,8 +1,8 @@
 var $ = require('jquery');
 var _ = require('underscore');
-var BaseListElement = require('js/listElements/baseElement');
+var BaseListElement = require('../listElements/baseElement');
 var prompt = require('simpleprompt').simplePrompt;
-var translate = require('js/library/translate');
+var translate = require('../library/translate');
 
 module.exports = BaseListElement.extend({
 

@@ -6,7 +6,9 @@ var queryString = require('query-string');
 var camelcase = require('to-case').camel;
 var slugcase = require('to-case').slug;
 var pascalcase = require('to-case').pascal;
-var apiFormatter = require('js/library/apiFormatter');
+var apiFormatter = require('../library/apiFormatter');
+var urlJoin = require('url-join');
+var bootData = require('../library/bootData');
 
 module.exports = RouterParent.extend({
 
@@ -90,7 +92,7 @@ module.exports = RouterParent.extend({
     appendQueryParams: function(base, queryParams) {
 
         if (!_.isEmpty(queryParams)) {
-            return base + (base.indexOf('?') < 0 ? '?' : '') + queryString.stringify(queryParams);
+            return base + (base.indexOf('?') < 0 ? '?' : '&') + queryString.stringify(queryParams);
         } else {
             return base;
         }
@@ -99,13 +101,13 @@ module.exports = RouterParent.extend({
 
     apiUrl: function(resourceName, resourceId, queryParams) {
 
-        var url = this.options.root + 'api/' + slugcase(resourceName);
+        var resourceApiSlug = bootData('resourceToApiMap.' + resourceName, slugcase(resourceName));
+        var baseApiUrl = this.options.apiRoot || urlJoin([this.options.root, 'api']);
+        var apiUrl = urlJoin(_.filter([baseApiUrl, resourceApiSlug, resourceId], function(item) {
+            return !_.contains(['', null, undefined, false, true, NaN], item);
+        }));
 
-        if (resourceId !== null && typeof resourceId !== 'undefined') {
-            url += ('/' + resourceId);
-        }
-
-        return this.appendQueryParams(url, apiFormatter.flatten(_.pick(queryParams, 'page', 'filter', 'sort')));
+        return this.appendQueryParams(apiUrl, apiFormatter.flatten(_.pick(queryParams, 'page', 'filter', 'sort')));
 
     }
 

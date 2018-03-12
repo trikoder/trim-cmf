@@ -1,9 +1,9 @@
 var $ = require('jquery');
 var _ = require('underscore');
-var BaseElement = require('js/formElements/baseElement');
-var formatDate = require('js/library/formatDate');
+var BaseElement = require('../formElements/baseElement');
+var formatDate = require('../library/formatDate');
 var parseDate = require('fecha').parse;
-var translate = require('js/library/translate');
+var translate = require('../library/translate');
 
 require('simplecalendar');
 

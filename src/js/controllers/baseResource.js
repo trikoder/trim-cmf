@@ -1,11 +1,12 @@
 var _ = require('underscore');
-var BaseAdmin = require('js/controllers/baseAdmin');
-var ListHandler = require('js/components/resourceList');
-var EditHandler = require('js/components/resourceEdit');
-var ResourceControls = require('js/components/resourceControls');
-var EntityModel = require('js/library/entity').Model;
-var router = require('js/app').get('router');
-var translate = require('js/library/translate');
+var $ = require('jquery');
+var BaseAdmin = require('../controllers/baseAdmin');
+var ListHandler = require('../components/resourceList');
+var EditHandler = require('../components/resourceEdit');
+var ResourceControls = require('../components/resourceControls');
+var EntityModel = require('../library/entity').Model;
+var router = require('../app').get('router');
+var translate = require('../library/translate');
 var prompt = require('simpleprompt').simplePrompt;
 
 module.exports = BaseAdmin.extend({
@@ -22,6 +23,7 @@ module.exports = BaseAdmin.extend({
     },
 
     createRequiresDraft: false,
+    createRelatedStrategy: 'relatedFirst',
 
     initialize: function(options) {
 
@@ -62,9 +64,15 @@ module.exports = BaseAdmin.extend({
         this.setupList(listHandler);
 
         if (params && _.isObject(params)) {
+
             params.filters && listHandler.filters.setDefinitionValues(params.filters);
             params.page && listHandler.pagination.setPage(params.page);
             params.sort && listHandler.sort.setSort(params.sort);
+
+        }
+
+        if (this.includeApiData && this.includeApiData.index) {
+            listHandler.includeApiData(this.includeApiData.index);
         }
 
         this.render();
@@ -76,7 +84,7 @@ module.exports = BaseAdmin.extend({
 
         return {
             resourceName: this.resourceName,
-            resourceUrl: this.options.isExternal ? undefined : router.url('resource.' + this.resourceName + '.index'),
+            resourceUrl: this.options.isExternal ? undefined : this.getIndexUrl(params),
             resourceCaption: this.resourceCaption,
             apiUrl: router.apiUrl(this.resourceName),
             useUrl: !this.options.isExternal,
@@ -117,7 +125,8 @@ module.exports = BaseAdmin.extend({
                 className: 'resourceEdit resourceEditType1',
                 resourceName: this.resourceName,
                 apiUrl: router.apiUrl(this.resourceName),
-                afterCreate: function(model) {
+                saveStrategy: this.createRelatedStrategy,
+                afterSave: function(model) {
 
                     controller.openEdit(model.get('id'));
 
@@ -134,13 +143,23 @@ module.exports = BaseAdmin.extend({
             editHandler.prepareEntityModel(function(entityModel) {
 
                 controller.trigger('entityModelPrepared', entityModel);
-                controller.setupEdit(editHandler, 'create');
-                controller.render();
-                editHandler.appendTo(controller).render();
+
+                controller.runSetupEdit(editHandler, 'create', null).done(function() {
+                    controller.render();
+                    editHandler.appendTo(controller).render();
+                }).fail(function(errorMessage) {
+                    controller.showSystemError(errorMessage);
+                });
 
             });
 
         }
+
+    },
+
+    runSetupEdit: function(editHandler, method, id) {
+
+        return $.when(this.setupEdit ? this.setupEdit(editHandler, method, id) : $.Deferred().reject());
 
     },
 
@@ -161,13 +180,15 @@ module.exports = BaseAdmin.extend({
             resourceName: this.resourceName,
             resourceId: id,
             apiUrl: router.apiUrl(this.resourceName, id),
-            afterUpdate: function() {
+            afterSave: function() {
+
                 controller.scrollTo(0, 300, function() {
                     editHandler.renderLayout(function() {
                         editHandler.renderMessage({content: controller.options.entitySavedMessage});
                         controller.trigger('entityUpdated', editHandler.entityModel);
                     });
                 });
+
             }
         }));
 
@@ -183,9 +204,13 @@ module.exports = BaseAdmin.extend({
         editHandler.prepareEntityModel(function(entityModel) {
 
             controller.trigger('entityModelPrepared', entityModel);
-            controller.setupEdit(editHandler, 'edit', id);
-            controller.render();
-            editHandler.appendTo(controller).render();
+
+            controller.runSetupEdit(editHandler, 'edit', id).done(function() {
+                controller.render();
+                editHandler.appendTo(controller).render();
+            }).fail(function(errorMessage) {
+                controller.showSystemError(errorMessage);
+            });
 
         });
 
@@ -205,15 +230,8 @@ module.exports = BaseAdmin.extend({
 
     openIndex: function(params) {
 
-        var queryParams = params ? _.extend(
-            {},
-            params.filters,
-            (params.page ? {page: params.page} : null),
-            (params.sort ? {sort: params.sort} : null)
-        ) : null;
-
         if (!this.options.isExternal) {
-            router.navigateToRoute('resource.' + this.resourceName + '.index', null, !_.isEmpty(queryParams) ? queryParams : null);
+            router.navigateToUrl(this.getIndexUrl(params));
         }
 
         this.index(params);
@@ -254,7 +272,20 @@ module.exports = BaseAdmin.extend({
 
     getIndexUrl: function(params) {
 
-        return router.url('resource.' + this.resourceName + '.index', null, params ? _.extend({}, params.filters) : null);
+        return router.url('resource.' + this.resourceName + '.index', null, this.getIndexUrlQueryParams(params));
+
+    },
+
+    getIndexUrlQueryParams: function(params) {
+
+        var queryParams = params ? _.extend(
+            {},
+            params.filters,
+            (params.page ? {page: params.page} : null),
+            (params.sort ? {sort: params.sort} : null)
+        ) : null;
+
+        return _.isEmpty(queryParams) ? null : queryParams;
 
     },
 

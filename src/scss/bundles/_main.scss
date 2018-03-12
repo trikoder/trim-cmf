@@ -1,11 +1,11 @@
 //--------------------------------------------------------------
 // Vendor css
 //--------------------------------------------------------------
-@import 'normalize.css/normalize';
-@import 'simple-lightbox/dist/simpleLightbox';
-@import 'dragula/dist/dragula';
-@import 'nanoscroller/bin/css/nanoscroller';
-@import 'simpleprompt/dist/prompt';
+@import '~normalize.css/normalize';
+@import '~simple-lightbox/dist/simpleLightbox';
+@import '~dragula/dist/dragula';
+@import '~nanoscroller/bin/css/nanoscroller';
+@import '~simpleprompt/dist/prompt';
 
 //--------------------------------------------------------------
 // Main partials and components
@@ -19,6 +19,7 @@
 @import '../partials/messageType1';
 @import '../partials/scroller';
 @import '../partials/popupType1';
+@import '../partials/pagePreviewType1';
 @import '../partials/mainNavigation';
 @import '../partials/headerType1';
 @import '../partials/fileUpload';

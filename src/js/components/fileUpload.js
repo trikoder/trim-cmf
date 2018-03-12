@@ -1,9 +1,9 @@
 var $ = require('jquery');
 var _ = require('underscore');
 var Dropzone = require('dropzone');
-var translate = require('js/library/translate');
+var translate = require('../library/translate');
 
-module.exports = require('js/library/view').extend({
+module.exports = require('../library/view').extend({
 
     className: 'fileUploadType1',
 

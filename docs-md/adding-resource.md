@@ -23,12 +23,12 @@ We will need a component to describe how resource is browsed, filtered and sorte
 For this purpose we will build a tag resource controller in 'js/controllers/tag.js' file:
 
 ```js
-var TextListItem = require('js/listElements/text');
-var LinkListItem = require('js/listElements/link');
-var TextInput = require('js/formElements/text');
-var BaseResource = require('js/controllers/baseResource')
+import BaseResource from 'js/controllers/baseResource';
+import LinkListItem from 'js/listElements/link';
+import TextListItem from 'js/listElements/text';
+import TextInput from 'js/formElements/text';
 
-module.exports = BaseResource.extend({
+export default BaseResource.extend({
 
     resourceName: 'tag',
 
@@ -84,7 +84,7 @@ Browse [router docs](core-concepts-and-api#router) to learn more.
 ## Add navigation item
 Open your main navigation component (js/mainNavigation.js) and add new navigation item:
 ```js
-getNavigationItems: function(router) {
+getNavigationItems: router => {
     return [
         {name: 'Pages', alias: 'page', url: router.url('resource.page.index'), iconClass: 'Home'},
         {name: 'Misc', iconClass: 'ThreeDots', subItems: [
@@ -103,8 +103,8 @@ Using webpacks require.ensure we load our new controller code and its dependenci
 ```js
 ...
 TagController: function(callback) {
-    require.ensure([], function() {
-        callback(require('js/controllers/tag'));
+    import('js/controllers/tag').then(controller => {
+        callback(controller.default);
     });
 },
 ...

@@ -1,21 +1,21 @@
 module.exports = {
     Router: function(callback) {
-        callback(require('js/library/router'));
+        callback(require('./library/router'));
     },
     AppView: function(callback) {
-        callback(require('js/components/appView'));
+        callback(require('./components/appView'));
     },
     MainNavigation: function(callback) {
-        callback(require('js/components/baseMainNavigation'));
+        callback(require('./components/baseMainNavigation'));
     },
     AppSearch: function(callback) {
         require.ensure([], function() {
-            callback(require('js/components/appSearch'));
+            callback(require('./components/appSearch'));
         });
     },
     ErrorController: function(callback) {
         require.ensure([], function() {
-            callback(require('js/controllers/error'));
+            callback(require('./controllers/error'));
         });
     }
 };

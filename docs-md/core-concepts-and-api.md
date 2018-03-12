@@ -1,5 +1,5 @@
 # Core concepts and api
-Understanding of how core components work is essential for building applications with Trim UI CMF.
+Understanding of how core components work is essential for building applications with Trikoder UI CMF.
 This chapter provides insight into resource controller, resource list, resource edit, router, navigation, service container and application object.
 
 ## Resource controller
@@ -13,9 +13,9 @@ Resource controller is a container component which calls service components for 
 All resource controllers share same basic skeleton. We define what resource type controller is handling (resourceName) and implement methods for resource listing (setupList) and resource editing (setupEdit):
 
 ```js
-var BaseResource = require('js/controllers/baseResource')
+import BaseResource from 'js/controllers/baseResource';
 
-module.exports = BaseResource.extend({
+export default BaseResource.extend({
 
     resourceName: 'tag',
 
@@ -302,30 +302,32 @@ Application utilizes simple service container to register and locate components 
 Router, application container, main navigation, application search and error controller are components registered and retrieved from service container by default.
 
 All of your resource controllers should also be registered as services.
-We encourage you to do so with require.ensure to utilize webpack code splitting and load controller code only when it is requested.
+We encourage you to do so with dynamic import or require.ensure to utilize webpack code splitting and load controller code only when it is requested.
 
 A typical service container with navigation and few registered controllers looks something like this:
 
 ```js
-module.exports = {
+export default {
     MainNavigation: function(callback) {
-        callback(require('js/mainNavigation'));
+        callback(require('js/mainNavigation').default);
     },
     TagController: function(callback) {
-        require.ensure([], function() {
-            callback(require('js/controllers/tag'));
+        import('js/controllers/tag').then(controller => {
+            callback(controller.default);
         });
     },
     PageController: function(callback) {
-        require.ensure([], function() {
-            callback(require('js/controllers/page'));
-        });
+        PageController: function(callback) {
+            import('js/controllers/page').then(controller => {
+                callback(controller.default);
+            });
+        },
     }
 };
 ```
 If you need to access service container manually somewhere in your code:
 ```js
-var serviceContaner = require('js/library/serviceContainer');
+import serviceContaner from 'js/library/serviceContainer';
 
 serviceContainer.register('myService', function() {
     return {foo: 'bar'};
@@ -341,7 +343,7 @@ Application utilizes extended [Backbone named router](https://github.com/dbrekal
 Your application routes typically look something like this:
 
 ```js
-module.exports = function(router) {
+export default router => {
 
     router.resource('article');
     router.resource('tag');
@@ -371,7 +373,7 @@ For each url pattern (tag/:id) we define route name (resource.tag.edit) and poin
 ### Getting router instance
 If you need access to router instance somewhere in your application code:
 ```js
-var router = require('js/app').get('router');
+import router from 'js/app').get('router';
 ```
 ---
 
@@ -398,35 +400,27 @@ Navigation links, user panel links, application name and current username are al
 
 ### Code example
 ```js
-var BaseMainNavigation = require('js/components/baseMainNavigation');
+import BaseMainNavigation from 'js/components/baseMainNavigation';
 
-module.exports = BaseMainNavigation.extend({
+export default BaseMainNavigation.extend({
 
-    getNavigationItems: function(router) {
-        return [
-            {name: 'Pages', alias: 'page', url: router.url('resource.page.index'), iconClass: 'Home'},
-            {name: 'Misc', iconClass: 'ThreeDots', subItems: [
-                {name: 'Categories', alias: 'category', url: router.url('resource.category.index')},
-                {name: 'Tags', alias: 'tag', url: router.url('resource.tag.index')}
-            ]}
-        ];
-    },
+    getNavigationItems: router => [
+        {name: 'Pages', alias: 'page', url: router.url('resource.page.index'), iconClass: 'Home'},
+        {name: 'Misc', iconClass: 'ThreeDots', subItems: [
+            {name: 'Categories', alias: 'category', url: router.url('resource.category.index')},
+            {name: 'Tags', alias: 'tag', url: router.url('resource.tag.index')}
+        ]}
+    ],
 
-    getUserNavigationItems: function(router) {
-        return [
-            { name: 'Settings', alias: 'settings', url: router.url('mySettings'), appLink: true },
-            { name: 'Public pages', alias: 'publicPages', url: 'http://mySite.com', newTab: true },
-            { name: 'Logout', alias: 'logout', url: '/logout' }
-        ];
-    },
+    getUserNavigationItems: router => [
+        { name: 'Settings', alias: 'settings', url: router.url('mySettings'), appLink: true },
+        { name: 'Public pages', alias: 'publicPages', url: 'http://mySite.com', newTab: true },
+        { name: 'Logout', alias: 'logout', url: '/logout' }
+    ],
 
-    getProjectCaption: function() {
-        return 'my cms';
-    },
+    getProjectCaption: () => 'my cms',
 
-    getUserCaption: function() {
-        return 'my username';
-    }
+    getUserCaption: () => 'my username'
 
 });
 ```
@@ -469,10 +463,10 @@ It is used to connect services and routes, load translations, inject boot (confi
 
 ### Code example
 ```js
-var app = require('js/app');
-var services = require('js/services');
-var routes = require('js/routes');
-var translations = require('js/lang/english');
+import app from 'js/app';
+import services from 'js/services';
+import routes from 'js/routes';
+import translations from 'js/lang/english';
 
 app
     .setBootData({
@@ -495,7 +489,7 @@ app.setBootData(window.bootData)
 ```
 Boot data can later be retrieved like so:
 ```js
-var bootData = require('js/library/bootData');
+import bootData from 'js/library/bootData';
 bootData('baseUrl'); // outputs '/cms-app/'
 ```
 ---

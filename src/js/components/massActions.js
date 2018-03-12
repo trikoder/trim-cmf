@@ -1,25 +1,24 @@
 var $ = require('jquery');
 var _ = require('underscore');
-var SelectInput = require('js/formElements/select');
-var CheckboxInput = require('js/formElements/checkbox');
-var EntityCollection = require('js/library/entity').Collection;
+var SelectInput = require('../formElements/select');
+var CheckboxInput = require('../formElements/checkbox');
+var EntityCollection = require('../library/entity').Collection;
 var prompt = require('simpleprompt').simplePrompt;
-var translate = require('js/library/translate');
+var translate = require('../library/translate');
 
-module.exports = require('js/library/view').extend({
+module.exports = require('../library/view').extend({
 
     tagName: 'form',
     className: 'massActionsType1',
 
-    defaults: {
-        actions: [],
-        onActionComplete: null,
-        mapSelectedCaptionsTo: 'id'
+    assignOptions: true,
+
+    optionRules: {
+        actions: {type: Array, default: function() { return []; }},
+        mapSelectedCaptionsTo: {type: [String, Function], default: 'id'}
     },
 
     initialize: function(options) {
-
-        this.options = $.extend(true, {}, this.defaults, options);
 
         this.selectedCollection = new EntityCollection();
 

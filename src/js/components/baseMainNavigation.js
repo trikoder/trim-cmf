@@ -1,8 +1,8 @@
 var $ = require('jquery');
 var _ = require('underscore');
-var View = require('js/library/view');
-var serviceContainer = require('js/library/serviceContainer');
-var app = require('js/app');
+var View = require('../library/view');
+var serviceContainer = require('../library/serviceContainer');
+var app = require('../app');
 
 require('nanoscroller');
 

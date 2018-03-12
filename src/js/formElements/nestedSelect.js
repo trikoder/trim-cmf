@@ -1,11 +1,11 @@
 var $ = require('jquery');
 var _ = require('underscore');
-var BaseElement = require('js/formElements/baseElement');
-var EntityCollection = require('js/library/entity').Collection;
-var EntityModel = require('js/library/entity').Model;
+var BaseElement = require('../formElements/baseElement');
+var EntityCollection = require('../library/entity').Collection;
+var EntityModel = require('../library/entity').Model;
 var Fuse = require('fuse.js');
 var Fastsearch = require('fastsearch').fastsearch;
-var translate = require('js/library/translate');
+var translate = require('../library/translate');
 
 module.exports = BaseElement.extend({
 
@@ -68,6 +68,14 @@ module.exports = BaseElement.extend({
             this.$inputWrapper.toggleClass('searchActive', this.$searchInput.val() !== '');
 
         }
+    },
+
+    extractCaption: function(model) {
+
+        var mapCaptionTo = this.options.mapCaptionTo;
+
+        return (typeof mapCaptionTo === 'function') ? mapCaptionTo.call(this, model, this) : model.get(mapCaptionTo);
+
     },
 
     selectModel: function(model) {
@@ -175,7 +183,7 @@ module.exports = BaseElement.extend({
 
             models.each(function(model) {
 
-                var itemCaption = typeof this.options.mapCaptionTo === 'function' ? this.options.mapCaptionTo.call(this, model, this) : model.get(this.options.mapCaptionTo);
+                var itemCaption = this.extractCaption(model);
                 var $item = $('<div>').addClass('item').text(itemCaption).appendTo(this.$controls);
 
                 $('<button type="button" class="removeBtn iconClose icr nBtn" data-id="' + model.get('id') + '">').appendTo($item);
@@ -258,7 +266,7 @@ module.exports = BaseElement.extend({
 
         var searchItems = this.entityCollection.chain().filter(this.isLevelSelectable, this).map(function(model) {
 
-            return {id: model.get('id'), caption: model.get(this.options.mapCaptionTo)};
+            return {id: model.get('id'), caption: this.extractCaption(model)};
 
         }, this).value();
 
@@ -321,7 +329,7 @@ module.exports = BaseElement.extend({
 
         $('<li>' +
             '<button type="button" class="nBtn listItem ' + (isLevelSelectable ? 'selectableItem' : '') + '" data-id="' + id + '">' +
-                model.get(this.options.mapCaptionTo) +
+                this.extractCaption(model) +
             '</button>' +
             (isLeaf ? '' : '<button type="button" class="treeBtn treeBtnFor' + id + ' nBtn icr iconPlus" data-id="' + id + '"></button>') +
         '</li>').appendTo($list);

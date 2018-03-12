@@ -79,10 +79,16 @@
         font-size: 1.2em; width: em(15,12); height: em(15,12); position: relative;
         opacity: 0.3; margin-right: em(5,12); top: 2px;
 
+        & + p { display: inline-block;}
+
     }
 
     .treeSpacer {
+
         width: em(20,10); display: inline-block;
+
+        & + p { display: inline-block;}
+
     }
 
     .nestControls {

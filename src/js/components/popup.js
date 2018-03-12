@@ -1,8 +1,8 @@
 var $ = require('jquery');
 var _ = require('underscore');
 var Backbone = require('backbone');
-var View = require('js/library/view');
-var translate = require('js/library/translate');
+var View = require('../library/view');
+var translate = require('../library/translate');
 
 var popupRegistry = _.extend({
 

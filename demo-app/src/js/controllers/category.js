@@ -1,5 +1,5 @@
 import app from 'js/app';
-import BaseResource from 'js/controllers/baseResource';
+import BaseNestedResource from 'js/controllers/baseNestedResource';
 import LinkListItem from 'js/listElements/link';
 import TextListItem from 'js/listElements/text';
 import BlipListItem from 'js/listElements/blip';
@@ -8,8 +8,9 @@ import TextareaInput from 'js/formElements/textarea';
 import SelectInput from 'js/formElements/select';
 import NestedSelectInput from 'js/formElements/nestedSelect';
 import ContextMenu from 'js/listElements/contextMenu';
+import FileAttachment from 'js/formElements/fileAttachment';
 
-export default BaseResource.extend({
+export default BaseNestedResource.extend({
 
     resourceName: 'category',
     resourceCaption: 'title',
@@ -63,6 +64,18 @@ export default BaseResource.extend({
             items: [{caption: 'Edit', action: 'editItem'}]
         });
 
+        //--------------------------------------------------------------
+        // Mass actions
+        //--------------------------------------------------------------
+
+        listHandler.addMassAction([{
+            caption: 'Publish',
+            updateAttributes: {published: true}
+        }, {
+            caption: 'Unpublish',
+            updateAttributes: {published: false}
+        }]);
+
     },
 
     setupEdit: function(editHandler, method, id) {
@@ -81,6 +94,14 @@ export default BaseResource.extend({
         editHandler.addField(TextareaInput, {
             label: 'Description',
             name: 'description',
+            layoutReference: 'mainRegion'
+        });
+
+        editHandler.addField(FileAttachment, {
+            label: 'Image',
+            name: 'image',
+            mapThumbnailTo: 'imageThumbnailUrl',
+            mapCurrentFileUrlTo: 'imageOriginalUrl',
             layoutReference: 'mainRegion'
         });
 

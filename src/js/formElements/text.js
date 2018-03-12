@@ -1,5 +1,5 @@
 var $ = require('jquery');
-var BaseElement = require('js/formElements/baseElement');
+var BaseElement = require('../formElements/baseElement');
 
 module.exports = BaseElement.extend({
 

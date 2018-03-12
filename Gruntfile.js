@@ -37,7 +37,7 @@ module.exports = function(grunt) {
                 options: {
                     fontPath: './src/font/webFonts',
                     cssFile: './src/scss/partials/_webFonts.scss',
-                    httpPath: '/src/font/webFonts/',
+                    httpPath: '../font/webFonts/',
                     formats: {eot: true, ttf: true, woff: true, woff2: false, svg: true},
                     fonts: [{
                         family: 'Archivo Narrow',
@@ -54,8 +54,8 @@ module.exports = function(grunt) {
 
         bump: {
             options: {
-                files: ['package.json'],
-                commitFiles: ['package.json'],
+                files: ['package.json', 'package-lock.json'],
+                commitFiles: ['package.json', 'package-lock.json'],
                 tagName: '%VERSION%',
                 push: false
             }
@@ -92,7 +92,7 @@ module.exports = function(grunt) {
                 './docs-md/base-controllers.md'
             ],
             dest: './docs/',
-            projectTitle: 'Trim UI CMF',
+            projectTitle: 'Trim CMF',
             githubUrl: 'https://github.com/trikoder/trim',
             inlineCss: false
         }).then(function() {
@@ -102,7 +102,14 @@ module.exports = function(grunt) {
 
     });
 
-    grunt.registerTask('default', ['watch']);
-    grunt.registerTask('build', ['googlefonts', 'eslint', 'buildDocs']);
+    grunt.registerTask('default', [
+        'watch'
+    ]);
+
+    grunt.registerTask('build', [
+        // 'googlefonts',
+        'eslint',
+        'buildDocs'
+    ]);
 
 };

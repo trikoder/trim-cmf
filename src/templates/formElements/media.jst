@@ -1,15 +1,17 @@
-<div class="imageContainer">
+<div class="mediaContainer">
     {% if hasImage %}
     <img src="{{ thumbImageUrl }}"/>
     <button type="button" data-image-url="{{ largeImageUrl }}" class="zoomInBtn nBtn icr iconExpand"></button>
     {% else %}
-    <button type="button" class="nBtn placeholderImage icr iconPlus">
+    <button type="button" class="nBtn placeholderImage icr iconPlus {% if hasUpload %}interactive{% endif %}">
     {% endif %}
 </div>
 <div class="textControls">
     <span class="openBtn">{{ changeImageCaption if hasImage else chooseImageCaption }}</span>
+    {% if hasUpload %}
     <span class="separator"> {{ separatorCaption }} </span>
     <span class="fileUploadHandle"> {{ uploadImageCaption }} </span>
+    {% endif %}
 </div>
 {% if hasImage %}
 <button type="button" class="editBtn nBtn icr iconPencil"></button>

@@ -1,7 +1,7 @@
 var _ = require('underscore');
-var NestedResourceList = require('js/components/nestedResourceList');
-var BaseResource = require('js/controllers/baseResource');
-var router = require('js/app').get('router');
+var NestedResourceList = require('../components/nestedResourceList');
+var BaseResource = require('../controllers/baseResource');
+var router = require('../app').get('router');
 
 module.exports = BaseResource.extend({
 

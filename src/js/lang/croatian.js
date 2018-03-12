@@ -51,7 +51,8 @@ module.exports = {
     },
     validation: {
         serverError: 'Došlo je do pogreške na serveru',
-        globalErrorsMessage: 'Molimo provjerite upise sa greškom'
+        globalErrorsMessage: 'Molimo provjerite upise sa greškom',
+        mainEntitySavedWithRelatedErrors: 'Glavni entitet je spremljen ali postoje upisi sa greškom u povezanim entitetima'
     },
     formElements: {
         externalAdmin: {
@@ -70,6 +71,10 @@ module.exports = {
         },
         mediaPreview: {
             zoomImage: 'Povećaj fotografiju'
+        },
+        fileAttachment: {
+            addFileCaption: 'Odaberi datoteku',
+            changeFileCaption: 'Promijeni datoteku'
         },
         select: {
             loadingCaption: 'Učitavam...'
@@ -140,6 +145,7 @@ module.exports = {
         }
     },
     pagination: {
-        resultsCaption: 'Rezultata po stranici'
+        resultsCaption: 'Rezultata po stranici',
+        totalItemsCaption: 'Ukupno'
     }
 };

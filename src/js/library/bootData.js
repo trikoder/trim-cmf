@@ -1,28 +1,13 @@
-var store = {};
 var _ = require('underscore');
+var DataBag = require('./dataBag');
 
-function bootData(key, defaultValue) {
+var store = new DataBag();
 
-    var pieces = key.split('.');
-    var haystack = store;
-
-    for (var i in pieces) {
-
-        haystack = haystack[pieces[i]];
-
-        if (typeof haystack === 'undefined') {
-            return defaultValue;
-        }
+module.exports = _.extend(function(key, defaultValue) {
+    return store.get(key, defaultValue);
+}, {
+    set: function(data) {
+        store.set(data);
+        return this;
     }
-
-    return haystack;
-}
-
-bootData.set = function(data) {
-
-    _.extend(store, data);
-    return this;
-
-};
-
-module.exports = bootData;
+});

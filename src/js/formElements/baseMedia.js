@@ -1,10 +1,10 @@
 var $ = require('jquery');
 var _ = require('underscore');
-var EntityModel = require('js/library/entity').Model;
-var BaseElement = require('js/formElements/baseElement');
-var ExternalAmin = require('js/formElements/externalAdmin');
-var translate = require('js/library/translate');
-var FileUpload = require('js/components/fileUpload');
+var EntityModel = require('../library/entity').Model;
+var BaseElement = require('../formElements/baseElement');
+var ExternalAmin = require('../formElements/externalAdmin');
+var translate = require('../library/translate');
+var FileUpload = require('../components/fileUpload');
 var oneImageTemplate = require('templates/formElements/media.jst');
 
 require('simple-lightbox');
@@ -13,32 +13,45 @@ var BaseMedia = ExternalAmin.extend({
 
     elementType: 'media',
 
-    defaults: {
-        mapCaptionTo: 'name',
-        mapThumbnailTo: 'thumbnailUrl',
-        mapPreviewTo: 'originalUrl',
-        changeImageCaption: translate('formElements.media.changeImageCaption'),
-        chooseImageCaption: translate('formElements.media.chooseImageCaption'),
-        uploadImageCaption: translate('formElements.media.uploadImageCaption'),
-        separatorCaption: translate('formElements.media.separatorCaption'),
-        onSelect: ExternalAmin.prototype.defaults.onSelect,
-        assignWhenEditDone: false,
-        fileUploadParamName: 'binary',
-        fileUploadHeaders: null,
-        formatErrorMessage: function(message) {
-            return message;
-        }
+    defaults: function() {
+
+        var parentDefaults = ExternalAmin.prototype.defaults;
+
+        return _.extend({}, typeof parentDefaults === 'function' ? parentDefaults.call(this) : parentDefaults, {
+            mapThumbnailTo: 'thumbnailUrl',
+            mapPreviewTo: 'originalUrl',
+            changeImageCaption: translate('formElements.media.changeImageCaption'),
+            chooseImageCaption: translate('formElements.media.chooseImageCaption'),
+            uploadImageCaption: translate('formElements.media.uploadImageCaption'),
+            separatorCaption: translate('formElements.media.separatorCaption'),
+            allowUpload: true,
+            assignWhenEditDone: false,
+            fileUploadParamName: 'binary',
+            fileUploadHeaders: null,
+            formatErrorMessage: function(message) {
+                return message;
+            }
+        });
+
     },
 
-    events: {
-        'click .openBtn': function() {
-            this.open({onSelect: this.options.onSelect});
-        },
-        'click .editBtn': 'openEdit',
-        'click .removeBtn': 'unsetRelation',
-        'click .zoomInBtn': function(e) {
-            $.simpleLightbox.open({items: [$(e.currentTarget).data('image-url')]});
-        }
+    events: function() {
+
+        return _.extend({
+            'click .openBtn': function() {
+                this.open({onSelect: this.options.onSelect});
+            },
+            'click .editBtn': 'openEdit',
+            'click .removeBtn': 'unsetRelation',
+            'click .zoomInBtn': function(e) {
+                $.simpleLightbox.open({items: [$(e.currentTarget).data('image-url')]});
+            }
+        }, !this.options.allowUpload ? {
+            'click .placeholderImage': function() {
+                this.open({onSelect: this.options.onSelect});
+            }
+        } : null);
+
     },
 
     render: function() {
@@ -71,13 +84,16 @@ var BaseMedia = ExternalAmin.extend({
                 hasImage: Boolean(thumbImage),
                 largeImageUrl: largeImage,
                 thumbImageUrl: thumbImage,
+                hasUpload: this.options.allowUpload,
                 chooseImageCaption: this.options.chooseImageCaption,
                 changeImageCaption: this.options.changeImageCaption,
                 separatorCaption: this.options.separatorCaption,
                 uploadImageCaption: this.options.uploadImageCaption
             }));
 
-            this.setupImageUploadElement();
+            if (this.options.allowUpload) {
+                this.setupImageUploadElement();
+            }
 
         });
 

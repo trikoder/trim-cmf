@@ -1,4 +1,4 @@
-var DateTimeElement = require('js/listElements/dateTime');
+var DateTimeElement = require('../listElements/dateTime');
 
 module.exports = DateTimeElement.extend({
 

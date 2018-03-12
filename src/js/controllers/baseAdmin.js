@@ -1,13 +1,13 @@
 var _ = require('underscore');
-var app = require('js/app');
-var translate = require('js/library/translate');
+var app = require('../app');
+var translate = require('../library/translate');
 var template = require('templates/controllers/baseAdmin.jst');
 
-module.exports = require('js/library/view').extend({
+module.exports = require('../library/view').extend({
 
     setPageTitle: function(title) {
 
-        var breadCrumbs = this.resourceName ? app.get('mainNavigation').getBreadCrumbs(this.resourceName) : undefined;
+        var breadCrumbs = this.getBreadCrumbs();
         var projectSufix = translate('project.urlSufix');
 
         if (!this.options || !this.options.isExternal) {
@@ -20,6 +20,12 @@ module.exports = require('js/library/view').extend({
         }
 
         return this.setViewData('pageTitle', title);
+
+    },
+
+    getBreadCrumbs: function() {
+
+        return this.resourceName ? app.get('mainNavigation').getBreadCrumbs(this.resourceName) : undefined;
 
     },
 

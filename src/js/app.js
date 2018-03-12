@@ -1,10 +1,10 @@
 var Backbone = require('backbone');
-var _ = require('js/library/underscoreExtensions');
-var browserFeatures = require('js/library/browserFeatures');
-var serviceContainer = require('js/library/serviceContainer');
-var appServices = require('js/appServices');
-var bootData = require('js/library/bootData');
-var translate = require('js/library/translate');
+var _ = require('./library/underscoreExtensions');
+var browserFeatures = require('./library/browserFeatures');
+var serviceContainer = require('./library/serviceContainer');
+var appServices = require('./appServices');
+var bootData = require('./library/bootData');
+var translate = require('./library/translate');
 
 var routeProvider;
 var app = _.extend({}, Backbone.Events);
@@ -16,7 +16,8 @@ function setupRouter(Router) {
 
     var router = new Router({
         usesPushState: bootData('usesPushState', browserFeatures.history),
-        root: bootData('baseUrl', '')
+        root: bootData('baseUrl', ''),
+        apiRoot: bootData('baseApiUrl')
     });
 
     routeProvider && routeProvider(router);
@@ -46,7 +47,7 @@ _.extend(app, {
 
             var appView = new AppView({
                 MainNavigationType: MainNavigation,
-            }).appendTo('body');
+            }).prependTo('body');
 
             app.setInstance('appView', appView);
             app.setInstance('mainNavigation', appView.mainNavigation);

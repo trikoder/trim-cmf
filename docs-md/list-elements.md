@@ -15,7 +15,7 @@ All list elements accept following set of options:
 ---
 
 ```js
-var TextListItem = require('js/listElements/text');
+import TextListItem from 'js/listElements/text';
 ...
 listHandler.addItem(TextListItem, {
     caption: 'title',
@@ -38,7 +38,7 @@ listHandler.addItem(TextListItem, {
 Text list element is used for displaying textual data.
 
 ```js
-var TextListItem = require('js/listElements/text');
+import TextListItem from 'js/listElements/text';
 ...
 listHandler.addItem(TextListItem, {
     caption: 'tags',
@@ -57,9 +57,7 @@ listHandler.addItem(TextListItem, {
 ```js
 listHandler.addItem(TextListItem, {
     caption: 'Full name',
-    mapTo: function(model) {
-        return model.get('firstName') + ' ' + model.get('lastName');
-    },
+    mapTo: model => model.get('firstName') + ' ' + model.get('lastName'),
     limitCharacters: 100,
     ifEmpty: 'N/A'
 });
@@ -76,7 +74,7 @@ listHandler.addItem(TextListItem, {
 Link list element is used for rendering links pointing inside or outside CMS.
 
 ```js
-var LinkListItem = require('js/listElements/link');
+import LinkListItem from 'js/listElements/link';
 ...
 listHandler.addItem(LinkListItem, {
     caption: 'Title',
@@ -107,7 +105,7 @@ listHandler.addItem(LinkListItem, {
 ## Date time
 List element used for displaying date time data.
 ```js
-var DateTimeListItem = require('js/listElements/dateTime');
+import DateTimeListItem from 'js/listElements/dateTime';
 ...
 listHandler.addItem(DateTimeListItem, {
     caption: 'Date and time',
@@ -116,6 +114,7 @@ listHandler.addItem(DateTimeListItem, {
 ```
 ### Options:
 * **format**: used to define output format (string, default 'DD.MM.YYYY HH:mm')
+* **ifEmpty**: text to display when element value is empty (string, default '')
 
 ```js
 listHandler.addItem(DateTimeListItem, {
@@ -129,7 +128,7 @@ listHandler.addItem(DateTimeListItem, {
 List element used for displaying date data.
 
 ```js
-var DateListItem = require('js/listElements/date');
+import DateListItem from 'js/listElements/date';
 ...
 listHandler.addItem(DateListItem, {
     caption: 'Date and time',
@@ -139,6 +138,7 @@ listHandler.addItem(DateListItem, {
 
 ### Options:
 * **format**: used to define output format (string, default 'DD.MM.YYYY')
+* **ifEmpty**: text to display when element value is empty (string, default '')
 
 ```js
 listHandler.addItem(DateListItem, {
@@ -152,7 +152,7 @@ listHandler.addItem(DateListItem, {
 List element used for graphical rendering of Boolean or enumerated data.
 
 ```js
-var BlipListItem = require('js/listElements/blip');
+import BlipListItem from 'js/listElements/blip';
 ...
 listHandler.addItem(BlipListItem, {
     caption: 'Published',
@@ -182,23 +182,19 @@ listHandler.addItem(BlipListItem, {
 ## Button
 List element used for adding button control with custom action.
 ```js
-var ButtonListItem = require('js/listElements/button');
+import ButtonListItem from 'js/listElements/button';
 ...
 listHandler.addItem(ButtonListItem, {
     caption: 'Buttons',
-    mapTo: function() {
-        return 'Quick edit';
-    },
-    action: function(model) {
-        console.log(model);
-    }
+    mapTo: () => 'Quick edit',
+    action: model => { console.log(model); }
 });
 ```
 
 ## Context menu
 List element used for adding dropdown control with list item actions.
 ```js
-var ContextMenu = require('js/listElements/contextMenu');
+import ContextMenu from 'js/listElements/contextMenu';
 ...
 listHandler.addItem(ContextMenu, {
     caption: 'Actions',
@@ -224,14 +220,12 @@ listHandler.addItem(ContextMenu, {
         {caption: 'Delete', action: 'deleteItem', confirm: 'Are you sure you want to delete item?'},
         {
             caption: 'Publish',
-            action: function(model) {
-                model.saveOnly({attributes: {published: true}}).always(function() {
+            action: model => {
+                model.saveOnly({attributes: {published: true}}).always(() => {
                     listHandler.refreshItems();
                 });
             },
-            showIf: function(model) {
-                return model.get('published') === false;
-            }
+            showIf: model => model.get('published') === false
         },
     ]
 });
@@ -243,7 +237,7 @@ List element used for presenting media items (image, video, audio, file).
 Best used with "card" resource list template.
 
 ```js
-var MediaListItem = require('js/listElements/media');
+import MediaListItem from 'js/listElements/media';
 ...
 listHandler.addItem(MediaListItem, {
     caption: 'Main media'

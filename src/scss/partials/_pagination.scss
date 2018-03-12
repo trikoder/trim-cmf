@@ -101,7 +101,25 @@
 
     }
 
+    .totalItems {
+
+        float: right; font-size: 1.4em; padding: em(8,14) em(15,14);
+        color: $colorGrayDark2;
+
+        > .caption {
+
+            opacity: 0.5;
+            &:after { content: ": "; }
+
+        }
+
+        > .count {}
+
+    }
+
     @include mediaMaxWidth($breakpointMedium) {
+
+        .totalItems { display: none; }
 
         .limitOptions {
 
@@ -119,6 +137,8 @@
     }
 
     @include mediaMinWidth($breakpointMedium) {
+
+        .totalItems { display: block; }
 
         &.withLimitOptions {
 

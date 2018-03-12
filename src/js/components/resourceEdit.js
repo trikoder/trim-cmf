@@ -1,10 +1,10 @@
 var $ = require('jquery');
 var _ = require('underscore');
-var EntityModel = require('js/library/entity').Model;
-var Message = require('js/components/message');
-var Tabber = require('js/components/tabber');
-var View = require('js/library/view');
-var translate = require('js/library/translate');
+var EntityModel = require('../library/entity').Model;
+var Message = require('../components/message');
+var Tabber = require('../components/tabber');
+var View = require('../library/view');
+var translate = require('../library/translate');
 
 module.exports = View.extend({
 
@@ -15,7 +15,11 @@ module.exports = View.extend({
         resourceId: null,
         useLoader: true,
         focusErrors: true,
+        saveStrategy: 'relatedFirst',
         waitForFieldsToRender: true,
+        afterCreate: function() {},
+        afterUpdate: function() {},
+        afterSave: function() {},
         elementAttributes: {
             text: {
                 input: {className: 'inputType2'},
@@ -76,6 +80,11 @@ module.exports = View.extend({
                 errorMessage: {className: 'errorMessageType1'}
             },
             media: {
+                label: {className: 'labelType2'},
+                wrapper: {className: 'inputBlockType1'},
+                errorMessage: {className: 'errorMessageType1'}
+            },
+            fileAttachment: {
                 label: {className: 'labelType2'},
                 wrapper: {className: 'inputBlockType1'},
                 errorMessage: {className: 'errorMessageType1'}
@@ -205,27 +214,65 @@ module.exports = View.extend({
     save: function() {
 
         var saveDeferred = $.Deferred();
+        var saveStrategy = this.options.saveStrategy;
 
-        this.when(this.saveRelatedEntities(), function() {
+        var onSave = function() {
 
-            this.mapFieldValuesToModel();
+            this.removeErrorMessages();
+            this.options.afterSave(this.entityModel);
+            this.trigger('entityModelSaved', this.entityModel);
 
-            this.when(this.saveEntity(), function() {
-                saveDeferred.resolve();
-            }, function() {
-                saveDeferred.reject();
-            });
+            saveDeferred.resolve();
 
-        }, function() {
+        }.bind(this);
+
+        var onFail = function(data) {
+
+            if (data.responseJSON && data.responseJSON.errors) {
+                this.removeErrorMessages().displayErrorMessages(data.responseJSON.errors);
+            } else {
+                this.trigger('apiError', translate('validation.serverError'));
+            }
+
             saveDeferred.reject();
-            this.removeErrorMessages().displayErrorMessages([]);
-        });
+
+        }.bind(this);
 
         this.loading(true);
 
-        $.when(saveDeferred).always(function() {
-            this.loading(false);
-        }.bind(this));
+        if (saveStrategy === 'relatedFirst') {
+
+            this.when(this.saveRelatedEntities(), function() {
+
+                this.mapFieldValuesToModel();
+                this.when(this.saveEntity(), onSave, onFail);
+
+            }, function() {
+
+                saveDeferred.reject();
+                this.removeErrorMessages().displayErrorMessages();
+
+            });
+
+        } else if (saveStrategy === 'relatedLast') {
+
+            this.mapFieldValuesToModel();
+            this.when(this.saveEntity(), function() {
+
+                this.when(this.saveRelatedEntities(), onSave, function() {
+
+                    saveDeferred.reject();
+                    this.removeErrorMessages().displayErrorMessages([
+                        {title: translate('validation.mainEntitySavedWithRelatedErrors')}
+                    ]);
+
+                });
+
+            }, onFail);
+
+        }
+
+        saveDeferred.always(function() { this.loading(false); }.bind(this));
 
         return saveDeferred;
 
@@ -235,17 +282,31 @@ module.exports = View.extend({
 
         return {
             attributes: _.keys(_.pick(this.fieldInstances, function(fieldInstance) {
+                var isNotFileElement = fieldInstance.elementType !== 'fileAttachment';
                 var isNotRelation = typeof fieldInstance.options.relation === 'undefined';
                 var isNotReadOnly = !fieldInstance.readOnly;
-                return isNotRelation && isNotReadOnly;
+                return isNotRelation && isNotFileElement && isNotReadOnly;
             })),
-
             relations: _.keys(_.pick(this.fieldInstances, function(fieldInstance) {
+                var isNotFileElement = fieldInstance.elementType !== 'fileAttachment';
                 var isRelation = typeof fieldInstance.options.relation !== 'undefined';
                 var isNotReadOnly = !fieldInstance.readOnly;
-                return isRelation && isNotReadOnly;
+                return isRelation && isNotFileElement && isNotReadOnly;
             }))
         };
+
+    },
+
+    getFileAttachments: function() {
+
+        var fileList = _.reduce(this.fieldInstances, function(memo, fieldInstance) {
+            if (fieldInstance.elementType === 'fileAttachment' && fieldInstance.getFile()) {
+                memo[fieldInstance.getName()] = fieldInstance.getFile();
+            }
+            return memo;
+        }, {});
+
+        return _.isEmpty(fileList) ? undefined : {files: fileList};
 
     },
 
@@ -253,28 +314,10 @@ module.exports = View.extend({
 
         var isNewModel = this.entityModel.isNew();
 
-        return this.entityModel.saveOnly(this.getEditableEntityKeys()).done(function() {
-
-            this.removeErrorMessages();
-
-            if (isNewModel) {
-                this.options.afterCreate && this.options.afterCreate(this.entityModel);
-            } else {
-                this.options.afterUpdate && this.options.afterUpdate(this.entityModel);
-            }
-
-            this.options.afterSave && this.options.afterSave(this.entityModel);
-
-            this.trigger('entityModelSaved', this.entityModel);
-
-        }.bind(this)).fail(function(data) {
-
-            if (data.responseJSON && data.responseJSON.errors) {
-                this.removeErrorMessages().displayErrorMessages(data.responseJSON.errors);
-            } else {
-                this.trigger('apiError', translate('validation.serverError'));
-            }
-
+        return this.entityModel.saveOnly(
+            $.extend(this.getEditableEntityKeys(), this.getFileAttachments())
+        ).done(function() {
+            this.options[isNewModel ? 'afterCreate' : 'afterUpdate'](this.entityModel);
         }.bind(this));
 
     },
@@ -282,8 +325,17 @@ module.exports = View.extend({
     saveRelatedEntities: function() {
 
         return this.when(_.map(this.fieldInstances, function(fieldInstance) {
-            return fieldInstance.saveRelated && fieldInstance.saveRelated();
-        }));
+
+            if (fieldInstance.saveRelated) {
+
+                if (fieldInstance.setMainRelationReference && this.entityModel.get('id')) {
+                    fieldInstance.setMainRelationReference(this.entityModel.get('id'));
+                }
+
+                return fieldInstance.saveRelated();
+            }
+
+        }, this));
 
     },
 
@@ -353,7 +405,7 @@ module.exports = View.extend({
 
         var globalErrors = [];
 
-        _.each(errors, function(error) {
+        _.each(errors || [], function(error) {
 
             if (!error.source) {
                 globalErrors.push(error.title);
@@ -384,11 +436,15 @@ module.exports = View.extend({
 
             var $firstInputWithError = this.$('.withError').first();
 
-            if (this.tabber) {
-                this.tabber.goToTab($firstInputWithError.closest('.tabPanelType1').data('id'));
-            }
+            if ($firstInputWithError.length) {
 
-            $firstInputWithError.focus();
+                if (this.tabber) {
+                    this.tabber.goToTab($firstInputWithError.closest('.tabPanelType1').data('id'));
+                }
+
+                $firstInputWithError.focus();
+
+            }
 
         }
 

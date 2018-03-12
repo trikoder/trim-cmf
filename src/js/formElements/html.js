@@ -1,6 +1,6 @@
 var $ = require('jquery');
-var BaseElement = require('js/formElements/baseElement');
-var ckeditor = require('js/components/ckeditor');
+var BaseElement = require('../formElements/baseElement');
+var ckeditor = require('../components/ckeditor');
 
 ckeditor.config.extraPlugins = 'sourcedialog';
 

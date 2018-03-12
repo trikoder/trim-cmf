@@ -1,28 +1,29 @@
 var $ = require('jquery');
 var _ = require('underscore');
-var Filters = require('js/components/resourceFilters');
-var Sort = require('js/components/sort');
-var EntityCollection = require('js/library/entity').Collection;
-var Message = require('js/components/message');
-var MassActions = require('js/components/massActions');
-var Pagination = require('js/components/pagination');
-var apiFormatter = require('js/library/apiFormatter');
-var router = require('js/app').get('router');
-var translate = require('js/library/translate');
+var Filters = require('../components/resourceFilters');
+var Sort = require('../components/sort');
+var EntityCollection = require('../library/entity').Collection;
+var Message = require('../components/message');
+var MassActions = require('../components/massActions');
+var Pagination = require('../components/pagination');
+var apiFormatter = require('../library/apiFormatter');
+var router = require('../app').get('router');
+var translate = require('../library/translate');
 
-module.exports = require('js/library/view').extend({
+module.exports = require('../library/view').extend({
 
     className: 'resourceListType1',
 
     assignOptions: true,
 
-    defaults: {
-        resourceUrl: null,
-        resourceName: null,
-        resourceCaption: null,
-        apiUrl: null,
-        useUrl: true,
-        template: 'table'
+    optionRules: {
+        resourceUrl: {type: [String], required: false},
+        resourceName: String,
+        resourceCaption: {type: [String, Function], required: false},
+        includedApiData: {type: Array, required: false},
+        apiUrl: String,
+        useUrl: {type: Boolean, default: true},
+        template: {type: String, default: 'table'}
     },
 
     initialize: function() {
@@ -142,6 +143,13 @@ module.exports = require('js/library/view').extend({
 
     },
 
+    includeApiData: function(data) {
+
+        this.options.includedApiData = _.isArray(data) ? data : data.split(',');
+        return this;
+
+    },
+
     addMassAction: function(action) {
 
         if (!this.massActions) {
@@ -206,6 +214,10 @@ module.exports = require('js/library/view').extend({
             delete params.sort;
         }
 
+        if (this.options.includedApiData && this.options.includedApiData.length) {
+            params.include = this.options.includedApiData.join(',');
+        }
+
         this.apiParams = params;
         this.trigger('setApiParams', params);
 
@@ -214,9 +226,29 @@ module.exports = require('js/library/view').extend({
             this.entityCollection = EntityCollection.createFromApiData(data);
             callback && callback.call(this);
 
-        }.bind(this)).fail(function() {
+        }.bind(this)).fail(function(data) {
 
-            this.trigger('apiError', translate('validation.serverError'));
+            var globalErrors = [];
+
+            if (data.responseJSON && data.responseJSON.errors) {
+
+                _.each(data.responseJSON.errors, function(error) {
+
+                    if (!error.source) {
+                        globalErrors.push(error.title);
+                    } else {
+                        globalErrors.push(error.title + ' ' + (error.detail || ''));
+                    }
+
+                });
+
+            }
+
+            if (globalErrors.length === 0) {
+                globalErrors.push(translate('validation.serverError'));
+            }
+
+            this.trigger('apiError', globalErrors.join('. '));
 
         }.bind(this)).always(function() {
 
@@ -280,15 +312,15 @@ module.exports = require('js/library/view').extend({
             this.sort.createElement().$el.appendTo(this.$bottomListControls);
         }
 
-        this.trigger('beforeRenderItems');
         this.renderItems();
-        this.trigger('afterRenderItems');
 
         return this;
 
     },
 
     renderItems: function() {
+
+        this.trigger('beforeRenderItems');
 
         this.massActions && this.massActions.removeSelectControls();
         this.removeViews('listItems');
@@ -303,11 +335,16 @@ module.exports = require('js/library/view').extend({
         }
 
         // pagination
+        var apiData = this.entityCollection.apiData;
+        var totalItems = parseInt(apiData.meta && apiData.meta.total || this.entityCollection.length, 10);
+
         this.pagination.setParams({
-            totalItems: parseInt(this.entityCollection.apiData.meta.total, 10),
+            totalItems: totalItems,
             offset: this.apiParams.page && this.apiParams.page.offset || 0,
             appendParams: _.extend({}, this.apiParams.filter, (this.sort.getSort() ? {sort: this.sort.getSort()} : {}))
         }).renderPaginators();
+
+        this.trigger('afterRenderItems');
 
         return this;
 

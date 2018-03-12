@@ -1,8 +1,8 @@
 var _ = require('underscore');
-var attributeMixin = require('js/library/attributeMixin');
+var attributeMixin = require('../library/attributeMixin');
 var escapeHtml = require('escape-html');
 
-var BaseListElement = require('js/library/view').extend({
+var BaseListElement = require('../library/view').extend({
 
     initialize: function(params) {
 

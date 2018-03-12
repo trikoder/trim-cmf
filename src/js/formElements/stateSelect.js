@@ -1,9 +1,9 @@
 var $ = require('jquery');
 var _ = require('underscore');
-var BaseElement = require('js/formElements/baseElement');
-var EntityModel = require('js/library/entity').Model;
-var SelectInput = require('js/formElements/select');
-var translate = require('js/library/translate');
+var BaseElement = require('../formElements/baseElement');
+var EntityModel = require('../library/entity').Model;
+var SelectInput = require('../formElements/select');
+var translate = require('../library/translate');
 
 module.exports = BaseElement.extend({
 

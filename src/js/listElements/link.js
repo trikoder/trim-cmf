@@ -1,5 +1,5 @@
-var app = require('js/app');
-var BaseListElement = require('js/listElements/baseElement');
+var app = require('../app');
+var BaseListElement = require('../listElements/baseElement');
 
 module.exports = BaseListElement.extend({
 
@@ -22,16 +22,12 @@ module.exports = BaseListElement.extend({
     events: {
         click: function(e) {
 
-            if (!this.options.isExternalLink) {
-
+            if (this.options.action) {
                 e.preventDefault();
-
-                if (this.options.action) {
-                    this.options.action(this.entityModel);
-                } else {
-                    app.get('router').navigateToUrl(this.$el.attr('href'), true);
-                }
-
+                this.options.action(this.entityModel, e);
+            } else if (!this.options.isExternalLink) {
+                e.preventDefault();
+                app.get('router').navigateToUrl(this.$el.attr('href'), true);
             }
 
         }
