@@ -18,7 +18,7 @@
     "bump:major": "grunt bump:major"
   },
   "devDependencies": {
-    "attire": "^1.3.6",
+    "attire": "^1.3.8",
     "babel-eslint": "^7.2.3",
     "chai": "^4.1.2",
     "coveralls": "^2.13.1",
