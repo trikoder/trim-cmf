@@ -7,3 +7,4 @@ demo-app/index.html
 demo-app/login.html
 docs
 npm-debug.log
+.DS_Store

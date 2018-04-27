@@ -2,9 +2,8 @@
   "name": "trim-cmf-demo",
   "version": "0.0.0",
   "description": "trim-cmf-demo",
-  "private": true,
   "scripts": {
-    "dev:server": "npm run api:server & BASE_URL=/ BASE_API_URL=http://localhost:3001/ PUBLIC_URL=/ webpack-dev-server --env.mode=development --open",
+    "dev": "npm run api:server & BASE_URL=/ BASE_API_URL=http://localhost:3001/ PUBLIC_URL=/ webpack-dev-server --env.mode=development --open",
     "api:server": "BASE_API_URL=http://localhost:3001/ nodemon ./src/js/server/node.js",
     "watch:development": "npm run build:development && webpack --watch --progress --colors --env.mode=development",
     "build:development": "webpack --env.mode=development --progress --colors",
@@ -25,6 +24,7 @@
     "eslint-loader": "^2.0.0",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.11",
+    "hoek": "^5.0.3",
     "html-webpack-plugin": "^3.0.6",
     "node-sass": "^4.7.2",
     "nodemon": "^1.17.1",
