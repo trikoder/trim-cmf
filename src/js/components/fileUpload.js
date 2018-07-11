@@ -15,6 +15,7 @@ module.exports = require('../library/view').extend({
         removePreviewOnUpload: false,
         clickableSelector: '.handle',
         paramName: 'binary',
+        onSending: function() {},
         onUpload: function() {},
         maxFiles: null,
         renderInitialMarkup: true,
@@ -59,7 +60,11 @@ module.exports = require('../library/view').extend({
             headers: this.options.headers
         });
 
-        dropzone.on('success', function(file, response) {
+        dropzone.on('sending', function(file, xhr, formData) {
+
+            this.options.onSending(file, xhr, formData);
+
+        }.bind(this)).on('success', function(file, response) {
 
             this.options.onUpload(file, response);
             this.options.removePreviewOnUpload && dropzone.removeFile(file);

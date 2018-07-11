@@ -8,6 +8,7 @@ var HiddenInput = require('../formElements/hidden');
 var router = require('../app').get('router');
 var translate = require('../library/translate');
 var dragula = require('dragula');
+var api = require('../library/api');
 
 module.exports = BaseElement.extend({
 
@@ -294,7 +295,7 @@ module.exports = BaseElement.extend({
 
         });
 
-        return this.when($.ajax({
+        return this.when(api.ajax({
 
             url: this.options.bulkSave.url,
             data: JSON.stringify({data: patchData}),

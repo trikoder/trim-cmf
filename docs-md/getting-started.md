@@ -8,84 +8,7 @@ Feel free to [browse demo codebase](../demo-app) and take what you need.
 ## Technology
 Make sure you have Node.js (4.x and up) and NPM installed. All packages are installed locally - if you plan to run build, test and watch processes via npm commands there is no need to install any package globally.
 
-## Scaffolding
-If you rather wish to use scaffolding tool to bootstrap your application, then follow these simple steps, and after scaffolding process is done just skip to "Build scripts" chapter.
-
-Scaffolding is done with [Yeoman](http://yeoman.io/) tool.
-
-1. install yeoman globally
-2. install yeoman generator for trikoder CMF UI globally
-3. run "yo" in terminal in desired application folder and select "Trikoder Cmf Ui" generator
-4. run "npm install" in terminal to install all NPM project dependancies
-
-```sh
-npm install -g yo
-npm install -g git+ssh://git@gitlab.trikoder.net:frontend/generator-trikoder-cmf-ui.git
-yo
-npm install
-```
----
-### Your project name
-Enter your project name, default is folder name. This info will be used as html entry point title meta tag, package.json title and JS app project caption.
-
----
-### Your project description
-Enter your project name, default is folder name + "content managment framework". This info is usede as description meta data in html entry point and package.json description.
-
----
-### Please enter relative path for folder where application will store distribution files
-Define relative path (without trailing slash) from CMF application root to distribution folder.
-
----
-### Please enter absolute path for base url
-Define public absolute path (without trailing slash) which points to CMF application root.
-
----
-### Please enter absolute path for distribution folder
-Define public absolute path (without trailing slash) which points to distribution folder.
-
----
-### Enter google map API key
-Enter google map API key for your application. This is only needed if you will be using components with google map. Feel free to leave it empty.
-
----
-### Choose desired language
-Choose between english or croatian for your app language. This will automaticly include selected translation file.
-
----
-### Would you like to use History API push state
-Aplication can define url structure with hash-es or use history API to rewrite url-s (hash is fallback). Default is History API.
-
----
-### Would you like to use faux backend API mockup
-Here you can choose if you wish to use faux backend API server (based on pretender.js) to mock responses for your API calls. If you have existing backend API dont choose this.
-
----
-### Would you like to register API entity resource
-Here you can choose if you wish to register data entities (eg. article, tags, user...) and create according list, edit and create views.
-
----
-### Enter entity resource name
-Enter resource entity name that coresponds to backend API resource entity name.
-
----
-### Enter one entity attribute
-Enter one resource model attribute so we can create filter, sort and list on list view and input on edit and create view.
-
----
-### Would you like to register additional API entity resource?
-If answered yes, you will repeat last two steps and add additional resource entity.
-
 ## File and folder structure
-Start by creating "src" folder with "js" and "scss" folder inside.
-```html
-- myCmsProject
-    - src
-        - js
-        - scss
-```
-Once you complete this getting started section your folder structure should look like this:
-
 ```html
 - myCmsProject
     - src
@@ -114,36 +37,43 @@ Dependency on trikoder-cmf-ui module is defined via git repo and tag pointer.
   "description": "my-cms",
   "private": true,
   "scripts": {
+    "dev": "npm run api:server & BASE_URL=/ BASE_API_URL=http://localhost:3001/ PUBLIC_URL=/ webpack-dev-server --env.mode=development --open",
+    "api:server": "BASE_API_URL=http://localhost:3001/ nodemon ./src/js/server/node.js",
     "watch:development": "npm run build:development && webpack --watch --progress --colors --env.mode=development",
     "build:development": "webpack --env.mode=development --progress --colors",
     "build:production": "webpack --env.mode=production --progress --colors"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "babel-eslint": "^7.2.3",
-    "babel-loader": "^7.1.2",
+    "babel-eslint": "^8.2.2",
+    "babel-loader": "^7.1.4",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-preset-es2015": "^6.24.1",
     "bourbon": "~4",
-    "copy-webpack-plugin": "^4.0.1",
-    "css-loader": "^0.28.2",
-    "dotenv": "^4.0.0",
-    "eslint": "^4.4.1",
-    "eslint-loader": "^1.9.0",
-    "file-loader": "^0.11.2",
-    "html-webpack-plugin": "^2.30.1",
-    "node-sass": "^4.5.0",
+    "copy-webpack-plugin": "^4.5.1",
+    "cors": "^2.8.4",
+    "css-loader": "^0.28.10",
+    "dotenv": "^5.0.1",
+    "eslint": "^4.18.2",
+    "eslint-loader": "^2.0.0",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.0.6",
+    "hoek": "^5.0.3",
+    "node-sass": "^4.7.2",
+    "nodemon": "^1.17.1",
     "nunjucks": "^3.0.0",
     "nunjucks-loader": "^2.4.5",
     "pretender": "~1.4.2",
-    "sass-loader": "^6.0.2",
-    "style-loader": "^0.18.2",
-    "type-factory": "^1.0.5",
-    "url-loader": "^0.5.9",
-    "webpack": "^3.5.5"
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.20.3",
+    "type-factory": "^1.1.1",
+    "url-loader": "^1.0.1",
+    "webpack": "^3.5.6",
+    "webpack-dev-server": "^2.8.2"
   },
   "dependencies": {
-    "trikoder-cmf-ui": "git+ssh://git@gitlab.trikoder.net:frontend/trikoder-cmf-ui.git#0.5.0"
+    "trikoder-cmf-ui": "git+https://git@github.com//trikoder/trim-cmf.git"
   }
 }
 ```

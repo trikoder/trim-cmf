@@ -1,38 +1,9 @@
-//--------------------------------------------------------------
-// Includes
-//--------------------------------------------------------------
-
-@include normalizePlusReset();
-@include pageEmEquivalent(10);
-
-//--------------------------------------------------------------
-// Main layout
-//--------------------------------------------------------------
-
-html,
-body {
-
-    min-height: 100%;
-
-}
-
-a {
-
-    color: $colorMain1;
-
-}
-
-html {
-
-    background-color: #fbfbfb;
-
-}
-
-body {
+.loginCont {
 
     @include fontSansCondensed;
     min-width: 32em; position: relative;
     color: $colorGrayDark1; padding: 1em; box-sizing: border-box;
+    background-color: #fbfbfb;
 
     min-height: calc(100vh);
     @include display(flex);
@@ -50,6 +21,8 @@ body {
     min-width: 30em;
     background: #fff; border: 1px solid $colorGrayLight1;
     box-shadow: 0 2px 5px rgba(#000, 0.05);
+
+    @include animation(slideDownFadeIn 1s);
 
     > .title {
 

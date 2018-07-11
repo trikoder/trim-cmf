@@ -21,7 +21,9 @@ _.mixin({
 
     words: function(string, limit, sufix) {
 
-        var words = string.split(' ');
+        var words = string.split(' ').filter(function(item) {
+            return item && item !== '\n';
+        });
 
         limit = typeof limit !== 'undefined' ? limit : 20;
         sufix = sufix || '...';

@@ -15,6 +15,7 @@ export default router => {
     router.route('media', 'resource.media.index', {uses: 'Media@index'});
 
     router.route('my-settings', 'mySettings', {uses: 'MySettings'});
+    router.route('login', 'auth', {uses: 'Auth'});
 
     router.route('*path', 'error', {uses: 'Error@pageNotFound'});
 

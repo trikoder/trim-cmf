@@ -147,5 +147,12 @@ module.exports = {
     pagination: {
         resultsCaption: 'Rezultata po stranici',
         totalItemsCaption: 'Ukupno'
+    },
+    auth: {
+        formTitle: 'Admin prijava',
+        username: 'Korisničko ime',
+        password: 'Lozinka',
+        loginButtonCaption: 'Prijavi se',
+        loadingCaption: 'Učitavam...'
     }
 };

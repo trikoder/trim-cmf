@@ -2,6 +2,9 @@ export default {
     MainNavigation: function(callback) {
         callback(require('js/mainNavigation').default);
     },
+    AuthController: function(callback) {
+        callback(require('js/controllers/auth').default);
+    },
     PageController: function(callback) {
         import('js/controllers/page').then(controller => {
             callback(controller.default);

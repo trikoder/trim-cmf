@@ -1,0 +1,23 @@
+<section class="login">
+    <h1 class="title">{{ title }}</h1>
+
+    <form class="form">
+
+        {% if errorMessage %}
+        <div class="messageType1 error">{{ errorMessage }}</div>
+        {% endif %}
+
+        <div class="formItem">
+            <label for="username">{{ usernameCaption }}</label>
+            <input type="text" class="textInput username" id="username" name="username" value="{{ username }}" />
+        </div>
+
+        <div class="formItem">
+            <label for="password">{{ passwordCaption }}</label>
+            <input type="password" class="textInput password" id="password" name="password" value="{{ password }}" />
+        </div>
+
+        <button type="submit" class="cta" name="_submit">{{ buttonCaption }}</button>
+
+    </form>
+</section>

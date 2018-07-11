@@ -9,6 +9,7 @@ var Pagination = require('../components/pagination');
 var apiFormatter = require('../library/apiFormatter');
 var router = require('../app').get('router');
 var translate = require('../library/translate');
+var api = require('../library/api');
 
 module.exports = require('../library/view').extend({
 
@@ -221,7 +222,7 @@ module.exports = require('../library/view').extend({
         this.apiParams = params;
         this.trigger('setApiParams', params);
 
-        return $.get(this.options.apiUrl, apiFormatter.flatten(params), function(data) {
+        return api.get(this.options.apiUrl, apiFormatter.flatten(params), function(data) {
 
             this.entityCollection = EntityCollection.createFromApiData(data);
             callback && callback.call(this);

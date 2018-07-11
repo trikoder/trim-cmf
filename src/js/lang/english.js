@@ -147,5 +147,12 @@ module.exports = {
     pagination: {
         resultsCaption: 'Results per page',
         totalItemsCaption: 'Total'
+    },
+    auth: {
+        formTitle: 'Admin login',
+        username: 'Username',
+        password: 'Password',
+        loginButtonCaption: 'Login',
+        loadingCaption: 'Loading...'
     }
 };

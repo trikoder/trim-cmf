@@ -4,6 +4,7 @@ var EntityModel = require('../library/entity').Model;
 var BaseElement = require('../formElements/baseElement');
 var ExternalAmin = require('../formElements/externalAdmin');
 var translate = require('../library/translate');
+var api = require('../library/api');
 var FileUpload = require('../components/fileUpload');
 var oneImageTemplate = require('templates/formElements/media.jst');
 
@@ -27,7 +28,8 @@ var BaseMedia = ExternalAmin.extend({
             allowUpload: true,
             assignWhenEditDone: false,
             fileUploadParamName: 'binary',
-            fileUploadHeaders: null,
+            onSending: function() {},
+            fileUploadHeaders: _.isEmpty(api.requestDefaults.headers) ? null : api.requestDefaults.headers,
             formatErrorMessage: function(message) {
                 return message;
             }
@@ -128,6 +130,7 @@ var BaseMedia = ExternalAmin.extend({
             maxFiles: 1,
             paramName: this.options.fileUploadParamName,
             headers: this.options.fileUploadHeaders,
+            onSending: this.options.onSending,
             onUpload: function(file, response) {
                 this.prepareModelFromUpload(file, response, this.whenModelIsUploaded.bind(this));
             }.bind(this),

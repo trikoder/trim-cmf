@@ -6,7 +6,10 @@ var appServices = require('./appServices');
 var bootData = require('./library/bootData');
 var translate = require('./library/translate');
 
+var beforeAppStart = function(done) { done(); };
+var usesAuthController = false;
 var routeProvider;
+
 var app = _.extend({}, Backbone.Events);
 var mainInstances = {};
 
@@ -30,30 +33,60 @@ function setupRouter(Router) {
 
 }
 
+function setupAppView(done) {
+
+    if (mainInstances.appView) {
+        done(mainInstances.appView);
+        return;
+    }
+
+    serviceContainer.get(['AppView', 'MainNavigation'], function(AppView, MainNavigation) {
+
+        var appView = new AppView({
+            MainNavigationType: MainNavigation,
+        }).prependTo('body');
+
+        var mainNavigation = appView.mainNavigation;
+
+        appView.listenTo(app, 'selectNavIntent', function(alias) {
+            mainNavigation.setSelected(alias);
+        });
+
+        app.setInstance('appView', appView);
+        app.setInstance('mainNavigation', mainNavigation);
+
+        appView.once('ready', function() {
+            done(appView);
+        });
+
+    });
+
+}
+
 _.extend(app, {
 
     start: function() {
 
         browserFeatures.runTests();
 
-        app.on('selectNavIntent', function(alias) {
-            app.get('mainNavigation').setSelected(alias);
-        });
+        var services = usesAuthController ? ['Router', usesAuthController + 'Controller'] : ['Router'];
 
-        serviceContainer.get(['Router', 'AppView', 'MainNavigation'], function(Router, AppView, MainNavigation) {
+        serviceContainer.get(services, function(Router, AuthController) {
 
             var router = setupRouter(Router);
             app.setInstance('router', router);
 
-            var appView = new AppView({
-                MainNavigationType: MainNavigation,
-            }).prependTo('body');
+            if (usesAuthController) {
 
-            app.setInstance('appView', appView);
-            app.setInstance('mainNavigation', appView.mainNavigation);
-            app.listenToOnce(appView, 'ready', function() {
-                router.start();
-            });
+                AuthController.checkAuthState(function(userIsAuthorized) {
+                    userIsAuthorized ? AuthController.afterAuth(function() {
+                        beforeAppStart(function() { router.start(); });
+                    }) : router.start();
+                });
+
+            } else {
+                beforeAppStart(function() { router.start(); });
+            }
 
         });
 
@@ -82,13 +115,74 @@ _.extend(app, {
 
     setController: function(controllerName, method, params) {
 
-        var appView = app.get('appView');
+        function renderAppView() {
 
-        appView.loading(true);
+            if (mainInstances.authView) {
+                mainInstances.authView.remove();
+                app.setInstance('authView', undefined);
+            }
 
-        serviceContainer.get(controllerName + 'Controller', function(Controller) {
-            appView.loading(false).setController(Controller, method, params);
-        });
+            setupAppView(function(appView) {
+
+                appView.loading(true);
+
+                serviceContainer.get(controllerName + 'Controller', function(Controller) {
+                    appView.loading(false).setController(Controller, method, params);
+                });
+
+            });
+
+        }
+
+        function renderAuthView() {
+
+            if (mainInstances.appView) {
+
+                mainInstances.appView.remove();
+                app.setInstance('appView', undefined);
+                app.setInstance('mainNavigation', undefined);
+
+            }
+
+            if (mainInstances.authView) {
+                return;
+            }
+
+            serviceContainer.get(usesAuthController + 'Controller', function(AuthController) {
+
+                var authView = new AuthController({
+                    beforeAppStart: beforeAppStart
+                }).prependTo('body');
+
+                app.setInstance('authView', authView);
+
+            });
+
+        }
+
+        if (usesAuthController) {
+
+            serviceContainer.get(usesAuthController + 'Controller', function(AuthController) {
+
+                if (usesAuthController === controllerName) {
+
+                    renderAuthView();
+
+                } else {
+
+                    AuthController.checkAuthState(function(userIsAuthorized) {
+                        userIsAuthorized ? renderAppView() : renderAuthView();
+                    });
+
+                }
+
+            });
+
+        } else {
+
+            renderAppView();
+
+        }
 
         return this;
 
@@ -133,6 +227,20 @@ _.extend(app, {
     loadTranslations: function(items, locale, prefix) {
 
         translate.add(items, locale, prefix);
+        return this;
+
+    },
+
+    beforeAppStart: function(callback) {
+
+        beforeAppStart = callback;
+        return this;
+
+    },
+
+    useAuthController: function(name) {
+
+        usesAuthController = name;
         return this;
 
     }

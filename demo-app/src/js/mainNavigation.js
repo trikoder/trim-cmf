@@ -1,5 +1,6 @@
 import BaseMainNavigation from 'js/components/baseMainNavigation';
 import FakeServer from 'fake-json-api-server';
+import serviceContainer from 'js/library/serviceContainer';
 
 export default BaseMainNavigation.extend({
 
@@ -79,6 +80,17 @@ export default BaseMainNavigation.extend({
             action: function(mainNavigation) {
 
                 mainNavigation.showSearch().close();
+
+            }
+        },
+
+        {
+            name: 'Logout',
+            action: function() {
+
+                serviceContainer.get('AuthController', AuthController => {
+                    AuthController.logout();
+                });
 
             }
         }

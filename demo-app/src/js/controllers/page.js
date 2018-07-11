@@ -129,7 +129,7 @@ export default BaseResource.extend({
         listHandler.addItem(DateListItem, {
             caption: 'Date',
             mapTo: 'publishDate',
-            ifEmpty: model => 'Date for page' + model.get('id') + ' not set.'
+            ifEmpty: model => 'Date for page ' + model.get('id') + ' not set.'
         });
 
         listHandler.addItem(DateTimeListItem, {

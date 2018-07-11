@@ -9,7 +9,8 @@ var ResourceControls = require('../components/resourceControls');
 var router = require('../app').get('router');
 var translate = require('../library/translate');
 var EntityModel = require('../library/entity').Model;
-var BaseResource = require('../controllers/baseResource');
+var BaseResource = require('./baseResource');
+var api = require('../library/api');
 
 module.exports = BaseResource.extend({
 
@@ -33,6 +34,10 @@ module.exports = BaseResource.extend({
         BaseResource.prototype.initialize.apply(this, arguments);
 
         this.resourceConfig = _.extend({}, this.resourceConfigDefaults, this.resourceConfig);
+
+        if (!this.resourceConfig.fileUploadHeaders && api.requestDefaults.headers) {
+            this.resourceConfig.fileUploadHeaders = $.extend({}, api.requestDefaults.headers);
+        }
 
         this.prepareCreateMediaHandlers();
 
@@ -144,6 +149,7 @@ module.exports = BaseResource.extend({
             removePreviewOnUpload: true,
             mediaType: options.mediaType,
             caption: options.uploadCaption || 'Upload',
+            onSending: this.resourceConfig.onSending,
             onUpload: function(file, response) {
 
                 if (!includedAdmin) {

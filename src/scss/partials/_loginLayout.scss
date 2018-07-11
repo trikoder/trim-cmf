@@ -1,0 +1,42 @@
+//--------------------------------------------------------------
+// Includes
+//--------------------------------------------------------------
+
+@include normalizePlusReset();
+@include pageEmEquivalent(10);
+
+//--------------------------------------------------------------
+// Main layout
+//--------------------------------------------------------------
+
+html,
+body {
+
+    min-height: 100%;
+
+}
+
+a {
+
+    color: $colorMain1;
+
+}
+
+html {
+
+    background-color: #fbfbfb;
+
+}
+
+body {
+
+    @include fontSansCondensed;
+    min-width: 32em; position: relative;
+    color: $colorGrayDark1; padding: 1em; box-sizing: border-box;
+
+    min-height: calc(100vh);
+    @include display(flex);
+    @include align-items(center);
+    @include justify-content(center);
+
+}

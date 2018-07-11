@@ -5,6 +5,7 @@ var Message = require('../components/message');
 var Tabber = require('../components/tabber');
 var View = require('../library/view');
 var translate = require('../library/translate');
+var api = require('../library/api');
 
 module.exports = View.extend({
 
@@ -184,7 +185,7 @@ module.exports = View.extend({
 
         this.loading(true);
 
-        this.when($.get(this.options.apiUrl, this.options.includedApiData), function(apiData) {
+        this.when(api.get(this.options.apiUrl, this.options.includedApiData), function(apiData) {
 
             this.entityModel = EntityModel.createFromApiData(apiData);
             callback && callback.call(this, this.entityModel);

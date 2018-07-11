@@ -4,6 +4,7 @@ var BaseElement = require('../formElements/baseElement');
 var EntityCollection = require('../library/entity').Collection;
 var translate = require('../library/translate');
 var escapeHtml = require('escape-html');
+var api = require('../library/api');
 
 module.exports = BaseElement.extend({
 
@@ -103,7 +104,7 @@ module.exports = BaseElement.extend({
 
             selectOptions = _.extend({mapCaptionTo: 'name', mapValueTo: 'id'}, selectOptions);
 
-            this.renderDeferred = $.get(selectOptions.url, function(data) {
+            this.renderDeferred = api.get(selectOptions.url, function(data) {
 
                 this.loadedEntityCollection = EntityCollection.createFromApiData(data);
 

@@ -18,5 +18,6 @@ app
     })
     .registerServices(services)
     .registerRoutes(routes)
+    .useAuthController('Auth')
     .loadTranslations(translations, 'en')
     .start();

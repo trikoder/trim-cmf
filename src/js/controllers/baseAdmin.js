@@ -1,7 +1,7 @@
 var _ = require('underscore');
 var app = require('../app');
 var translate = require('../library/translate');
-var template = require('templates/controllers/baseAdmin.jst');
+var template = require('../../templates/controllers/baseAdmin.jst');
 
 module.exports = require('../library/view').extend({
 
